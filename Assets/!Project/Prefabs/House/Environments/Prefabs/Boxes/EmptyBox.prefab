@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 1174043819966784412}
   - component: {fileID: 6995535340528122470}
   - component: {fileID: 4686206404181648475}
-  - component: {fileID: -3879254876221776487}
+  - component: {fileID: -8610033900565838914}
   m_Layer: 8
   m_Name: EmptyBox
   m_TagString: Untagged
@@ -537,7 +537,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3879254876221776487
+--- !u!114 &-8610033900565838914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9086872706680233911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f654c0ef164c24984f85c4e1a76f9a, type: 3}
+  m_Script: {fileID: 11500000, guid: b566cbc64fbb5614586b8e2d930e25ba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyBoxSetting
-  _emptyBoxSetting: {fileID: 11400000, guid: 5e958f5cc152277479c17d2d5c64e58a, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
+  _currentBoxSetting: {fileID: 11400000, guid: 5e958f5cc152277479c17d2d5c64e58a, type: 2}

@@ -4,15 +4,15 @@ public class PlayerCheckView : MonoBehaviour
 {
     private float _lastCheckTime = 0f; //динамическая
     private float _checkInterval = 0.2f;
-    private int _playerLayerIndex;
-    private bool isPlayerInZone = false;
 
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
 
+    private string viewBoxName;
+    private GameObject viewBoxObject;
+
     private void Start()
     {
-        _playerLayerIndex = LayerMask.NameToLayer("Player");
         _mainCamera = CameraManager.Instance.GetComponent<Camera>().gameObject;
     }
     void Update()
@@ -21,11 +21,11 @@ public class PlayerCheckView : MonoBehaviour
         {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 5f, _layerMask, QueryTriggerInteraction.Ignore);
-            //print(hit.collider.gameObject.name);
-            if (hasHit && hit.collider && hit.collider.gameObject.TryGetComponent<EmptyBoxSetting>(out var emptyBox))
+            if (hasHit && hit.collider && hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox))
             {
-                PlayerBoxesInteractive.Instance.SetViewBox(hit.collider.gameObject);
-                sendPersonMessage(emptyBox._emptyBoxSetting.playerMessageViewBox);
+                viewBoxName = viewBox._currentBoxSetting.typeBox;
+                viewBoxObject = hit.collider.gameObject;
+                sendPersonMessage(viewBox._currentBoxSetting.playerMessageViewBox);
             }
             else
             {
@@ -35,10 +35,22 @@ public class PlayerCheckView : MonoBehaviour
         }
 
     }
+    public void PickUpBoxOnEventKeyboard()
+    {
+        if (viewBoxName != "")
+        {
+            HandsPollBoxes.Instance.ActivateHandBox(viewBoxObject, viewBoxName);
+        }
+    }
+    public void DropBoxOnEventKeyboard()
+    {
+        HandsPollBoxes.Instance.DropHandBox();
+    }
 
     private void ClearMessageAndVieBox()
     {
-        PlayerBoxesInteractive.Instance.DeleteViewBox();
+        viewBoxName = "";
+        viewBoxObject = null;
         PersonMessageInfo.Instance.ClearPersonMessage();
     }
     public void sendPersonMessage(string message)

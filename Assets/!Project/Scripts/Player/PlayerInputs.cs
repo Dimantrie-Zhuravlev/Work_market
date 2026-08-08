@@ -7,7 +7,7 @@ public class PlayerInputs : MonoBehaviour
     //[SerializeField] private ZoneSpidersCreateCollider _zoneSpiderButton;
     [Header("Abilities")]
     [SerializeField] private PlayerMovement _abilityMove;
-    [SerializeField] private PlayerBoxesInteractive _abilityWithBox;
+    [SerializeField] private PlayerCheckView _abilityWithBox;
     //[SerializeField] private PlayerAbilityJump _abilityJump;
     [SerializeField] private PlayerRotation _CameraRotation;
     //[SerializeField] private PlayerAbilityCrouch _abilityCrouch;
@@ -29,14 +29,14 @@ public class PlayerInputs : MonoBehaviour
     {
         if (context.performed)
         {
-            _abilityWithBox.PickUpBox();
+            _abilityWithBox.PickUpBoxOnEventKeyboard();
         }
     }
     public void OnBoxDropDown(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            _abilityWithBox.DropBox();
+            _abilityWithBox.DropBoxOnEventKeyboard();
         }
     }
 
