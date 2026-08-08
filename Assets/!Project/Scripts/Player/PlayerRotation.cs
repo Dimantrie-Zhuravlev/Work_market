@@ -9,6 +9,7 @@ public class PlayerRotation : MonoBehaviour
 
     [Header("Позиции объектов")]
     [SerializeField] private Transform _orbitalCamera;
+    [SerializeField] private Transform _person;
 
     private Vector2 _orbitAngles;
     private void Awake()
@@ -22,8 +23,8 @@ public class PlayerRotation : MonoBehaviour
         Vector3 cameraRight = _orbitalCamera.right;
         Quaternion targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
 
+        this.gameObject.transform.rotation = Quaternion.Euler(0f, _orbitAngles.y, 0f);
         _orbitalCamera.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f);
-
     }
 
     public void AbilityActivatePerformed(InputAction.CallbackContext context)
@@ -39,6 +40,4 @@ public class PlayerRotation : MonoBehaviour
         _orbitAngles.x = Mathf.Clamp(_orbitAngles.x, _minVerticalAngle, _maxVerticalAngle);
         _orbitAngles.y = Mathf.Repeat(_orbitAngles.y, 360f); //362 градуса конвертируется в 2
     }
-
-    public void AbilityActivateCanceled(InputAction.CallbackContext context) { }
 }
