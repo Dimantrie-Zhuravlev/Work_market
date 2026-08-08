@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c81694f2f0bdd24bb9d7fcda512373d, type: 3}
+  m_Name: GoroxBoxSetting
+  m_EditorClassIdentifier: Assembly-CSharp::BoxSettings
+  type: GOROX
+  playerMessageView: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u0433\u043E\u0440\u043E\u0445\u0430"

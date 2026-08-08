@@ -36,23 +36,25 @@ public class HandsPollBoxes : MonoBehaviour
             switch (boxName)
             {
                 case EnumBoxesName.EmptyBox:
-                    Debug.Log("Обычная");
-                    _boxesInHand[0].SetActive(true);
                     currentBoxIndexInHands = 0;
                     PoolEmptyBoxes.Instance.Release(boxInScene);
                     break;
 
                 case EnumBoxesName.MakaronsBox:
-                    Debug.Log("Макароны");
-                    _boxesInHand[1].SetActive(true);
                     currentBoxIndexInHands = 1;
                     PoolMakaronsBoxes.Instance.Release(boxInScene);
+                    break;
+
+                case EnumBoxesName.GoroxBox:
+                    currentBoxIndexInHands = 2;
+                    PoolGoroxBoxes.Instance.Release(boxInScene);
                     break;
 
                 default:
                     Debug.LogWarning($"Неизвестный тип коробки");
                     break;
             }
+            _boxesInHand[currentBoxIndexInHands].SetActive(true);
         }
     }
 
@@ -60,18 +62,19 @@ public class HandsPollBoxes : MonoBehaviour
     {
         if (currentBoxIndexInHands > -1)
         {
+            _boxesInHand[currentBoxIndexInHands].SetActive(false);
             switch (currentBoxIndexInHands)
             {
                 case 0:
-                    Debug.Log("Обычная");
-                    _boxesInHand[0].SetActive(false);
-                    PoolEmptyBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[0].transform.rotation);
+                    PoolEmptyBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
                     break;
 
                 case 1:
-                    Debug.Log("Макароны");
-                    _boxesInHand[1].SetActive(false);
-                    PoolMakaronsBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[1].transform.rotation);
+                    PoolMakaronsBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
+                    break;
+
+                case 2:
+                    PoolGoroxBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
                     break;
 
                 default:
