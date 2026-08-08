@@ -461,7 +461,6 @@ GameObject:
   - component: {fileID: 1174043819966784412}
   - component: {fileID: 6995535340528122470}
   - component: {fileID: 4686206404181648475}
-  - component: {fileID: 967652673440215846}
   - component: {fileID: -3879254876221776487}
   m_Layer: 8
   m_Name: EmptyBox
@@ -538,24 +537,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &967652673440215846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9086872706680233911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c9a530b9d473b94ebc5b87e27b9ab28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SendMessageOnView
-  _personMessageInfo: "\u041F\u043E\u0434\u043D\u044F\u0442\u044C \u043A\u043E\u0440\u043E\u0431\u043A\u0443
-    \u043D\u0430 E"
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  triggerRadius: 1.5
 --- !u!114 &-3879254876221776487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,4 +549,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f654c0ef164c24984f85c4e1a76f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmptyBoxSetting
-  _emptyBoxSetting: {fileID: 11400000, guid: 5826f2f6b24576f47a0c10bfde32c89e, type: 2}
+  _emptyBoxSetting: {fileID: 11400000, guid: 5e958f5cc152277479c17d2d5c64e58a, type: 2}

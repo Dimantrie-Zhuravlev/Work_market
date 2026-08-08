@@ -2350,7 +2350,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4686206404181648475, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
     - {fileID: 6995535340528122470, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
-    - {fileID: 967652673440215846, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2363,7 +2363,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1980706880}
     m_Modifications:
-    - target: {fileID: 967652673440215846, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
+    - target: {fileID: 0}
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 330585546}
@@ -2411,7 +2411,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: InitialBox1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3193,6 +3194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7837868609129e459d49fa88794f1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCheckView
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &856962678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6332,7 +6336,7 @@ GameObject:
   - component: {fileID: 1980706880}
   - component: {fileID: 1980706881}
   m_Layer: 0
-  m_Name: EmptyBoxes
+  m_Name: EmptyBoxesPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

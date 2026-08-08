@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c81694f2f0bdd24bb9d7fcda512373d, type: 3}
   m_Name: EmptyBoxSetting
   m_EditorClassIdentifier: Assembly-CSharp::BoxSettings
-  typeBox: EMPTY
+  type: EMPTY
+  playerMessageView: "\u041F\u043E\u0434\u043D\u044F\u0442\u044C \u043D\u0430 E"
