@@ -29,7 +29,15 @@ public class PlayerInputs : MonoBehaviour
     {
         if (context.performed)
         {
-            _abilityWithBox.PickUpBoxOnEventKeyboard();
+            _abilityWithBox.PickUpBoxOnEventKeyboard(context);
+        }
+    }
+
+    public void OnTrashEmptyBoxes(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityWithBox.TrashEmptyBoxesOnEventKeyboard(context);
         }
     }
     public void OnBoxDropDown(InputAction.CallbackContext context)

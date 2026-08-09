@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class HandsPollBoxes : MonoBehaviour
@@ -55,6 +56,18 @@ public class HandsPollBoxes : MonoBehaviour
                     break;
             }
             _boxesInHand[currentBoxIndexInHands].SetActive(true);
+        }
+    }
+
+    public void UtilizeHandBox()
+    {
+        if (currentBoxIndexInHands == 0)
+        {
+            _boxesInHand[currentBoxIndexInHands].SetActive(false);
+            currentBoxIndexInHands = -1;
+        } else
+        {
+            PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
         }
     }
 

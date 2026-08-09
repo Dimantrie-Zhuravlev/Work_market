@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCheckView : MonoBehaviour
 {
@@ -8,24 +9,69 @@ public class PlayerCheckView : MonoBehaviour
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
 
-    private string viewBoxName;
+    private string viewBoxName;  //эта и ниже связано только с коробками
     private GameObject viewBoxObject;
+
+    private TrashCanDataAbility viewTrashObject; //текущая мусорка
+
+    [SerializeField] private PlayerInput playerInput;
+    private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
+    private InputAction _trashCanAction;
 
     private void Start()
     {
         _mainCamera = CameraManager.Instance.GetComponent<Camera>().gameObject;
     }
+
+    private void Awake()
+    {
+        _pickUpBoxAction = playerInput.actions["PickUpBox"];
+        _trashCanAction = playerInput.actions["TrashEmptyBoxes"];
+    }
+
     void Update()
     {
         if (Time.time - _lastCheckTime > _checkInterval)
         {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 5f, _layerMask, QueryTriggerInteraction.Ignore);
-            if (hasHit && hit.collider && hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox))
+            if (hasHit && hit.collider)
             {
-                viewBoxName = viewBox._currentBoxSetting.typeBox;
-                viewBoxObject = hit.collider.gameObject;
-                sendPersonMessage(viewBox._currentBoxSetting.playerMessageViewBox);
+                bool hasMessage = false;
+                if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
+                {
+                    hasMessage = true;
+                    viewBoxName = viewBox._currentBoxSetting.typeBox;
+                    _pickUpBoxAction.Enable();
+                    viewBoxObject = hit.collider.gameObject;
+                    sendPersonMessage(viewBox._currentBoxSetting.playerMessageViewBox);
+                }
+                else
+                {
+                    _pickUpBoxAction.Disable();
+                }
+
+                if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
+                {
+                    hasMessage = true;
+                    sendPersonMessage(environmentWithMessage.personMessage);
+                }
+
+                if (hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
+                {
+                    _trashCanAction.Enable();
+                    viewTrashObject = trashCan;
+                }
+                else
+                {
+                    _trashCanAction.Disable();
+                    trashCan = null;
+                }
+
+                if (!hasMessage)
+                {
+                    ClearMessageAndVieBox();
+                }
             }
             else
             {
@@ -35,12 +81,13 @@ public class PlayerCheckView : MonoBehaviour
         }
 
     }
-    public void PickUpBoxOnEventKeyboard()
+    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext obj) //функционал от ввода, его не убрать
     {
-        if (viewBoxName != "")
-        {
-            HandsPollBoxes.Instance.ActivateHandBox(viewBoxObject, viewBoxName);
-        }
+        HandsPollBoxes.Instance.ActivateHandBox(viewBoxObject, viewBoxName);
+    }
+    public void TrashEmptyBoxesOnEventKeyboard(InputAction.CallbackContext obj) //функционал от ввода, его не убрать
+    {
+        HandsPollBoxes.Instance.UtilizeHandBox();
     }
     public void DropBoxOnEventKeyboard()
     {
@@ -49,15 +96,11 @@ public class PlayerCheckView : MonoBehaviour
 
     private void ClearMessageAndVieBox()
     {
-        viewBoxName = "";
         viewBoxObject = null;
         PersonMessageInfo.Instance.ClearPersonMessage();
     }
     public void sendPersonMessage(string message)
     {
-        if (message.Length > 0)
-        {
-            PersonMessageInfo.Instance.SetPersonMessage(message);
-        }
+        PersonMessageInfo.Instance.SetPersonMessage(message);
     }
 }
