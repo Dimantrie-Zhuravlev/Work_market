@@ -1,7 +1,16 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.Windows;
+
+enum boxesName
+{
+    EMPTY,
+    MAKARON,
+    GOROX
+}
 
 public class HandsPollBoxes : MonoBehaviour
 {
@@ -10,6 +19,14 @@ public class HandsPollBoxes : MonoBehaviour
     public static HandsPollBoxes Instance { get; private set; }
 
     private int currentBoxIndexInHands;
+
+    private string currentBoxNameInHands;
+
+    public CurrentBoxSetting CurrentBoxHasCountObjects()
+    {
+        return _boxesInHand[currentBoxIndexInHands].GetComponent<CurrentBoxSetting>();
+    }
+    public string CurrentBoxNameInHands => currentBoxNameInHands;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,22 +49,21 @@ public class HandsPollBoxes : MonoBehaviour
 
     public void ActivateHandBox(GameObject boxInScene, string boxName)
     {
+        print(boxInScene.GetComponent<CurrentBoxSetting>().CurrentCountObjectsInBox);
         if (currentBoxIndexInHands == -1)
         {
             switch (boxName)
             {
                 case EnumBoxesName.EmptyBox:
-                    currentBoxIndexInHands = 0;
+                    //currentBoxIndexInHands = 0;
                     PoolEmptyBoxes.Instance.Release(boxInScene);
                     break;
 
                 case EnumBoxesName.MakaronsBox:
-                    currentBoxIndexInHands = 1;
                     PoolMakaronsBoxes.Instance.Release(boxInScene);
                     break;
 
                 case EnumBoxesName.GoroxBox:
-                    currentBoxIndexInHands = 2;
                     PoolGoroxBoxes.Instance.Release(boxInScene);
                     break;
 
@@ -55,6 +71,12 @@ public class HandsPollBoxes : MonoBehaviour
                     Debug.LogWarning($"Неизвестный тип коробки");
                     break;
             }
+            if (Enum.TryParse<boxesName>(boxName, out var result))
+            {
+                currentBoxIndexInHands = (int)result;
+            }
+            currentBoxNameInHands = boxName;
+
             _boxesInHand[currentBoxIndexInHands].SetActive(true);
         }
     }
@@ -65,11 +87,14 @@ public class HandsPollBoxes : MonoBehaviour
         {
             _boxesInHand[currentBoxIndexInHands].SetActive(false);
             currentBoxIndexInHands = -1;
+            currentBoxNameInHands = "";
         } else
         {
             PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
         }
     }
+
+
 
     public void DropHandBox()
     {
@@ -95,6 +120,7 @@ public class HandsPollBoxes : MonoBehaviour
                     break;
             }
             currentBoxIndexInHands = -1;
+            currentBoxNameInHands = "";
         }
     }
 

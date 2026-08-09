@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GoroxBoxSetting
   m_EditorClassIdentifier: Assembly-CSharp::BoxSettings
   type: GOROX
+  maxObjectsInBox: 10
   playerMessageView: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u0433\u043E\u0440\u043E\u0445\u0430"

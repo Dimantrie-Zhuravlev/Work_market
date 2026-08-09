@@ -48,6 +48,14 @@ public class PlayerInputs : MonoBehaviour
         }
     }
 
+    public void OnPutObjectOnShelf(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityWithBox.PutObjectOnShelfOnEventKeyboard();
+        }
+    }
+
 
     public void OnLook(InputAction.CallbackContext context)
     {

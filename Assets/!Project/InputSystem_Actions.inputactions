@@ -52,6 +52,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PutObjectOnShelf",
+                    "type": "Button",
+                    "id": "faa0ea49-6119-4e61-81b6-cfbc4f082382",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
@@ -489,6 +498,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TrashEmptyBoxes",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fac3abd-63bf-4c92-bf4c-7e1a623f5e42",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PutObjectOnShelf",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79d9f8e3-3dfc-4806-8079-7f9fe53ae57e",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PutObjectOnShelf",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

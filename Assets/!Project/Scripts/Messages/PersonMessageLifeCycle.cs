@@ -32,7 +32,7 @@ public class PersonMessageLifeCycle : MonoBehaviour
         messageCoroutine = StartCoroutine(SetLifeCycleMessage(message));
     }
 
-    public IEnumerator SetLifeCycleMessage(string messageText)
+    private IEnumerator SetLifeCycleMessage(string messageText)
     {
         _messagelifeCycleText.text = messageText;
         yield return new WaitForSeconds(messageLifeTime);

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerCheckView : MonoBehaviour
 {
     private float _lastCheckTime = 0f; //динамическая
-    private float _checkInterval = 0.2f;
+    private float _checkInterval = 0.05f;
 
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
@@ -14,9 +14,12 @@ public class PlayerCheckView : MonoBehaviour
 
     private TrashCanDataAbility viewTrashObject; //текущая мусорка
 
+    private ShelfController viewShelfObject; //текущая полка товаров на стеллаже
+
     [SerializeField] private PlayerInput playerInput;
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
     private InputAction _trashCanAction;
+    private InputAction _putObjectOnShelfAction;
 
     private void Start()
     {
@@ -27,6 +30,7 @@ public class PlayerCheckView : MonoBehaviour
     {
         _pickUpBoxAction = playerInput.actions["PickUpBox"];
         _trashCanAction = playerInput.actions["TrashEmptyBoxes"];
+        _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
     }
 
     void Update()
@@ -68,6 +72,17 @@ public class PlayerCheckView : MonoBehaviour
                     trashCan = null;
                 }
 
+                if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
+                {
+                    viewShelfObject = shelf;
+                    _putObjectOnShelfAction.Enable();
+                }
+                else
+                {
+                    _putObjectOnShelfAction.Disable();
+                    shelf = null;
+                }
+
                 if (!hasMessage)
                 {
                     ClearMessageAndVieBox();
@@ -92,6 +107,19 @@ public class PlayerCheckView : MonoBehaviour
     public void DropBoxOnEventKeyboard()
     {
         HandsPollBoxes.Instance.DropHandBox();
+    }
+
+    public void PutObjectOnShelfOnEventKeyboard()
+    {
+        if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfObject._shelfName) //проверка что товар в коробке и на полке совпадают
+        {
+            CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
+            //print(currentBox.CurrentCountObjectsInBox);
+            if (currentBox.CurrentCountObjectsInBox > 0)
+            {
+                viewShelfObject.AddOneObject(currentBox);
+            }
+        }
     }
 
     private void ClearMessageAndVieBox()

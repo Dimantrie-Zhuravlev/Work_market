@@ -14,7 +14,7 @@ TagManager:
   - PlayerBody
   - Player
   - Box
-  - 
+  - IgnorePlayerViewCollider
   - 
   - 
   - 
