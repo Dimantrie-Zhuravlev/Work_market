@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public abstract class PoolAbstractClass : MonoBehaviour
 {
     public abstract void Awake();
-    public abstract void Get(Vector3 position, Quaternion rotation);
+    public abstract GameObject Get(Vector3 position, Quaternion rotation);
 
     public abstract void Release(GameObject obj);
 

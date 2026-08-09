@@ -1,30 +1,28 @@
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Windows;
 
-enum boxesName
-{
-    EMPTY,
-    MAKARON,
-    GOROX
-}
+
 
 public class HandsPollBoxes : MonoBehaviour
 {
-    private List<GameObject> _boxesInHand = new List<GameObject>();
+    private readonly Vector3 BoxColliderCenter = new Vector3(0f, -0.14f, 0f);
+    private readonly Vector3 BoxColliderSize = new Vector3(0.81f, 0.3f, 0.4f);
+
+    private GameObject _boxesInHand;
+    [SerializeField] private GameObject _handsPosition;
+
+    [Header("Пулы коробок, куда возвращаются коробки")]
+    [SerializeField] private GameObject _poolEmptyPosition;
+    [SerializeField] private GameObject _poolMakaronsPosition;
+    [SerializeField] private GameObject _poolGoroxPosition;
 
     public static HandsPollBoxes Instance { get; private set; }
 
-    private int currentBoxIndexInHands;
-
     private string currentBoxNameInHands;
+    private GameObject currentObjectInHand = null;
 
     public CurrentBoxSetting CurrentBoxHasCountObjects()
     {
-        return _boxesInHand[currentBoxIndexInHands].GetComponent<CurrentBoxSetting>();
+        return currentObjectInHand.GetComponent<CurrentBoxSetting>();
     }
     public string CurrentBoxNameInHands => currentBoxNameInHands;
     public void Awake()
@@ -35,92 +33,110 @@ public class HandsPollBoxes : MonoBehaviour
             return;
         }
         Instance = this;
-        currentBoxIndexInHands = -1;
+        _boxesInHand = transform.GetChild(0).gameObject;
+    }
 
-        for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
+    public void PickUpHandBox(GameObject boxInScene, string boxName)
+    {
+        if (currentObjectInHand == null)
         {
-            _boxesInHand.Add(transform.GetChild(i).gameObject);
-            if (i >= 1)
-            {
-                _boxesInHand[i].SetActive(false);
-            }
+            boxInScene.transform.SetPositionAndRotation(_boxesInHand.transform.position, _boxesInHand.transform.rotation);
+
+            boxInScene.transform.parent = _handsPosition.transform;
+            Destroy(boxInScene.GetComponent<Rigidbody>());
+            Destroy(boxInScene.GetComponent<BoxCollider>());
+
+            currentObjectInHand = boxInScene;
+            currentBoxNameInHands = boxName;
         }
     }
 
-    public void ActivateHandBox(GameObject boxInScene, string boxName)
+    private void SendBoxInPool(bool needRelease)
     {
-        print(boxInScene.GetComponent<CurrentBoxSetting>().CurrentCountObjectsInBox);
-        if (currentBoxIndexInHands == -1)
+        switch (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
         {
-            switch (boxName)
-            {
-                case EnumBoxesName.EmptyBox:
-                    //currentBoxIndexInHands = 0;
-                    PoolEmptyBoxes.Instance.Release(boxInScene);
-                    break;
+            case EnumBoxesName.EmptyBox:
+                currentObjectInHand.transform.parent = _poolEmptyPosition.transform;
+                if (needRelease)
+                {
+                    PoolEmptyBoxes.Instance.Release(currentObjectInHand);
+                }
+                break;
 
-                case EnumBoxesName.MakaronsBox:
-                    PoolMakaronsBoxes.Instance.Release(boxInScene);
-                    break;
+            case EnumBoxesName.MakaronsBox:
+                currentObjectInHand.transform.parent = _poolMakaronsPosition.transform;
+                if (needRelease)
+                {
+                    PoolMakaronsBoxes.Instance.Release(currentObjectInHand);
+                }
+                break;
 
-                case EnumBoxesName.GoroxBox:
-                    PoolGoroxBoxes.Instance.Release(boxInScene);
-                    break;
+            case EnumBoxesName.GoroxBox:
+                currentObjectInHand.transform.parent = _poolGoroxPosition.transform;
+                if (needRelease)
+                {
+                    PoolGoroxBoxes.Instance.Release(currentObjectInHand);
+                }
+                break;
 
-                default:
-                    Debug.LogWarning($"Неизвестный тип коробки");
-                    break;
-            }
-            if (Enum.TryParse<boxesName>(boxName, out var result))
-            {
-                currentBoxIndexInHands = (int)result;
-            }
-            currentBoxNameInHands = boxName;
-
-            _boxesInHand[currentBoxIndexInHands].SetActive(true);
+            default:
+                Debug.LogWarning($"Неизвестный тип коробки");
+                break;
         }
+        currentObjectInHand = null;
+        currentBoxNameInHands = "";
     }
 
     public void UtilizeHandBox()
     {
-        if (currentBoxIndexInHands == 0)
+        if (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox == "EMPTY")
         {
-            _boxesInHand[currentBoxIndexInHands].SetActive(false);
-            currentBoxIndexInHands = -1;
-            currentBoxNameInHands = "";
-        } else
+            SendBoxInPool(true);
+        }
+        else
         {
             PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
         }
+    }
+
+    public void ChangeBoxTypeOnEmpty()
+    {
+        switch (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
+        {
+            case EnumBoxesName.MakaronsBox:
+                currentObjectInHand.transform.parent = _poolMakaronsPosition.transform;
+                PoolMakaronsBoxes.Instance.Release(currentObjectInHand);
+                break;
+
+            case EnumBoxesName.GoroxBox:
+                currentObjectInHand.transform.parent = _poolGoroxPosition.transform;
+                PoolGoroxBoxes.Instance.Release(currentObjectInHand);
+                break;
+
+            default:
+                Debug.LogWarning($"Неизвестный тип коробки");
+                break;
+        }
+
+        currentObjectInHand = PoolEmptyBoxes.Instance.Get(currentObjectInHand.transform.position, currentObjectInHand.transform.rotation);
+        currentObjectInHand.transform.parent = this.transform;
+        Destroy(currentObjectInHand.GetComponent<Rigidbody>());
+        Destroy(currentObjectInHand.GetComponent<BoxCollider>());
+        currentBoxNameInHands = "EMPTY";
     }
 
 
 
     public void DropHandBox()
     {
-        if (currentBoxIndexInHands > -1)
+        if (currentObjectInHand != null)
         {
-            _boxesInHand[currentBoxIndexInHands].SetActive(false);
-            switch (currentBoxIndexInHands)
-            {
-                case 0:
-                    PoolEmptyBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
-                    break;
+            currentObjectInHand.AddComponent<Rigidbody>();
 
-                case 1:
-                    PoolMakaronsBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
-                    break;
-
-                case 2:
-                    PoolGoroxBoxes.Instance.Get(this.gameObject.transform.position, _boxesInHand[currentBoxIndexInHands].transform.rotation);
-                    break;
-
-                default:
-                    Debug.LogWarning($"Неизвестный тип коробки");
-                    break;
-            }
-            currentBoxIndexInHands = -1;
-            currentBoxNameInHands = "";
+            var newCol = currentObjectInHand.AddComponent<BoxCollider>();
+            newCol.center = BoxColliderCenter;
+            newCol.size = BoxColliderSize;
+            SendBoxInPool(false);
         }
     }
 

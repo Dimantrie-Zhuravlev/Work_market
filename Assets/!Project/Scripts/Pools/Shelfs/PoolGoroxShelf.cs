@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PoolEmptyBoxes : PoolAbstractClass
+public class PoolGoroxShelf : PoolAbstractClass
 {
-    [SerializeField] private GameObject _emptyBoxPrefab;
-    private List<GameObject> _emptyBoxes = new List<GameObject>();
+    [SerializeField] private GameObject _goroxShelfPrefab;
+    private List<GameObject> _goroxShelfs = new List<GameObject>();
 
-    public static PoolEmptyBoxes Instance { get; private set; }
+    public static PoolGoroxShelf Instance { get; private set; }
     public override void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,16 +18,13 @@ public class PoolEmptyBoxes : PoolAbstractClass
         Instance = this;
         for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
         {
-            _emptyBoxes.Add(transform.GetChild(i).gameObject);
-            if (i >= 1)
-            {
-                _emptyBoxes[i].SetActive(false);
-            }
+            _goroxShelfs.Add(transform.GetChild(i).gameObject);
+            _goroxShelfs[i].SetActive(false);
         }
     }
     public override GameObject Get(Vector3 position, Quaternion rotation)
     {
-        var obj = _emptyBoxes?.FirstOrDefault(x => !x.activeSelf);
+        var obj = _goroxShelfs?.FirstOrDefault(x => !x.activeSelf);
         if (obj == null)
         {
             obj = CreateObject(position, rotation);
@@ -47,8 +44,8 @@ public class PoolEmptyBoxes : PoolAbstractClass
 
     public override GameObject CreateObject(Vector3 position, Quaternion rotation)
     {
-        var obj = Instantiate(_emptyBoxPrefab, position, rotation, transform);
-        _emptyBoxes.Add(obj);
+        var obj = Instantiate(_goroxShelfPrefab, position, rotation, transform);
+        _goroxShelfs.Add(obj);
         return obj;
     }
 }

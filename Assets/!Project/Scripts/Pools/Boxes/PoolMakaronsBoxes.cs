@@ -25,7 +25,7 @@ public class PoolMakaronsBoxes : PoolAbstractClass
             }
         }
     }
-    public override void Get(Vector3 position, Quaternion rotation)
+    public override GameObject Get(Vector3 position, Quaternion rotation)
     {
         var obj = _makaronsBoxes?.FirstOrDefault(x => !x.activeSelf);
         if (obj == null)
@@ -37,6 +37,7 @@ public class PoolMakaronsBoxes : PoolAbstractClass
             obj.SetActive(true);
             obj.transform.SetPositionAndRotation(position, rotation);
         }
+        return obj;
     }
 
     public override void Release(GameObject obj)

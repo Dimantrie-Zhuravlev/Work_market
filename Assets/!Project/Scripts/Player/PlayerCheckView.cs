@@ -14,7 +14,8 @@ public class PlayerCheckView : MonoBehaviour
 
     private TrashCanDataAbility viewTrashObject; //текущая мусорка
 
-    private ShelfController viewShelfObject; //текущая полка товаров на стеллаже
+    private ShelfController viewShelfController; //текущая полка товаров на стеллаже
+    private GameObject viewShelfObject; //текущая полка товаров на стеллаже
 
     [SerializeField] private PlayerInput playerInput;
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
@@ -71,14 +72,15 @@ public class PlayerCheckView : MonoBehaviour
                     _trashCanAction.Disable();
                     trashCan = null;
                 }
-
                 if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
-                    viewShelfObject = shelf;
+                    viewShelfController = shelf;
+                    viewShelfObject = hit.collider.gameObject;
                     _putObjectOnShelfAction.Enable();
                 }
                 else
                 {
+                    viewShelfObject = null;
                     _putObjectOnShelfAction.Disable();
                     shelf = null;
                 }
@@ -96,11 +98,11 @@ public class PlayerCheckView : MonoBehaviour
         }
 
     }
-    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext obj) //функционал от ввода, его не убрать
+    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext obj)
     {
-        HandsPollBoxes.Instance.ActivateHandBox(viewBoxObject, viewBoxName);
+        HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject, viewBoxName);
     }
-    public void TrashEmptyBoxesOnEventKeyboard(InputAction.CallbackContext obj) //функционал от ввода, его не убрать
+    public void TrashEmptyBoxesOnEventKeyboard(InputAction.CallbackContext obj)
     {
         HandsPollBoxes.Instance.UtilizeHandBox();
     }
@@ -111,13 +113,23 @@ public class PlayerCheckView : MonoBehaviour
 
     public void PutObjectOnShelfOnEventKeyboard()
     {
-        if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfObject._shelfName) //проверка что товар в коробке и на полке совпадают
+        if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
         {
             CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-            //print(currentBox.CurrentCountObjectsInBox);
             if (currentBox.CurrentCountObjectsInBox > 0)
             {
-                viewShelfObject.AddOneObject(currentBox);
+                viewShelfController.AddOneObject(currentBox);
+            }
+        }
+        else
+        {
+            if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentBoxNameInHands != "EMPTY")
+            {
+                CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
+                if (currentBox.CurrentCountObjectsInBox > 0)
+                {
+                    ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewShelfObject);
+                }
             }
         }
     }

@@ -704,8 +704,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3614047, y: 0.29635704, z: 0.53555393}
-  m_Center: {x: -0.52084666, y: -0.024793684, z: -0.23222303}
+  m_Size: {x: 1.3614047, y: 0.25889093, z: 0.53555393}
+  m_Center: {x: -0.52084666, y: -0.00606063, z: -0.23222303}
 --- !u!114 &7219067296639759718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,6 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
   _shelfName: MAKARON
+  _initialObjectsOnShelf: 0
 --- !u!1 &2481793403183531214
 GameObject:
   m_ObjectHideFlags: 0

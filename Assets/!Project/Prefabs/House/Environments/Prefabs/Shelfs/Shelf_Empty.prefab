@@ -67,3 +67,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
   _shelfName: EMPTY
+  _initialObjectsOnShelf: 0
