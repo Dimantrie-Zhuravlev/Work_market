@@ -19,10 +19,7 @@ public class PoolGoroxBoxes : PoolAbstractClass
         for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
         {
             _goroxBoxes.Add(transform.GetChild(i).gameObject);
-            if (i >= 1)
-            {
-                _goroxBoxes[i].SetActive(false);
-            }
+            //_goroxBoxes[i].SetActive(false);
         }
     }
     public override GameObject Get(Vector3 position, Quaternion rotation)

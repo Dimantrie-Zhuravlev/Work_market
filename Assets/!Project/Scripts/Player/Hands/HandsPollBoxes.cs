@@ -22,7 +22,7 @@ public class HandsPollBoxes : MonoBehaviour
 
     public CurrentBoxSetting CurrentBoxHasCountObjects()
     {
-        return currentObjectInHand.GetComponent<CurrentBoxSetting>();
+        return currentObjectInHand == null ? null : currentObjectInHand.GetComponent<CurrentBoxSetting>();
     }
     public string CurrentBoxNameInHands => currentBoxNameInHands;
     public void Awake()
@@ -40,6 +40,32 @@ public class HandsPollBoxes : MonoBehaviour
     {
         if (currentObjectInHand == null)
         {
+            if (boxInScene.transform.parent.gameObject.name == "BoxesSupplyPark")
+            {
+                switch (boxInScene.transform.parent.gameObject.transform.parent.name)
+                {
+                    case "SupplyMakaronsPark":
+                        boxInScene.transform.parent.gameObject.transform.parent.gameObject.GetComponent<SupplyMakaronsPark>().PullBoxFromPark(boxInScene);
+                        break;
+
+                    case "SupplyGoroxPark":
+                        boxInScene.transform.parent.gameObject.transform.parent.gameObject.GetComponent<SupplyGoroxPark>().PullBoxFromPark(boxInScene);
+                        break;
+
+                    //case EnumBoxesName.GoroxBox:
+                    //    currentObjectInHand.transform.parent = _poolGoroxPosition.transform;
+                    //    if (needRelease)
+                    //    {
+                    //        PoolGoroxBoxes.Instance.Release(currentObjectInHand);
+                    //    }
+                    //    break;
+
+                    default:
+                        Debug.LogWarning($"Неизвестный тип стеллажа");
+                        break;
+                }
+            }
+
             boxInScene.transform.SetPositionAndRotation(_boxesInHand.transform.position, _boxesInHand.transform.rotation);
 
             boxInScene.transform.parent = _handsPosition.transform;

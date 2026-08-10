@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 6995535340528122470}
   - component: {fileID: 4686206404181648475}
   - component: {fileID: -8610033900565838914}
+  - component: {fileID: 4830899448332041818}
   m_Layer: 8
   m_Name: EmptyBox
   m_TagString: Untagged
@@ -550,3 +551,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
   _currentBoxSetting: {fileID: 11400000, guid: 5e958f5cc152277479c17d2d5c64e58a, type: 2}
+--- !u!114 &4830899448332041818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086872706680233911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0148325b1a3094aa1b051f32340e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
+  personMessage: "\u041F\u0443\u0441\u0442\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430"

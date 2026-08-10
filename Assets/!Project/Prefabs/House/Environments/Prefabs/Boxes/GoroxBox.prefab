@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 139939932326661203}
   - component: {fileID: 8538156003867676603}
   - component: {fileID: 8631815942241619939}
+  - component: {fileID: 8201607301365067073}
   m_Layer: 8
   m_Name: GoroxBox
   m_TagString: Untagged
@@ -101,6 +102,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
   _currentBoxSetting: {fileID: 11400000, guid: 5e958f5cc152277479c17d2d5c64e58a, type: 2}
+--- !u!114 &8201607301365067073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180285585874766646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0148325b1a3094aa1b051f32340e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
+  personMessage: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u0433\u043E\u0440\u043E\u0445\u0430"
 --- !u!1 &1381779302832129848
 GameObject:
   m_ObjectHideFlags: 0

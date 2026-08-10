@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 7803032765363591073}
   - component: {fileID: 3173989357177008028}
   - component: {fileID: 1706606752901852341}
+  - component: {fileID: -8476191534282216999}
   m_Layer: 8
   m_Name: MakaronsBox
   m_TagString: Untagged
@@ -501,6 +502,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
   _currentBoxSetting: {fileID: 11400000, guid: c4fd68d0f7ee20e4c9b1695d7a3a6b0b, type: 2}
+--- !u!114 &-8476191534282216999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6905394491905813135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0148325b1a3094aa1b051f32340e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
+  personMessage: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u043C\u0430\u043A\u0430\u0440\u043E\u043D"
 --- !u!1 &8652713305351886713
 GameObject:
   m_ObjectHideFlags: 0

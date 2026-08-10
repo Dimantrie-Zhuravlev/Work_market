@@ -52,7 +52,6 @@ public class PlayerCheckView : MonoBehaviour
                     _pickUpBoxAction.Enable();
                     viewBoxObject = hit.collider.gameObject;
                     needSetEquipCursor = true;
-                    sendPersonMessage(viewBox._currentBoxSetting.playerMessageViewBox);
                 }
                 else
                 {
@@ -63,7 +62,7 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     hasMessage = true;
                     needSetEquipCursor = true;
-                    sendPersonMessage(environmentWithMessage.personMessage);
+                    sendPersonMessage(environmentWithMessage.PersonMessage);
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
@@ -124,22 +123,24 @@ public class PlayerCheckView : MonoBehaviour
 
     public void PutObjectOnShelfOnEventKeyboard()
     {
-        if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+        CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
+        if (currentBox != null)
         {
-            CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-            if (currentBox.CurrentCountObjectsInBox > 0)
+            if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
             {
-                viewShelfController.AddOneObject(currentBox);
-            }
-        }
-        else
-        {
-            if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentBoxNameInHands != "EMPTY")
-            {
-                CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
-                    ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewShelfObject);
+                    viewShelfController.AddOneObject(currentBox);
+                }
+            }
+            else
+            {
+                if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentBoxNameInHands != "EMPTY")
+                {
+                    if (currentBox.CurrentCountObjectsInBox > 0)
+                    {
+                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewShelfObject);
+                    }
                 }
             }
         }

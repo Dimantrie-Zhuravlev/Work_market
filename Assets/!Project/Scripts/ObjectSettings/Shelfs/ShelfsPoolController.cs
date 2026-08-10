@@ -22,11 +22,7 @@ public class ShelfsPoolController : MonoBehaviour
         switch (HandsPollBoxes.Instance.CurrentBoxNameInHands)
         {
             case EnumBoxesName.MakaronsBox:
-
                 PoolEmptyShelf.Instance.Release(currentShelf);
-                //GameObject newShalfe = PoolMakaronShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation);
-                //ShelfController ssd = newShalfe.GetComponent<ShelfController>();
-                //ssd.AddOneObject(HandsPollBoxes.Instance.CurrentBoxHasCountObjects());
                 newShelf = PoolMakaronShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation).GetComponent<ShelfController>();
                 newShelf.AddOneObject(HandsPollBoxes.Instance.CurrentBoxHasCountObjects());
                 break;

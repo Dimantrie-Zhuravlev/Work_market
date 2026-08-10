@@ -27,14 +27,23 @@ public class CurrentBoxSetting : MonoBehaviour
                     currentItem.SetActive(false);
                 }
             }
+
+            SetNewMessageForCount();
         }
 
     }
+
+    public void SetNewMessageForCount()
+    {
+        EnvironmentsPersonMessage message = this.GetComponent<EnvironmentsPersonMessage>();
+        message.AddCurrentMessage($"({currentCountObjectsInBox})");
+    }
+
     public void DecrementOneObjectInBox()
     {
         currentCountObjectsInBox = Math.Clamp(currentCountObjectsInBox - 1, 0, _currentBoxSetting.MaxObjectsInBox);
         _objectsInBoxes[currentCountObjectsInBox].SetActive(false);
-
+        SetNewMessageForCount();
         if (currentCountObjectsInBox == 0)
         {
             HandsPollBoxes.Instance.ChangeBoxTypeOnEmpty();
