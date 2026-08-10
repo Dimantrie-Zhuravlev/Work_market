@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerCheckView : MonoBehaviour
 {
     private float _lastCheckTime = 0f; //динамическая
-    private float _checkInterval = 0.05f;
+    private float _checkInterval = 0.2f;
 
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
@@ -33,6 +33,7 @@ public class PlayerCheckView : MonoBehaviour
         _trashCanAction = playerInput.actions["TrashEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
     }
+    private bool needSetEquipCursor = false;
 
     void Update()
     {
@@ -43,12 +44,14 @@ public class PlayerCheckView : MonoBehaviour
             if (hasHit && hit.collider)
             {
                 bool hasMessage = false;
+                needSetEquipCursor = false;
                 if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
                 {
                     hasMessage = true;
                     viewBoxName = viewBox._currentBoxSetting.typeBox;
                     _pickUpBoxAction.Enable();
                     viewBoxObject = hit.collider.gameObject;
+                    needSetEquipCursor = true;
                     sendPersonMessage(viewBox._currentBoxSetting.playerMessageViewBox);
                 }
                 else
@@ -59,12 +62,14 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
                     hasMessage = true;
+                    needSetEquipCursor = true;
                     sendPersonMessage(environmentWithMessage.personMessage);
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
                 {
                     _trashCanAction.Enable();
+                    needSetEquipCursor = true;
                     viewTrashObject = trashCan;
                 }
                 else
@@ -75,6 +80,7 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
                     viewShelfController = shelf;
+                    needSetEquipCursor = true;
                     viewShelfObject = hit.collider.gameObject;
                     _putObjectOnShelfAction.Enable();
                 }
@@ -85,13 +91,18 @@ public class PlayerCheckView : MonoBehaviour
                     shelf = null;
                 }
 
+                CrosshairController.Instance.SetEquipCursor(needSetEquipCursor);
+
                 if (!hasMessage)
                 {
                     ClearMessageAndVieBox();
                 }
+
+
             }
             else
             {
+                CrosshairController.Instance.SetEquipCursor(false);
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
