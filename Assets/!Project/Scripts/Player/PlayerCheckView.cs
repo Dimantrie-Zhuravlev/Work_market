@@ -19,7 +19,7 @@ public class PlayerCheckView : MonoBehaviour
 
     [SerializeField] private PlayerInput playerInput;
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
-    private InputAction _trashCanAction;
+    private InputAction _utilizeCanAction;
     private InputAction _putObjectOnShelfAction;
 
     private void Start()
@@ -30,8 +30,12 @@ public class PlayerCheckView : MonoBehaviour
     private void Awake()
     {
         _pickUpBoxAction = playerInput.actions["PickUpBox"];
-        _trashCanAction = playerInput.actions["TrashEmptyBoxes"];
+        _utilizeCanAction = playerInput.actions["UtilizeEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
+
+        _pickUpBoxAction.Disable();
+        _utilizeCanAction.Disable();
+        _putObjectOnShelfAction.Disable();
     }
     private bool needSetEquipCursor = false;
 
@@ -43,6 +47,7 @@ public class PlayerCheckView : MonoBehaviour
             bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 5f, _layerMask, QueryTriggerInteraction.Ignore);
             if (hasHit && hit.collider)
             {
+                CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
                 bool hasMessage = false;
                 needSetEquipCursor = false;
                 if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
@@ -65,18 +70,18 @@ public class PlayerCheckView : MonoBehaviour
                     sendPersonMessage(environmentWithMessage.PersonMessage);
                 }
 
-                if (hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
+                if (currentBox != null && hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
                 {
-                    _trashCanAction.Enable();
+                    _utilizeCanAction.Enable();
                     needSetEquipCursor = true;
                     viewTrashObject = trashCan;
                 }
                 else
                 {
-                    _trashCanAction.Disable();
+                    _utilizeCanAction.Disable();
                     trashCan = null;
                 }
-                if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
+                if (currentBox != null && hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
                     viewShelfController = shelf;
                     needSetEquipCursor = true;
@@ -108,24 +113,33 @@ public class PlayerCheckView : MonoBehaviour
         }
 
     }
-    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext obj)
+    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext context)
     {
-        HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject, viewBoxName);
+        if (context.performed)
+        {
+            HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject, viewBoxName);
+        }
     }
-    public void TrashEmptyBoxesOnEventKeyboard(InputAction.CallbackContext obj)
+    public void UtilizeEmptyBoxesOnEventKeyboard(InputAction.CallbackContext context)
     {
-        HandsPollBoxes.Instance.UtilizeHandBox();
+        if (context.performed)
+        {
+            HandsPollBoxes.Instance.UtilizeHandBox();
+        }
     }
-    public void DropBoxOnEventKeyboard()
+    public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)
     {
-        HandsPollBoxes.Instance.DropHandBox();
+        if (context.performed)
+        {
+            HandsPollBoxes.Instance.DropHandBox();
+        }
     }
 
-    public void PutObjectOnShelfOnEventKeyboard()
+    public void PutObjectOnShelfOnEventKeyboard(InputAction.CallbackContext context)
     {
-        CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-        if (currentBox != null)
+        if (context.performed)
         {
+            CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
             if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
             {
                 if (currentBox.CurrentCountObjectsInBox > 0)

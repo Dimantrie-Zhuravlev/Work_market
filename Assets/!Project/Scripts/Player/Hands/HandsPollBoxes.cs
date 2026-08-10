@@ -115,6 +115,7 @@ public class HandsPollBoxes : MonoBehaviour
 
     public void UtilizeHandBox()
     {
+
         if (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox == "EMPTY")
         {
             SendBoxInPool(true);

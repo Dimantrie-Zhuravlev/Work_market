@@ -4750,7 +4750,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputs
   _abilityMove: {fileID: 856962674}
-  _abilityWithBox: {fileID: 856962677}
   _CameraRotation: {fileID: 856962675}
 --- !u!114 &856962674
 MonoBehaviour:
@@ -6450,9 +6449,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962673}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnBoxPickUp
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: PickUpBoxOnEventKeyboard
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6526,9 +6525,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962673}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnBoxDropDown
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: DropBoxOnEventKeyboard
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6542,9 +6541,9 @@ MonoBehaviour:
     m_ActionName: 'Player/DropObject[/Keyboard/g]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962673}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnTrashEmptyBoxes
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: UtilizeEmptyBoxesOnEventKeyboard
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6558,9 +6557,9 @@ MonoBehaviour:
     m_ActionName: 'Player/TrashEmptyBoxes[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962673}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnPutObjectOnShelf
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: PutObjectOnShelfOnEventKeyboard
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
