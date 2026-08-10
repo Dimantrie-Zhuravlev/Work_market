@@ -36,12 +36,9 @@ public class PlayerCheckView : MonoBehaviour
         _utilizeCanAction = playerInput.actions["UtilizeEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
         _clickUniversalButtonfAction = playerInput.actions["ClickUniversalButton"];
-        
 
-        _pickUpBoxAction.Disable();
-        _utilizeCanAction.Disable();
-        _putObjectOnShelfAction.Disable();
-        _clickUniversalButtonfAction.Disable();
+
+        DisableCurrentUnputs();
     }
     private bool needSetEquipCursor = false;
 
@@ -86,6 +83,7 @@ public class PlayerCheckView : MonoBehaviour
                     _utilizeCanAction.Disable();
                     trashCan = null;
                 }
+
                 if (currentBox != null && hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
                     viewShelfController = shelf;
@@ -99,6 +97,7 @@ public class PlayerCheckView : MonoBehaviour
                     _putObjectOnShelfAction.Disable();
                     shelf = null;
                 }
+
                 if (hit.collider.gameObject.TryGetComponent<UniversalButtonEvent>(out var universalButton)) //клик на универсальную кнопку
                 {
                     _clickUniversalButtonfAction.Enable();
@@ -123,12 +122,22 @@ public class PlayerCheckView : MonoBehaviour
             else
             {
                 CrosshairController.Instance.SetEquipCursor(false);
+                DisableCurrentUnputs();
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
         }
 
     }
+
+    private void DisableCurrentUnputs()
+    {
+        _pickUpBoxAction.Disable();
+        _utilizeCanAction.Disable();
+        _putObjectOnShelfAction.Disable();
+        _clickUniversalButtonfAction.Disable();
+    }
+
     public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)

@@ -648,7 +648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690970051710644152}
-  - component: {fileID: 2734508062163336564}
+  - component: {fileID: 2772682560744361388}
   m_Layer: 0
   m_Name: SupplyPark
   m_TagString: Untagged
@@ -678,7 +678,7 @@ Transform:
   - {fileID: 1620379970269917282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &2734508062163336564
+--- !u!114 &2772682560744361388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,9 +687,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813780198569551119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab913ef2d2b2f3448f24e3191191fe6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d9c4f0f8ccbb9d4088eda9c2fef8789, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SupplyMakaronsPark
+  m_EditorClassIdentifier: Assembly-CSharp::SupplyBoxesPark
+  _poolBoxes: {fileID: 0}
+  currentMessageOnBoxView: 
 --- !u!1 &2180740870857167266
 GameObject:
   m_ObjectHideFlags: 0

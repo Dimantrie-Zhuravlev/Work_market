@@ -2799,14 +2799,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: SupplyGoroxPark
       objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _poolBoxes
+      value: 
+      objectReference: {fileID: 1434104007}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: currentMessageOnBoxView
+      value: "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
+        \u0433\u043E\u0440\u043E\u0445\u0430"
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2734508062163336564, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1813780198569551119, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1617359143}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
 --- !u!4 &472383152 stripped
 Transform:
@@ -7927,7 +7933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0990984c6a2fb41b39c8c6d83477f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolGoroxBoxes
-  _goroxBoxPrefab: {fileID: 6905394491905813135, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
+  _goroxBoxPrefab: {fileID: 1180285585874766646, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
 --- !u!4 &1447390691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5388122515031291251, guid: 82edb1d508c341c4ba554ed401567f77, type: 3}
@@ -8143,7 +8149,7 @@ PrefabInstance:
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _supplyGorox
       value: 
-      objectReference: {fileID: 1617359143}
+      objectReference: {fileID: 0}
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: typeObjectBuy
       value: GOROX
@@ -8151,7 +8157,7 @@ PrefabInstance:
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _supplyMakaron
       value: 
-      objectReference: {fileID: 1509210961}
+      objectReference: {fileID: 0}
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _abstractSupply
       value: 
@@ -8251,15 +8257,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1509210961 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2734508062163336564, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
   m_PrefabInstance: {fileID: 343158712730634100}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab913ef2d2b2f3448f24e3191191fe6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d9c4f0f8ccbb9d4088eda9c2fef8789, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SupplyMakaronsPark
+  m_EditorClassIdentifier: Assembly-CSharp::SupplyBoxesPark
 --- !u!1001 &1515949305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8692,28 +8698,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1278846639422795605, guid: ca295c76556730842b5dc3d2c2f1f16e, type: 3}
   m_PrefabInstance: {fileID: 408958902}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1617359141 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1813780198569551119, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
-  m_PrefabInstance: {fileID: 441972522}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1617359142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 690970051710644152, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
   m_PrefabInstance: {fileID: 441972522}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1617359143
+--- !u!114 &1617359143 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+  m_PrefabInstance: {fileID: 441972522}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617359141}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bb96f75eb299b41bab02d23227c473, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d9c4f0f8ccbb9d4088eda9c2fef8789, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SupplyGoroxPark
+  m_EditorClassIdentifier: Assembly-CSharp::SupplyBoxesPark
 --- !u!1001 &1622691531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8729,7 +8729,7 @@ PrefabInstance:
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _supplyGorox
       value: 
-      objectReference: {fileID: 1617359143}
+      objectReference: {fileID: 0}
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: typeObjectBuy
       value: MAKARON
@@ -8737,7 +8737,7 @@ PrefabInstance:
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _supplyMakaron
       value: 
-      objectReference: {fileID: 1509210961}
+      objectReference: {fileID: 0}
     - target: {fileID: -2186400938464952081, guid: 73779156081b1d642be9be87c057eeef, type: 3}
       propertyPath: _abstractSupply
       value: 
@@ -11243,7 +11243,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: SupplyMakaronsPark
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _poolBoxes
+      value: 
+      objectReference: {fileID: 2110729405}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: currentMessageOnBoxView
+      value: "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
+        \u043C\u0430\u043A\u0430\u0440\u043E\u043D"
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
