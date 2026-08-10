@@ -17,10 +17,13 @@ public class PlayerCheckView : MonoBehaviour
     private ShelfController viewShelfController; //текущая полка товаров на стеллаже
     private GameObject viewShelfObject; //текущая полка товаров на стеллаже
 
+    private UniversalButtonEvent currentUniversalButton; 
+
     [SerializeField] private PlayerInput playerInput;
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
     private InputAction _utilizeCanAction;
     private InputAction _putObjectOnShelfAction;
+    private InputAction _clickUniversalButtonfAction;
 
     private void Start()
     {
@@ -32,10 +35,13 @@ public class PlayerCheckView : MonoBehaviour
         _pickUpBoxAction = playerInput.actions["PickUpBox"];
         _utilizeCanAction = playerInput.actions["UtilizeEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
+        _clickUniversalButtonfAction = playerInput.actions["ClickUniversalButton"];
+        
 
         _pickUpBoxAction.Disable();
         _utilizeCanAction.Disable();
         _putObjectOnShelfAction.Disable();
+        _clickUniversalButtonfAction.Disable();
     }
     private bool needSetEquipCursor = false;
 
@@ -62,7 +68,6 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     _pickUpBoxAction.Disable();
                 }
-
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
                     hasMessage = true;
@@ -93,6 +98,17 @@ public class PlayerCheckView : MonoBehaviour
                     viewShelfObject = null;
                     _putObjectOnShelfAction.Disable();
                     shelf = null;
+                }
+                if (hit.collider.gameObject.TryGetComponent<UniversalButtonEvent>(out var universalButton)) //клик на универсальную кнопку
+                {
+                    _clickUniversalButtonfAction.Enable();
+                    currentUniversalButton = universalButton;
+                    needSetEquipCursor = true;
+                }
+                else
+                {
+                    _clickUniversalButtonfAction.Disable();
+                    currentUniversalButton = null;
                 }
 
                 CrosshairController.Instance.SetEquipCursor(needSetEquipCursor);
@@ -125,6 +141,13 @@ public class PlayerCheckView : MonoBehaviour
         if (context.performed)
         {
             HandsPollBoxes.Instance.UtilizeHandBox();
+        }
+    }
+    public void ClickOnUniversalButtonEventKeyboard(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            currentUniversalButton.OnPressUniversalButton();
         }
     }
     public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)

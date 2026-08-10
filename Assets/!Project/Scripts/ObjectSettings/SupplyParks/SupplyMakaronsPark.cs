@@ -5,38 +5,40 @@ using System.Linq;
 public class SupplyMakaronsPark : AbstractSupplyPark
 {
     private List<GameObject> _makaronsBoxes = new List<GameObject>();
-    private int currentBoxesMakarons = 0;
+    private int currentBoxesMakarons;
     GameObject childContainer ;
     private void Start() {
         childContainer = transform.GetChild(0).gameObject;
-        var countBoxes = childContainer.transform.childCount;
 
-
-        for (int i = 0; i < 4; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
+        for (int i = 0; i < 4; i++) //Предзаполнение массива 4 null 
         {
-            AddBoxOnSupplyPark();
+            _makaronsBoxes.Add(null);
         }
-
+    }
+    private void updateCurrentBoxesCount()
+    {
+        currentBoxesMakarons = _makaronsBoxes.Count(obj => obj != null);
     }
 
-    public void AddBoxOnSupplyPark()
+    public override void AddBoxOnSupplyPark()
     {
         if (currentBoxesMakarons < 4)
         {
-            GameObject newMakaronsBox = PoolMakaronsBoxes.Instance.Get(childContainer.transform.GetChild(currentBoxesMakarons).gameObject.transform.position, childContainer.transform.GetChild(currentBoxesMakarons).gameObject.transform.rotation);
+            int index = _makaronsBoxes.IndexOf(null);
+            GameObject newMakaronsBox = PoolMakaronsBoxes.Instance.Get(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation);
             newMakaronsBox.transform.SetParent(childContainer.transform);
             Destroy(newMakaronsBox.GetComponent<Rigidbody>());
-            _makaronsBoxes.Add(newMakaronsBox);
+            _makaronsBoxes[index] = newMakaronsBox;
             newMakaronsBox.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage("Новая коробка макарон");
-            currentBoxesMakarons++;
+            updateCurrentBoxesCount();
         }
     }
 
-    public override void PullBoxFromPark(GameObject targetObject)
+    public void PullBoxFromPark(GameObject targetObject)
     {
         int index = _makaronsBoxes.IndexOf(targetObject);
         _makaronsBoxes[index] = null;
-        currentBoxesMakarons = _makaronsBoxes.Count(obj => obj != null);
+        updateCurrentBoxesCount();
     }
 
 }

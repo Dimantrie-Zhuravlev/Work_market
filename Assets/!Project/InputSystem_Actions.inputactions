@@ -61,6 +61,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ClickUniversalButton",
+                    "type": "Button",
+                    "id": "c81926cc-33ca-4a32-9656-7228f80cdebd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
@@ -520,6 +529,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "PutObjectOnShelf",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3ece6e8-7be7-45e8-881b-8d319949f47c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ClickUniversalButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e49aaef-8361-4dc4-8bb8-8bca0083831c",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ClickUniversalButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -10,33 +10,36 @@ public class SupplyGoroxPark : AbstractSupplyPark
     private void Start()
     {
         childContainer = transform.GetChild(0).gameObject;
-        var countBoxes = childContainer.transform.childCount;
-
 
         for (int i = 0; i < 4; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
         {
-            AddBoxOnSupplyPark();
+            _goroxBoxes.Add(null);
         }
 
     }
+    private void updateCurrentBoxesCount()
+    {
+        currentBoxesGorox = _goroxBoxes.Count(obj => obj != null);
+    }
 
-    public void AddBoxOnSupplyPark()
+    public override void AddBoxOnSupplyPark()
     {
         if (currentBoxesGorox < 4)
         {
-            GameObject newGoroxBox = PoolGoroxBoxes.Instance.Get(childContainer.transform.GetChild(currentBoxesGorox).gameObject.transform.position, childContainer.transform.GetChild(currentBoxesGorox).gameObject.transform.rotation);
+            int index = _goroxBoxes.IndexOf(null);
+            GameObject newGoroxBox = PoolGoroxBoxes.Instance.Get(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation);
             newGoroxBox.transform.SetParent(childContainer.transform);
             Destroy(newGoroxBox.GetComponent<Rigidbody>());
-            _goroxBoxes.Add(newGoroxBox);
+            _goroxBoxes[index] = newGoroxBox;
             newGoroxBox.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage("Новая коробка гороха");
-            currentBoxesGorox++;
+            updateCurrentBoxesCount();
         }
     }
 
-    public override void PullBoxFromPark(GameObject targetObject)
+    public void PullBoxFromPark(GameObject targetObject)
     {
         int index = _goroxBoxes.IndexOf(targetObject);
         _goroxBoxes[index] = null;
-        currentBoxesGorox = _goroxBoxes.Count(obj => obj != null);
+        updateCurrentBoxesCount();
     }
 }
