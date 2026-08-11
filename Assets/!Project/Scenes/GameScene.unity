@@ -6903,9 +6903,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandsPollBoxes
   _handsPosition: {fileID: 1257241627}
-  _poolEmptyPosition: {fileID: 1980706879}
-  _poolMakaronsPosition: {fileID: 2110729403}
-  _poolGoroxPosition: {fileID: 1434104005}
 --- !u!4 &1271399696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616659025400586512, guid: e4258852b84ff95448ddf4a2f8f212a4, type: 3}
@@ -7933,7 +7930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0990984c6a2fb41b39c8c6d83477f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolGoroxBoxes
-  _goroxBoxPrefab: {fileID: 1180285585874766646, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
+  _objectBoxPrefab: {fileID: 1180285585874766646, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
 --- !u!4 &1447390691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5388122515031291251, guid: 82edb1d508c341c4ba554ed401567f77, type: 3}
@@ -10229,7 +10226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c859beb50c321744bb586ee9b6451a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolEmptyBoxes
-  _emptyBoxPrefab: {fileID: 9086872706680233911, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
+  _objectBoxPrefab: {fileID: 9086872706680233911, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
 --- !u!4 &1990132846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2843724815756432442, guid: a814c0c46b2fc614cb2ecc787fb80d4c, type: 3}
@@ -11078,7 +11075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf11fc6777092041969fbc84525b826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolMakaronsBoxes
-  _makaronsBoxPrefab: {fileID: 6905394491905813135, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
+  _objectBoxPrefab: {fileID: 6905394491905813135, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
 --- !u!4 &2112468102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1304941374246888477, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}

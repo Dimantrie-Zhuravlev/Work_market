@@ -10,11 +10,6 @@ public class HandsPollBoxes : MonoBehaviour
     private GameObject _boxesInHand;
     [SerializeField] private GameObject _handsPosition;
 
-    [Header("Пулы коробок, куда возвращаются коробки")]
-    [SerializeField] private GameObject _poolEmptyPosition;
-    [SerializeField] private GameObject _poolMakaronsPosition;
-    [SerializeField] private GameObject _poolGoroxPosition;
-
     public static HandsPollBoxes Instance { get; private set; }
 
     private string currentBoxNameInHands;
@@ -58,35 +53,11 @@ public class HandsPollBoxes : MonoBehaviour
 
     private void SendBoxInPool(bool needRelease)
     {
-        switch (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
+        AbstractPoolBoxes currentBoxPool = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
+        currentObjectInHand.transform.parent = currentBoxPool.gameObject.transform;
+        if (needRelease)
         {
-            case EnumBoxesName.EmptyBox:
-                currentObjectInHand.transform.parent = _poolEmptyPosition.transform;
-                if (needRelease)
-                {
-                    PoolEmptyBoxes.Instance.Release(currentObjectInHand);
-                }
-                break;
-
-            case EnumBoxesName.MakaronsBox:
-                currentObjectInHand.transform.parent = _poolMakaronsPosition.transform;
-                if (needRelease)
-                {
-                    PoolMakaronsBoxes.Instance.Release(currentObjectInHand);
-                }
-                break;
-
-            case EnumBoxesName.GoroxBox:
-                currentObjectInHand.transform.parent = _poolGoroxPosition.transform;
-                if (needRelease)
-                {
-                    PoolGoroxBoxes.Instance.Release(currentObjectInHand);
-                }
-                break;
-
-            default:
-                Debug.LogWarning($"Неизвестный тип коробки");
-                break;
+            currentBoxPool.Release(currentObjectInHand);
         }
         currentObjectInHand = null;
         currentBoxNameInHands = "";
@@ -94,7 +65,6 @@ public class HandsPollBoxes : MonoBehaviour
 
     public void UtilizeHandBox()
     {
-
         if (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox == "EMPTY")
         {
             SendBoxInPool(true);
@@ -107,25 +77,12 @@ public class HandsPollBoxes : MonoBehaviour
 
     public void ChangeBoxTypeOnEmpty()
     {
-        switch (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
-        {
-            case EnumBoxesName.MakaronsBox:
-                currentObjectInHand.transform.parent = _poolMakaronsPosition.transform;
-                PoolMakaronsBoxes.Instance.Release(currentObjectInHand);
-                break;
-
-            case EnumBoxesName.GoroxBox:
-                currentObjectInHand.transform.parent = _poolGoroxPosition.transform;
-                PoolGoroxBoxes.Instance.Release(currentObjectInHand);
-                break;
-
-            default:
-                Debug.LogWarning($"Неизвестный тип коробки");
-                break;
-        }
+        AbstractPoolBoxes currentAbstractClass = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
+        currentAbstractClass.Release(currentObjectInHand);
+        currentObjectInHand.transform.parent = currentAbstractClass.gameObject.transform;
 
         currentObjectInHand = PoolEmptyBoxes.Instance.Get(currentObjectInHand.transform.position, currentObjectInHand.transform.rotation);
-        currentObjectInHand.transform.parent = this.transform;
+        currentObjectInHand.transform.parent = this.transform; //кладется в руки пустая коробка
         Destroy(currentObjectInHand.GetComponent<Rigidbody>());
         Destroy(currentObjectInHand.GetComponent<BoxCollider>());
         currentBoxNameInHands = "EMPTY";

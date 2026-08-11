@@ -4,7 +4,7 @@ using System.Linq;
 
 public class SupplyBoxesPark : AbstractSupplyPark
 {
-    [SerializeField] PoolAbstractClass _poolBoxes;
+    [SerializeField] AbstractPoolBoxes _poolBoxes;
     [Tooltip("Сообщение на коробке")]
     [SerializeField] string currentMessageOnBoxView;    
     GameObject childContainer;

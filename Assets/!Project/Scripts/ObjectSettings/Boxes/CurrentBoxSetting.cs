@@ -5,6 +5,9 @@ using UnityEngine;
 public class CurrentBoxSetting : MonoBehaviour
 {
     [SerializeField] public BoxSettings _currentBoxSetting;
+    private AbstractPoolBoxes _abstractPoolBox;
+
+    public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 
     private int currentCountObjectsInBox;
     public int CurrentCountObjectsInBox => currentCountObjectsInBox;
@@ -13,8 +16,25 @@ public class CurrentBoxSetting : MonoBehaviour
     private void Start()
     {
         currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
+        switch (_currentBoxSetting.typeBox)
+        {
+            case EnumBoxesName.EmptyBox:
+                _abstractPoolBox = PoolEmptyBoxes.Instance;
+                break;
+            case EnumBoxesName.MakaronsBox:
+                _abstractPoolBox = PoolMakaronsBoxes.Instance;
+                break;
 
-        if (_currentBoxSetting.name !="EMPTY")
+            case EnumBoxesName.GoroxBox:
+                _abstractPoolBox = PoolGoroxBoxes.Instance;
+                break;
+
+            default:
+                Debug.LogWarning($"Неизвестный тип коробки");
+                break;
+        }
+
+        if (_currentBoxSetting.typeBox != "EMPTY")
         {
             Transform objectsContainer = transform.GetChild(0);
 
