@@ -23,6 +23,9 @@ public class PlayerCheckView : MonoBehaviour
     private InputAction _utilizeCanAction;
     private InputAction _putObjectOnShelfAction;
     private InputAction _clickUniversalButtonfAction;
+    private InputAction _clickTaskBoardButton;
+
+    private TaskBoardButtonController taskButtonController;
 
     private void Start()
     {
@@ -35,6 +38,7 @@ public class PlayerCheckView : MonoBehaviour
         _utilizeCanAction = playerInput.actions["UtilizeEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
         _clickUniversalButtonfAction = playerInput.actions["ClickUniversalButton"];
+        _clickTaskBoardButton = playerInput.actions["ClickTaskBoardButton"];
 
 
         DisableCurrentUnputs();
@@ -115,7 +119,15 @@ public class PlayerCheckView : MonoBehaviour
                     ClearMessageAndVieBox();
                 }
 
-
+                if (hit.collider.gameObject.TryGetComponent<TaskBoardButtonController>(out var taskBoardButton)) //кнопка на доске заданий
+                {
+                    _clickTaskBoardButton.Enable();
+                    taskButtonController = taskBoardButton;
+                    needSetEquipCursor = true;
+                } else
+                {
+                    _clickTaskBoardButton.Disable();
+                }
             }
             else
             {
@@ -134,7 +146,16 @@ public class PlayerCheckView : MonoBehaviour
         _utilizeCanAction.Disable();
         _putObjectOnShelfAction.Disable();
         _clickUniversalButtonfAction.Disable();
+        _clickTaskBoardButton.Disable();
     }
+    public void TaskBoardButtonEventKeyboard(InputAction.CallbackContext context)
+    {
+        if (context.performed && taskButtonController != null)
+        {
+            taskButtonController.AddTaskOnBoard();
+        }
+    }
+
 
     public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext context)
     {
