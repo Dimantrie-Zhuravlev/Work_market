@@ -4,12 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerCheckView : MonoBehaviour
 {
     private float _lastCheckTime = 0f; //динамическая
-    private float _checkInterval = 0.2f;
+    private float _checkInterval = 0.1f;
 
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
 
-    private string viewBoxName;  //эта и ниже связано только с коробками
     private GameObject viewBoxObject;
 
     private TrashCanDataAbility viewTrashObject; //текущая мусорка
@@ -56,7 +55,6 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
                 {
                     hasMessage = true;
-                    viewBoxName = viewBox._currentBoxSetting.typeBox;
                     _pickUpBoxAction.Enable();
                     viewBoxObject = hit.collider.gameObject;
                     needSetEquipCursor = true;
@@ -126,9 +124,9 @@ public class PlayerCheckView : MonoBehaviour
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
-        }
-
     }
+
+}
 
     private void DisableCurrentUnputs()
     {
@@ -142,7 +140,7 @@ public class PlayerCheckView : MonoBehaviour
     {
         if (context.performed)
         {
-            HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject, viewBoxName);
+            HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject);
         }
     }
     public void UtilizeEmptyBoxesOnEventKeyboard(InputAction.CallbackContext context)
@@ -172,7 +170,7 @@ public class PlayerCheckView : MonoBehaviour
         if (context.performed)
         {
             CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-            if (HandsPollBoxes.Instance.CurrentBoxNameInHands == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            if (HandsPollBoxes.Instance.CurrentObjectInHandName == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
             {
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
@@ -181,7 +179,7 @@ public class PlayerCheckView : MonoBehaviour
             }
             else
             {
-                if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentBoxNameInHands != "EMPTY")
+                if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentObjectInHandName != "EMPTY")
                 {
                     if (currentBox.CurrentCountObjectsInBox > 0)
                     {

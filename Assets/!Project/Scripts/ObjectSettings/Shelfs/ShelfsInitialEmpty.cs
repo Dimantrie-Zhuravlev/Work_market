@@ -6,12 +6,16 @@ public class ShelfsInitialEmpty : MonoBehaviour
     {
         GameObject childContainer = transform.GetChild(0).gameObject; //заполнение стеллажа тремя пустыми секциями под товары
 
-        Transform objectsTop = childContainer.transform.GetChild(0).gameObject.transform;
-        Transform objectsMiddle = childContainer.transform.GetChild(1).gameObject.transform;
-        Transform objectsBottom = childContainer.transform.GetChild(2).gameObject.transform;
+        GameObject objectsTop = childContainer.transform.GetChild(0).gameObject;
+        GameObject objectsMiddle = childContainer.transform.GetChild(1).gameObject;
+        GameObject objectsBottom = childContainer.transform.GetChild(2).gameObject;
 
-        PoolEmptyShelf.Instance.Get(objectsTop.position, objectsTop.rotation);
-        PoolEmptyShelf.Instance.Get(objectsMiddle.position, objectsMiddle.rotation);
-        PoolEmptyShelf.Instance.Get(objectsBottom.position, objectsBottom.rotation);
+        PoolEmptyShelf.Instance.Get(objectsTop.transform.position, objectsTop.transform.rotation, childContainer.transform);
+        PoolEmptyShelf.Instance.Get(objectsMiddle.transform.position, objectsMiddle.transform.rotation, childContainer.transform);
+        PoolEmptyShelf.Instance.Get(objectsBottom.transform.position, objectsBottom.transform.rotation, childContainer.transform);
+
+        Destroy(objectsTop);
+        Destroy(objectsMiddle);
+        Destroy(objectsBottom);
     }
 }

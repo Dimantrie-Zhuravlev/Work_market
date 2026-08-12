@@ -13,10 +13,7 @@ public class PoolGoroxBoxes : AbstractPoolBoxes
             return;
         }
         Instance = this;
-        for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
-        {
-            _objectBoxes.Add(transform.GetChild(i).gameObject);
-        }
+        base.Awake();
     }
 
 }

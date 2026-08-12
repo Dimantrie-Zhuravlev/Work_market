@@ -1,25 +1,24 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 
-public abstract class AbstractPoolBoxes : MonoBehaviour
+public abstract class AbstractPoolShelf : MonoBehaviour
 {
-    [SerializeField] protected GameObject _objectBoxPrefab;
-
-    protected List<GameObject> _objectBoxes = new List<GameObject>();
+    [Tooltip("Префаб полки продукции")]
+    [SerializeField] private GameObject _objectShelfPrefab;
+    private protected List<GameObject> _objectShelfs = new List<GameObject>();
 
     public virtual void Awake()
     {
-        for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, это просто коробка
+        for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
         {
-            _objectBoxes.Add(transform.GetChild(i).gameObject);
-            _objectBoxes[i].SetActive(false);
+            _objectShelfs.Add(transform.GetChild(i).gameObject);
+            _objectShelfs[i].SetActive(false);
         }
     }
-
     public virtual GameObject Get(Vector3 position, Quaternion rotation, Transform parentTransform)
     {
-        var obj = _objectBoxes?.FirstOrDefault(x => !x.activeSelf);
+        var obj = _objectShelfs?.FirstOrDefault(x => !x.activeSelf);
         if (obj == null)
         {
             obj = CreateObject(position, rotation);
@@ -35,9 +34,10 @@ public abstract class AbstractPoolBoxes : MonoBehaviour
         }
         return obj;
     }
+
     public virtual GameObject Get(Vector3 position, Quaternion rotation)
     {
-        var obj = _objectBoxes?.FirstOrDefault(x => !x.activeSelf);
+        var obj = _objectShelfs?.FirstOrDefault(x => !x.activeSelf);
         if (obj == null)
         {
             obj = CreateObject(position, rotation);
@@ -52,15 +52,14 @@ public abstract class AbstractPoolBoxes : MonoBehaviour
 
     public virtual void Release(GameObject obj)
     {
-        print($"Release {obj.name}");
         obj.SetActive(false);
         obj.transform.SetParent(this.transform);
     }
 
     public virtual GameObject CreateObject(Vector3 position, Quaternion rotation)
     {
-        var obj = Instantiate(_objectBoxPrefab, position, rotation, transform);
-        _objectBoxes.Add(obj);
+        var obj = Instantiate(_objectShelfPrefab, position, rotation, transform);
+        _objectShelfs.Add(obj);
         return obj;
     }
 }

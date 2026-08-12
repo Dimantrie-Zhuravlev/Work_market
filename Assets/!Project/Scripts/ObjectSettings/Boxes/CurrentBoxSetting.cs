@@ -13,10 +13,10 @@ public class CurrentBoxSetting : MonoBehaviour
     public int CurrentCountObjectsInBox => currentCountObjectsInBox;
 
     private List<GameObject> _objectsInBoxes = new List<GameObject>();
+
     private void Start()
     {
-        currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
-        switch (_currentBoxSetting.typeBox)
+        switch (_currentBoxSetting.typeBox)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
         {
             case EnumBoxesName.EmptyBox:
                 _abstractPoolBox = PoolEmptyBoxes.Instance;
@@ -33,24 +33,26 @@ public class CurrentBoxSetting : MonoBehaviour
                 Debug.LogWarning($"Неизвестный тип коробки");
                 break;
         }
-
+        currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
+        RestartObjectInBox();
+    }
+    public void RestartObjectInBox()
+    {
         if (_currentBoxSetting.typeBox != "EMPTY")
         {
             Transform objectsContainer = transform.GetChild(0);
-
             for (int i = 0; i < objectsContainer.childCount; i++)
             {
                 GameObject currentItem = objectsContainer.GetChild(i).gameObject;
                 _objectsInBoxes.Add(currentItem);
-                if (i >= _currentBoxSetting.MaxObjectsInBox)
+                currentItem.SetActive(true);
+                if (i < objectsContainer.childCount - _currentBoxSetting.MaxObjectsInBox)
                 {
                     currentItem.SetActive(false);
                 }
             }
-
             SetNewMessageForCount();
         }
-
     }
 
     public void SetNewMessageForCount()

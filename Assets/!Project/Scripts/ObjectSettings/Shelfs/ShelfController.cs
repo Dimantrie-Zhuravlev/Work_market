@@ -8,12 +8,36 @@ public class ShelfController : MonoBehaviour
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
 
+    private AbstractPoolShelf _currentPoolShelf;
+    public AbstractPoolShelf CurrentPoolShelf => _currentPoolShelf;
+
+    private void Start()
+    {
+        switch (_shelfName)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
+        {
+            case EnumBoxesName.EmptyBox:
+                _currentPoolShelf = PoolEmptyShelf.Instance;
+                break;
+            case EnumBoxesName.MakaronsBox:
+                _currentPoolShelf = PoolMakaronShelf.Instance;
+                break;
+
+            case EnumBoxesName.GoroxBox:
+                _currentPoolShelf = PoolGoroxShelf.Instance;
+                break;
+
+            default:
+                Debug.LogWarning($"Неизвестный тип коробки");
+                break;
+        }
+    }
+
     public void OnEnable()
     {
-        for (int i = 0; i < transform.childCount; i++) //Предзаполнение массива дочерними элементами, созданными на сцене заранее
+        for (int i = 0; i < transform.childCount; i++) //Предзаполнение массива дочерними элементами, в данном случае это пачки макарон, банки гороха и тд
         {
             _ObjectsOnShelf.Add(transform.GetChild(i).gameObject);
-            _ObjectsOnShelf[i].SetActive(false);
+            transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 

@@ -12,14 +12,15 @@ public class HandsPollBoxes : MonoBehaviour
 
     public static HandsPollBoxes Instance { get; private set; }
 
-    private string currentBoxNameInHands;
+    //private string currentBoxNameInHands;
     private GameObject currentObjectInHand = null;
+    public string CurrentObjectInHandName => currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox;
 
     public CurrentBoxSetting CurrentBoxHasCountObjects()
     {
         return currentObjectInHand == null ? null : currentObjectInHand.GetComponent<CurrentBoxSetting>();
     }
-    public string CurrentBoxNameInHands => currentBoxNameInHands;
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,7 +32,7 @@ public class HandsPollBoxes : MonoBehaviour
         _boxesInHand = transform.GetChild(0).gameObject;
     }
 
-    public void PickUpHandBox(GameObject boxInScene, string boxName)
+    public void PickUpHandBox(GameObject boxInScene)
     {
         if (currentObjectInHand == null)
         {
@@ -47,7 +48,6 @@ public class HandsPollBoxes : MonoBehaviour
             Destroy(boxInScene.GetComponent<BoxCollider>());
 
             currentObjectInHand = boxInScene;
-            currentBoxNameInHands = boxName;
         }
     }
 
@@ -60,7 +60,6 @@ public class HandsPollBoxes : MonoBehaviour
             currentBoxPool.Release(currentObjectInHand);
         }
         currentObjectInHand = null;
-        currentBoxNameInHands = "";
     }
 
     public void UtilizeHandBox()
@@ -75,17 +74,27 @@ public class HandsPollBoxes : MonoBehaviour
         }
     }
 
+    private void AddBoxColliderOnCurrentBox()
+    {
+        var newCol = currentObjectInHand.AddComponent<BoxCollider>();
+        newCol.center = BoxColliderCenter;
+        newCol.size = BoxColliderSize;
+        currentObjectInHand.GetComponent<CurrentBoxSetting>().RestartObjectInBox();
+    }
+
     public void ChangeBoxTypeOnEmpty()
     {
-        AbstractPoolBoxes currentAbstractClass = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
-        currentAbstractClass.Release(currentObjectInHand);
-        currentObjectInHand.transform.parent = currentAbstractClass.gameObject.transform;
 
-        currentObjectInHand = PoolEmptyBoxes.Instance.Get(currentObjectInHand.transform.position, currentObjectInHand.transform.rotation);
-        currentObjectInHand.transform.parent = this.transform; //кладется в руки пустая коробка
+        AbstractPoolBoxes currentAbstractClass = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
+        AddBoxColliderOnCurrentBox();
+
+
+        currentAbstractClass.Release(currentObjectInHand);
+        
+        currentObjectInHand = PoolEmptyBoxes.Instance.Get(currentObjectInHand.transform.position, currentObjectInHand.transform.rotation, this.transform);
+
         Destroy(currentObjectInHand.GetComponent<Rigidbody>());
         Destroy(currentObjectInHand.GetComponent<BoxCollider>());
-        currentBoxNameInHands = "EMPTY";
     }
 
 
@@ -96,9 +105,7 @@ public class HandsPollBoxes : MonoBehaviour
         {
             currentObjectInHand.AddComponent<Rigidbody>();
 
-            var newCol = currentObjectInHand.AddComponent<BoxCollider>();
-            newCol.center = BoxColliderCenter;
-            newCol.size = BoxColliderSize;
+            AddBoxColliderOnCurrentBox();
             SendBoxInPool(false);
         }
     }
