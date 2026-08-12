@@ -39,6 +39,8 @@ public class TaskBoardTasksController : MonoBehaviour
 
     public void DeleteSelectedTask(GameObject selectedTask)
     {
+        int index = _tasksList.IndexOf(selectedTask);
+        _tasksList[index].SetActive(false);
         currentCountsTasks = _tasksList.Count(obj => obj.activeInHierarchy);
     }
 

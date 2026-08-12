@@ -15,6 +15,8 @@ public class PlayerCheckView : MonoBehaviour
 
     private ShelfController viewShelfController; //текущая полка товаров на стеллаже
     private GameObject viewShelfObject; //текущая полка товаров на стеллаже
+    private TaskBoardTaskController viewBoardTask;//задание на доске
+    private GameObject viewBoardTaskObject;
 
     private UniversalButtonEvent currentUniversalButton; 
 
@@ -24,8 +26,11 @@ public class PlayerCheckView : MonoBehaviour
     private InputAction _putObjectOnShelfAction;
     private InputAction _clickUniversalButtonfAction;
     private InputAction _clickTaskBoardButton;
+    private InputAction _clickTaskBoardTask;
+    private InputAction _buttonSelectedTaskCompleteAction;
 
     private TaskBoardButtonController taskButtonController;
+    private TaskActiveButtonController _completeSelectedTaskController;
 
     private void Start()
     {
@@ -39,9 +44,11 @@ public class PlayerCheckView : MonoBehaviour
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
         _clickUniversalButtonfAction = playerInput.actions["ClickUniversalButton"];
         _clickTaskBoardButton = playerInput.actions["ClickTaskBoardButton"];
+        _clickTaskBoardTask = playerInput.actions["ClickTaskBoardTask"];
+        _buttonSelectedTaskCompleteAction = playerInput.actions["ButtonSelectedTaskComplete"];
 
 
-        DisableCurrentUnputs();
+        DisableCurrentInputs();
     }
     private bool needSetEquipCursor = false;
 
@@ -128,11 +135,36 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     _clickTaskBoardButton.Disable();
                 }
+
+                if (hit.collider.gameObject.TryGetComponent<TaskBoardTaskController>(out var boardTask)) //задание на доске заданий
+                {
+                    viewBoardTaskObject = hit.collider.gameObject;
+                    _clickTaskBoardTask.Enable();
+                    viewBoardTask = boardTask;
+                    needSetEquipCursor = true;
+                }
+                else
+                {
+                    _clickTaskBoardTask.Disable();
+                }
+
+                if (hit.collider.gameObject.TryGetComponent<TaskActiveButtonController>(out var completeSelectedTask)) //задание на доске заданий
+                {
+                    _buttonSelectedTaskCompleteAction.Enable();
+                    _completeSelectedTaskController = completeSelectedTask;
+                    needSetEquipCursor = true;
+                }
+                else
+                {
+                    _buttonSelectedTaskCompleteAction.Disable();
+                }
+
+
             }
             else
             {
                 CrosshairController.Instance.SetEquipCursor(false);
-                DisableCurrentUnputs();
+                DisableCurrentInputs();
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
@@ -140,13 +172,14 @@ public class PlayerCheckView : MonoBehaviour
 
 }
 
-    private void DisableCurrentUnputs()
+    private void DisableCurrentInputs()
     {
         _pickUpBoxAction.Disable();
         _utilizeCanAction.Disable();
         _putObjectOnShelfAction.Disable();
         _clickUniversalButtonfAction.Disable();
         _clickTaskBoardButton.Disable();
+        _clickTaskBoardTask.Disable();
     }
     public void TaskBoardButtonEventKeyboard(InputAction.CallbackContext context)
     {
@@ -162,6 +195,13 @@ public class PlayerCheckView : MonoBehaviour
         if (context.performed)
         {
             HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject);
+        }
+    }
+    public void ClickTaskBoardTaskEventKeyboard(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            viewBoardTask.AddTaskOnActiveTaskCapBoard(viewBoardTaskObject);
         }
     }
     public void UtilizeEmptyBoxesOnEventKeyboard(InputAction.CallbackContext context)
@@ -185,6 +225,17 @@ public class PlayerCheckView : MonoBehaviour
             HandsPollBoxes.Instance.DropHandBox();
         }
     }
+
+    public void CompleteSelectedTaskOnEventKeyboard(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _completeSelectedTaskController.AddTaskOnActiveBoard();
+        }
+    }
+
+
+    
 
     public void PutObjectOnShelfOnEventKeyboard(InputAction.CallbackContext context)
     {

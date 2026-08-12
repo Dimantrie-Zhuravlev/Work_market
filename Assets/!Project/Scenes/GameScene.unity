@@ -5249,6 +5249,7 @@ Transform:
   - {fileID: 1509210960}
   - {fileID: 1617359142}
   - {fileID: 1106015757441734627}
+  - {fileID: 3817190721754327337}
   - {fileID: 1109378327}
   m_Father: {fileID: 1502851483}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6832,6 +6833,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9c2660cb-0aa4-4506-971a-2d3bf6992ed2
     m_ActionName: 'Player/ClickTaskBoardButton[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: ClickTaskBoardTaskEventKeyboard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c45b171b-f35d-42a4-a2a4-fab54e709e25
+    m_ActionName: 'Player/ClickTaskBoardTask[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: CompleteSelectedTaskOnEventKeyboard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cd2b5331-7bea-4b12-9d02-ceb15e4b7b80
+    m_ActionName: 'Player/ButtonSelectedTaskComplete[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -11631,6 +11664,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1278846639422795605, guid: ca295c76556730842b5dc3d2c2f1f16e, type: 3}
   m_PrefabInstance: {fileID: 1216465268826766496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2017157313488793857
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 896091073}
+    m_Modifications:
+    - target: {fileID: 8263696072755438767, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_Name
+      value: TaskActiveBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
 --- !u!4 &2531646079033674059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8857283401322043928, guid: c66b68042f6571a47a969cc50b96ced9, type: 3}
@@ -11701,6 +11791,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
+--- !u!4 &3817190721754327337 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+  m_PrefabInstance: {fileID: 2017157313488793857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6031701484691067532
 PrefabInstance:
   m_ObjectHideFlags: 0

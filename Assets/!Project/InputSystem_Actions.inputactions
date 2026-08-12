@@ -79,6 +79,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ClickTaskBoardTask",
+                    "type": "Button",
+                    "id": "c45b171b-f35d-42a4-a2a4-fab54e709e25",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ButtonSelectedTaskComplete",
+                    "type": "Button",
+                    "id": "cd2b5331-7bea-4b12-9d02-ceb15e4b7b80",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
@@ -582,6 +600,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "ClickTaskBoardButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a584ac71-4bc8-4fcd-a4ab-9520fe491cc0",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ClickTaskBoardTask",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "743a9d1a-ac7b-4fb5-bf55-df32afe9d9f9",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ClickTaskBoardTask",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2e4cb7e-419f-48a3-8ad3-71d1c98198c7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ButtonSelectedTaskComplete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1589282-682c-445b-a9dd-b99546be045a",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ButtonSelectedTaskComplete",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
