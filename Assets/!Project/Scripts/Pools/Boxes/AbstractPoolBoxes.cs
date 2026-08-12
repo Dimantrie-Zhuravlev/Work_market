@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AbstractPoolBoxes : MonoBehaviour
 {
     [SerializeField] protected GameObject _objectBoxPrefab;
+    [SerializeField] public int PriceOneBox;
 
     protected List<GameObject> _objectBoxes = new List<GameObject>();
 
@@ -52,7 +53,6 @@ public abstract class AbstractPoolBoxes : MonoBehaviour
 
     public virtual void Release(GameObject obj)
     {
-        print($"Release {obj.name}");
         obj.SetActive(false);
         obj.transform.SetParent(this.transform);
     }

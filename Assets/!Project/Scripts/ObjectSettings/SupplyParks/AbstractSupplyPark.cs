@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AbstractSupplyPark : MonoBehaviour
 {
-    protected List<GameObject> _productBoxes = new List<GameObject>();
+    protected List<CurrentBoxSetting> _productBoxes = new List<CurrentBoxSetting>();
     protected int currentCountProductBoxes;
     public abstract void AddBoxOnSupplyPark();
 
@@ -15,7 +15,7 @@ public abstract class AbstractSupplyPark : MonoBehaviour
 
     public virtual void PullBoxFromPark(GameObject targetObject)
     {
-        int index = _productBoxes.IndexOf(targetObject);
+        int index = _productBoxes.IndexOf(targetObject.GetComponent<CurrentBoxSetting>());
         _productBoxes[index] = null;
         updateCurrentBoxesCount();
     }

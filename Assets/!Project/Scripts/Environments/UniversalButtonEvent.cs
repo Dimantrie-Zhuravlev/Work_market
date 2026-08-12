@@ -4,8 +4,24 @@ using UnityEngine;
 public class UniversalButtonEvent : MonoBehaviour
 {
     [SerializeField] AbstractSupplyPark _abstractSupply;
-    public void OnPressUniversalButton()
+    [SerializeField] AbstractPoolBoxes _abstractpoolBox;
+
+    private int priceBox = 0;
+
+    private void Start()
     {
-        _abstractSupply.AddBoxOnSupplyPark();
+        priceBox = _abstractpoolBox.PriceOneBox;
+    }
+    public void BuyBoxObjects()
+    {
+         
+        if (PlayerWallet.Instance.CurrentBalance >= priceBox)
+        {
+            PlayerWallet.Instance.DecreaseBalance(priceBox);
+            _abstractSupply.AddBoxOnSupplyPark();
+        } else
+        {
+            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {priceBox}");
+        }
     }
 }

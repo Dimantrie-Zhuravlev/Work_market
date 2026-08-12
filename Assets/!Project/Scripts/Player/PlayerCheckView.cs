@@ -154,7 +154,7 @@ public class PlayerCheckView : MonoBehaviour
     {
         if (context.performed)
         {
-            currentUniversalButton.OnPressUniversalButton();
+            currentUniversalButton.BuyBoxObjects();
         }
     }
     public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)

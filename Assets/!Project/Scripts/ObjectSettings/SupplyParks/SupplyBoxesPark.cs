@@ -26,7 +26,7 @@ public class SupplyBoxesPark : AbstractSupplyPark
             int index = _productBoxes.IndexOf(null);
             GameObject newProductBox = _poolBoxes.Get(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation, childContainer.transform);
             Destroy(newProductBox.GetComponent<Rigidbody>());
-            _productBoxes[index] = newProductBox;
+            _productBoxes[index] = newProductBox.GetComponent<CurrentBoxSetting>();
             newProductBox.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage(currentMessageOnBoxView);
             updateCurrentBoxesCount();
         }
