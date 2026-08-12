@@ -12,6 +12,7 @@ public class PlayerCheckView : MonoBehaviour
     private GameObject viewWorkingObject;
 
     [SerializeField] private PlayerInput playerInput;
+
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
     private InputAction _utilizeCanAction;
     private InputAction _putObjectOnShelfAction;
@@ -49,12 +50,9 @@ public class PlayerCheckView : MonoBehaviour
             if (hasHit && hit.collider)
             {
                 viewWorkingObject = hit.collider.gameObject;
-                CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-                bool hasMessage = false;
                 needSetEquipCursor = false;
                 if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
                 {
-                    hasMessage = true;
                     _pickUpBoxAction.Enable();
                     needSetEquipCursor = true;
                 }
@@ -64,12 +62,13 @@ public class PlayerCheckView : MonoBehaviour
                 }
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
-                    hasMessage = true;
                     needSetEquipCursor = true;
                     sendPersonMessage(environmentWithMessage.PersonMessage);
+                } else
+                {
+                    ClearMessageAndVieBox();
                 }
-
-                if (currentBox != null && hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
+                if ( hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
                 {
                     _utilizeCanAction.Enable();
                     needSetEquipCursor = true;
@@ -77,10 +76,10 @@ public class PlayerCheckView : MonoBehaviour
                 else
                 {
                     _utilizeCanAction.Disable();
-                    trashCan = null;
+
                 }
 
-                if (currentBox != null && hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
+                if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
                     needSetEquipCursor = true;
                     _putObjectOnShelfAction.Enable();
@@ -99,11 +98,6 @@ public class PlayerCheckView : MonoBehaviour
                 else
                 {
                     _clickUniversalButtonfAction.Disable();
-                }
-
-                if (!hasMessage)
-                {
-                    ClearMessageAndVieBox();
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<TaskBoardButtonController>(out var taskBoardButton)) //кнопка на доске заданий
@@ -135,8 +129,6 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     _buttonSelectedTaskCompleteAction.Disable();
                 }
-
-
             }
             else
             {
@@ -217,11 +209,11 @@ public class PlayerCheckView : MonoBehaviour
 
     public void PutObjectOnShelfOnEventKeyboard(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
+        if (context.performed && currentBox != null)
         {
             ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
-            CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-            if (HandsPollBoxes.Instance.CurrentObjectInHandName == shelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            if (HandsPollBoxes.Instance.CurrentObjectInHandName == shelfController._shelfName ) //проверка что товар в коробке и на полке совпадают
             {
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
