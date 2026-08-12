@@ -4902,6 +4902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856962672}
   - component: {fileID: 856962674}
+  - component: {fileID: 856962673}
   - component: {fileID: 856962675}
   - component: {fileID: 856962676}
   - component: {fileID: 856962677}
@@ -4929,6 +4930,19 @@ Transform:
   - {fileID: 1283867956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &856962673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856962671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c385fa8d08e91c94ba7402bc2ed7c315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputs
+  _abilityMove: {fileID: 856962674}
 --- !u!114 &856962674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6628,8 +6642,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962674}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 856962673}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:

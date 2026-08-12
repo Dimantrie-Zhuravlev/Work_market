@@ -9,16 +9,7 @@ public class PlayerCheckView : MonoBehaviour
     private GameObject _mainCamera;
     [SerializeField] private LayerMask _layerMask;
 
-    private GameObject viewBoxObject;
-
-    private TrashCanDataAbility viewTrashObject; //текущая мусорка
-
-    private ShelfController viewShelfController; //текущая полка товаров на стеллаже
-    private GameObject viewShelfObject; //текущая полка товаров на стеллаже
-    private TaskBoardTaskController viewBoardTask;//задание на доске
-    private GameObject viewBoardTaskObject;
-
-    private UniversalButtonEvent currentUniversalButton; 
+    private GameObject viewWorkingObject;
 
     [SerializeField] private PlayerInput playerInput;
     private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
@@ -28,9 +19,6 @@ public class PlayerCheckView : MonoBehaviour
     private InputAction _clickTaskBoardButton;
     private InputAction _clickTaskBoardTask;
     private InputAction _buttonSelectedTaskCompleteAction;
-
-    private TaskBoardButtonController taskButtonController;
-    private TaskActiveButtonController _completeSelectedTaskController;
 
     private void Start()
     {
@@ -60,6 +48,7 @@ public class PlayerCheckView : MonoBehaviour
             bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 5f, _layerMask, QueryTriggerInteraction.Ignore);
             if (hasHit && hit.collider)
             {
+                viewWorkingObject = hit.collider.gameObject;
                 CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
                 bool hasMessage = false;
                 needSetEquipCursor = false;
@@ -67,7 +56,6 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     hasMessage = true;
                     _pickUpBoxAction.Enable();
-                    viewBoxObject = hit.collider.gameObject;
                     needSetEquipCursor = true;
                 }
                 else
@@ -85,7 +73,6 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     _utilizeCanAction.Enable();
                     needSetEquipCursor = true;
-                    viewTrashObject = trashCan;
                 }
                 else
                 {
@@ -95,14 +82,11 @@ public class PlayerCheckView : MonoBehaviour
 
                 if (currentBox != null && hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
                 {
-                    viewShelfController = shelf;
                     needSetEquipCursor = true;
-                    viewShelfObject = hit.collider.gameObject;
                     _putObjectOnShelfAction.Enable();
                 }
                 else
                 {
-                    viewShelfObject = null;
                     _putObjectOnShelfAction.Disable();
                     shelf = null;
                 }
@@ -110,16 +94,12 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<UniversalButtonEvent>(out var universalButton)) //клик на универсальную кнопку
                 {
                     _clickUniversalButtonfAction.Enable();
-                    currentUniversalButton = universalButton;
                     needSetEquipCursor = true;
                 }
                 else
                 {
                     _clickUniversalButtonfAction.Disable();
-                    currentUniversalButton = null;
                 }
-
-                CrosshairController.Instance.SetEquipCursor(needSetEquipCursor);
 
                 if (!hasMessage)
                 {
@@ -129,18 +109,16 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<TaskBoardButtonController>(out var taskBoardButton)) //кнопка на доске заданий
                 {
                     _clickTaskBoardButton.Enable();
-                    taskButtonController = taskBoardButton;
                     needSetEquipCursor = true;
-                } else
+                }
+                else
                 {
                     _clickTaskBoardButton.Disable();
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<TaskBoardTaskController>(out var boardTask)) //задание на доске заданий
                 {
-                    viewBoardTaskObject = hit.collider.gameObject;
                     _clickTaskBoardTask.Enable();
-                    viewBoardTask = boardTask;
                     needSetEquipCursor = true;
                 }
                 else
@@ -151,7 +129,6 @@ public class PlayerCheckView : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<TaskActiveButtonController>(out var completeSelectedTask)) //задание на доске заданий
                 {
                     _buttonSelectedTaskCompleteAction.Enable();
-                    _completeSelectedTaskController = completeSelectedTask;
                     needSetEquipCursor = true;
                 }
                 else
@@ -163,14 +140,15 @@ public class PlayerCheckView : MonoBehaviour
             }
             else
             {
-                CrosshairController.Instance.SetEquipCursor(false);
+                needSetEquipCursor = false;
                 DisableCurrentInputs();
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
-    }
+            CrosshairController.Instance.SetEquipCursor(needSetEquipCursor);
+        }
 
-}
+    }
 
     private void DisableCurrentInputs()
     {
@@ -183,9 +161,9 @@ public class PlayerCheckView : MonoBehaviour
     }
     public void TaskBoardButtonEventKeyboard(InputAction.CallbackContext context)
     {
-        if (context.performed && taskButtonController != null)
+        if (context.performed)
         {
-            taskButtonController.AddTaskOnBoard();
+            viewWorkingObject.GetComponent<TaskBoardButtonController>().AddTaskOnBoard();
         }
     }
 
@@ -194,14 +172,14 @@ public class PlayerCheckView : MonoBehaviour
     {
         if (context.performed)
         {
-            HandsPollBoxes.Instance.PickUpHandBox(viewBoxObject);
+            HandsPollBoxes.Instance.PickUpHandBox(viewWorkingObject);
         }
     }
     public void ClickTaskBoardTaskEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            viewBoardTask.AddTaskOnActiveTaskCapBoard(viewBoardTaskObject);
+            viewWorkingObject.GetComponent<TaskBoardTaskController>().AddTaskOnActiveTaskCapBoard(viewWorkingObject); //что за чушь
         }
     }
     public void UtilizeEmptyBoxesOnEventKeyboard(InputAction.CallbackContext context)
@@ -215,7 +193,7 @@ public class PlayerCheckView : MonoBehaviour
     {
         if (context.performed)
         {
-            currentUniversalButton.BuyBoxObjects();
+            viewWorkingObject.GetComponent<UniversalButtonEvent>().BuyBoxObjects();
         }
     }
     public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)
@@ -230,32 +208,33 @@ public class PlayerCheckView : MonoBehaviour
     {
         if (context.performed)
         {
-            _completeSelectedTaskController.AddTaskOnActiveBoard();
+            viewWorkingObject.GetComponent<TaskActiveButtonController>().AddTaskOnActiveBoard();
         }
     }
 
 
-    
+
 
     public void PutObjectOnShelfOnEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
             CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-            if (HandsPollBoxes.Instance.CurrentObjectInHandName == viewShelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            if (HandsPollBoxes.Instance.CurrentObjectInHandName == shelfController._shelfName) //проверка что товар в коробке и на полке совпадают
             {
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
-                    viewShelfController.AddOneObject(currentBox);
+                    shelfController.AddOneObject(currentBox);
                 }
             }
             else
             {
-                if (viewShelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentObjectInHandName != "EMPTY")
+                if (shelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentObjectInHandName != "EMPTY")
                 {
                     if (currentBox.CurrentCountObjectsInBox > 0)
                     {
-                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewShelfObject);
+                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
                     }
                 }
             }
@@ -264,7 +243,6 @@ public class PlayerCheckView : MonoBehaviour
 
     private void ClearMessageAndVieBox()
     {
-        viewBoxObject = null;
         PersonMessageInfo.Instance.ClearPersonMessage();
     }
     public void sendPersonMessage(string message)

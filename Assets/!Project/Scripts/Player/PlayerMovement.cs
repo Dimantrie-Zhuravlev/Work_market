@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleHorizontalMovement()
     {
         if (_inputDirection != Vector2.zero)
-             //&& _abilityCrouch.CrouchCoroutine == null
         {
             Vector3 cameraForward = _mainCamera.forward;
             Vector3 cameraRight = _mainCamera.right;
@@ -94,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleVerticalStairMovement()
     {
         if (_inputDirection != Vector2.zero)
-             //&& _abilityCrouch.CrouchCoroutine == null
         {
             Vector3 cameraForward = _mainCamera.forward;
             Vector3 cameraRight = _mainCamera.right;
@@ -113,13 +111,15 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.z = 0f;
         }
     }
-    public void AbilityActivatePerformed(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        _inputDirection = context.ReadValue<Vector2>();
-    }
-
-    public void AbilityActivateCanceled(InputAction.CallbackContext context)
-    {
-        _inputDirection = Vector2.zero;
+        if (context.performed)
+        {
+            _inputDirection = context.ReadValue<Vector2>();
+        }
+        else if (context.canceled)
+        {
+            _inputDirection = Vector2.zero;
+        }
     }
 }

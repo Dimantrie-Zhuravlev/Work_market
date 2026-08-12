@@ -79,7 +79,6 @@ public class HandsPollBoxes : MonoBehaviour
         var newCol = currentObjectInHand.AddComponent<BoxCollider>();
         newCol.center = BoxColliderCenter;
         newCol.size = BoxColliderSize;
-        currentObjectInHand.GetComponent<CurrentBoxSetting>().RestartObjectInBox();
     }
 
     public void ChangeBoxTypeOnEmpty()
@@ -87,6 +86,7 @@ public class HandsPollBoxes : MonoBehaviour
 
         AbstractPoolBoxes currentAbstractClass = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
         AddBoxColliderOnCurrentBox();
+        currentObjectInHand.GetComponent<CurrentBoxSetting>().RestartObjectInBox();
 
 
         currentAbstractClass.Release(currentObjectInHand);

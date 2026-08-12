@@ -27,7 +27,7 @@ public class PlayerRotation : MonoBehaviour
         _orbitalCamera.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f);
     }
 
-    public void AbilityActivatePerformed(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
 
