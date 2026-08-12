@@ -1,12 +1,23 @@
 using UnityEngine;
 
-public class TrashCanDataAbility : MonoBehaviour
+public class TrashCanDataAbility : MonoBehaviour, IInteractable
 {
-    public void DisableActiveEmptyBox(GameObject boxInScene, string boxName)
+
+    //public void Interact(GameObject boxInScene)
+    //{
+
+    //}
+
+    public void Interact()
     {
-        if (boxName == EnumBoxesName.EmptyBox)
+        GameObject boxInHands = HandsPollBoxes.Instance.CurrentObjectInHand;
+        if (boxInHands != null && HandsPollBoxes.Instance.CurrentObjectInHandName == EnumBoxesName.EmptyBox)
         {
-            PoolEmptyBoxes.Instance.Release(boxInScene);
+            PoolEmptyBoxes.Instance.Release(boxInHands);
+        }
+        else
+        {
+            PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
         }
     }
 }

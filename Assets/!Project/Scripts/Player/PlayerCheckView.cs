@@ -10,13 +10,12 @@ public class PlayerCheckView : MonoBehaviour
     [SerializeField] private LayerMask _layerMask;
 
     private GameObject viewWorkingObject;
+    public GameObject ViewWorkingObject =>  viewWorkingObject;
 
     [SerializeField] private PlayerInput playerInput;
+    private IInteractable _currentTargetInteract;
 
-    private InputAction _pickUpBoxAction;//Дизейбл эвента по коробкам
-    private InputAction _utilizeCanAction;
     private InputAction _putObjectOnShelfAction;
-    private InputAction _clickUniversalButtonfAction;
     private InputAction _clickTaskBoardButton;
     private InputAction _clickTaskBoardTask;
     private InputAction _buttonSelectedTaskCompleteAction;
@@ -28,10 +27,7 @@ public class PlayerCheckView : MonoBehaviour
 
     private void Awake()
     {
-        _pickUpBoxAction = playerInput.actions["PickUpBox"];
-        _utilizeCanAction = playerInput.actions["UtilizeEmptyBoxes"];
         _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
-        _clickUniversalButtonfAction = playerInput.actions["ClickUniversalButton"];
         _clickTaskBoardButton = playerInput.actions["ClickTaskBoardButton"];
         _clickTaskBoardTask = playerInput.actions["ClickTaskBoardTask"];
         _buttonSelectedTaskCompleteAction = playerInput.actions["ButtonSelectedTaskComplete"];
@@ -51,15 +47,17 @@ public class PlayerCheckView : MonoBehaviour
             {
                 viewWorkingObject = hit.collider.gameObject;
                 needSetEquipCursor = false;
-                if (hit.collider.gameObject.TryGetComponent<CurrentBoxSetting>(out var viewBox)) //Подъем коробки 
+
+                if (hit.collider.gameObject.TryGetComponent<IInteractable>(out var targetInteract)) //Подъем коробки 
                 {
-                    _pickUpBoxAction.Enable();
+                    _currentTargetInteract = targetInteract;
                     needSetEquipCursor = true;
-                }
-                else
+                } else
                 {
-                    _pickUpBoxAction.Disable();
+                    _currentTargetInteract = null;
                 }
+
+
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
                     needSetEquipCursor = true;
@@ -67,16 +65,6 @@ public class PlayerCheckView : MonoBehaviour
                 } else
                 {
                     ClearMessageAndVieBox();
-                }
-                if ( hit.collider.gameObject.TryGetComponent<TrashCanDataAbility>(out var trashCan)) //мусорка пустых коробок
-                {
-                    _utilizeCanAction.Enable();
-                    needSetEquipCursor = true;
-                }
-                else
-                {
-                    _utilizeCanAction.Disable();
-
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
@@ -88,16 +76,6 @@ public class PlayerCheckView : MonoBehaviour
                 {
                     _putObjectOnShelfAction.Disable();
                     shelf = null;
-                }
-
-                if (hit.collider.gameObject.TryGetComponent<UniversalButtonEvent>(out var universalButton)) //клик на универсальную кнопку
-                {
-                    _clickUniversalButtonfAction.Enable();
-                    needSetEquipCursor = true;
-                }
-                else
-                {
-                    _clickUniversalButtonfAction.Disable();
                 }
 
                 if (hit.collider.gameObject.TryGetComponent<TaskBoardButtonController>(out var taskBoardButton)) //кнопка на доске заданий
@@ -144,13 +122,19 @@ public class PlayerCheckView : MonoBehaviour
 
     private void DisableCurrentInputs()
     {
-        _pickUpBoxAction.Disable();
-        _utilizeCanAction.Disable();
         _putObjectOnShelfAction.Disable();
-        _clickUniversalButtonfAction.Disable();
         _clickTaskBoardButton.Disable();
         _clickTaskBoardTask.Disable();
     }
+
+    public void OnPerformInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _currentTargetInteract?.Interact();
+        }
+    }
+
     public void TaskBoardButtonEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -159,33 +143,11 @@ public class PlayerCheckView : MonoBehaviour
         }
     }
 
-
-    public void PickUpBoxOnEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            HandsPollBoxes.Instance.PickUpHandBox(viewWorkingObject);
-        }
-    }
     public void ClickTaskBoardTaskEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             viewWorkingObject.GetComponent<TaskBoardTaskController>().AddTaskOnActiveTaskCapBoard(viewWorkingObject); //что за чушь
-        }
-    }
-    public void UtilizeEmptyBoxesOnEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            HandsPollBoxes.Instance.UtilizeHandBox();
-        }
-    }
-    public void ClickOnUniversalButtonEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            viewWorkingObject.GetComponent<UniversalButtonEvent>().BuyBoxObjects();
         }
     }
     public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)

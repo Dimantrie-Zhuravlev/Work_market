@@ -14,6 +14,8 @@ public class HandsPollBoxes : MonoBehaviour
 
     //private string currentBoxNameInHands;
     private GameObject currentObjectInHand = null;
+
+    public GameObject CurrentObjectInHand => currentObjectInHand;
     public string CurrentObjectInHandName => currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox;
 
     public CurrentBoxSetting CurrentBoxHasCountObjects()
@@ -62,21 +64,6 @@ public class HandsPollBoxes : MonoBehaviour
         currentObjectInHand = null;
     }
 
-    public void UtilizeHandBox()
-    {
-        if (currentObjectInHand != null)
-        {
-            if (currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox == "EMPTY")
-            {
-                SendBoxInPool(true);
-            }
-            else
-            {
-                PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
-            }
-        }
-    }
-
     private void AddBoxColliderOnCurrentBox()
     {
         var newCol = currentObjectInHand.AddComponent<BoxCollider>();
@@ -99,9 +86,6 @@ public class HandsPollBoxes : MonoBehaviour
         Destroy(currentObjectInHand.GetComponent<Rigidbody>());
         Destroy(currentObjectInHand.GetComponent<BoxCollider>());
     }
-
-
-
     public void DropHandBox()
     {
         if (currentObjectInHand != null)

@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentBoxSetting : MonoBehaviour
+public class CurrentBoxSetting : MonoBehaviour, IInteractable
 {
     [SerializeField] public BoxSettings _currentBoxSetting;
     private AbstractPoolBoxes _abstractPoolBox;
+
 
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 
@@ -35,6 +36,11 @@ public class CurrentBoxSetting : MonoBehaviour
         }
         currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
         RestartObjectInBox();
+    }
+
+    public void Interact()
+    {
+        HandsPollBoxes.Instance.PickUpHandBox(this.gameObject);
     }
     public void RestartObjectInBox()
     {
@@ -72,4 +78,6 @@ public class CurrentBoxSetting : MonoBehaviour
             HandsPollBoxes.Instance.ChangeBoxTypeOnEmpty();
         }
     }
+
+
 }

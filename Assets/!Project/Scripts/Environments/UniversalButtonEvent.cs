@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class UniversalButtonEvent : MonoBehaviour
+public class UniversalButtonEvent : MonoBehaviour, IInteractable
 {
     [SerializeField] AbstractSupplyPark _abstractSupply;
     [SerializeField] AbstractPoolBoxes _abstractpoolBox;
@@ -12,14 +12,14 @@ public class UniversalButtonEvent : MonoBehaviour
     {
         priceBox = _abstractpoolBox.PriceOneBox;
     }
-    public void BuyBoxObjects()
+    public void Interact()
     {
-         
         if (PlayerWallet.Instance.CurrentBalance >= priceBox)
         {
             PlayerWallet.Instance.DecreaseBalance(priceBox);
             _abstractSupply.AddBoxOnSupplyPark();
-        } else
+        }
+        else
         {
             PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {priceBox}");
         }
