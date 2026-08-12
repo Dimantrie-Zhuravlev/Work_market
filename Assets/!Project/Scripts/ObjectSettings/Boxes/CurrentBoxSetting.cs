@@ -46,11 +46,12 @@ public class CurrentBoxSetting : MonoBehaviour
                 GameObject currentItem = objectsContainer.GetChild(i).gameObject;
                 _objectsInBoxes.Add(currentItem);
                 currentItem.SetActive(true);
-                if (i < objectsContainer.childCount - _currentBoxSetting.MaxObjectsInBox)
+                if (i >= _currentBoxSetting.MaxObjectsInBox)
                 {
                     currentItem.SetActive(false);
                 }
             }
+            currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
             SetNewMessageForCount();
         }
     }
