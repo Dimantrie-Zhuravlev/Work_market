@@ -133,7 +133,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2310736266669776977}
-  - component: {fileID: 7228247837022002757}
   m_Layer: 0
   m_Name: TaskBoard
   m_TagString: Untagged
@@ -159,18 +158,6 @@ Transform:
   - {fileID: 4285781664548804014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7228247837022002757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341048385669603635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4744b23c8494eb14daa159e59a39bd42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaskBoardTasksController
 --- !u!1 &6879692862508784814
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +390,7 @@ GameObject:
   - component: {fileID: 4491491619445355669}
   - component: {fileID: 334773240646486331}
   - component: {fileID: 2912225685956560916}
-  - component: {fileID: 1601299683599171419}
+  - component: {fileID: 8018524709183722943}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -517,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
   personMessage: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u043D\u0438\u0435"
---- !u!114 &1601299683599171419
+--- !u!114 &8018524709183722943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -526,9 +513,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8946347133816195794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf3f78ad274f2a74a9f19d6d71544c0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 19f4a0c4034c13841af2ac82b61c87f6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaskBoardButtonController
+  m_EditorClassIdentifier: Assembly-CSharp::TaskBoards.Main.ButtonController
 --- !u!1001 &2375140140203028587
 PrefabInstance:
   m_ObjectHideFlags: 0

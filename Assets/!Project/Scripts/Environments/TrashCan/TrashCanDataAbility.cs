@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class TrashCanDataAbility : MonoBehaviour, IInteractable
 {
-
-    //public void Interact(GameObject boxInScene)
-    //{
-
-    //}
-
     public void Interact()
     {
         GameObject boxInHands = HandsPollBoxes.Instance.CurrentObjectInHand;

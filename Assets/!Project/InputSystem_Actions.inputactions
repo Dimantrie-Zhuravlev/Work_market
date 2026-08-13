@@ -34,45 +34,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "LeftMouseSelect",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PutObjectOnShelf",
-                    "type": "Button",
-                    "id": "faa0ea49-6119-4e61-81b6-cfbc4f082382",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ClickTaskBoardButton",
-                    "type": "Button",
-                    "id": "9c2660cb-0aa4-4506-971a-2d3bf6992ed2",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ClickTaskBoardTask",
-                    "type": "Button",
-                    "id": "c45b171b-f35d-42a4-a2a4-fab54e709e25",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ButtonSelectedTaskComplete",
-                    "type": "Button",
-                    "id": "cd2b5331-7bea-4b12-9d02-ceb15e4b7b80",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -328,7 +292,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Attack",
+                    "action": "LeftMouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -339,7 +303,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "LeftMouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -350,7 +314,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Attack",
+                    "action": "LeftMouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -361,7 +325,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Attack",
+                    "action": "LeftMouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -372,18 +336,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "LeftMouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -494,94 +447,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Previous",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2fac3abd-63bf-4c92-bf4c-7e1a623f5e42",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "PutObjectOnShelf",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "79d9f8e3-3dfc-4806-8079-7f9fe53ae57e",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "PutObjectOnShelf",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2470f3be-8f1f-407b-8faa-83ad74915bbf",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ClickTaskBoardButton",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0fa3421d-a974-41a6-a956-9ed84e13afb2",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ClickTaskBoardButton",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a584ac71-4bc8-4fcd-a4ab-9520fe491cc0",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ClickTaskBoardTask",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "743a9d1a-ac7b-4fb5-bf55-df32afe9d9f9",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ClickTaskBoardTask",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d2e4cb7e-419f-48a3-8ad3-71d1c98198c7",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ButtonSelectedTaskComplete",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f1589282-682c-445b-a9dd-b99546be045a",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ButtonSelectedTaskComplete",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

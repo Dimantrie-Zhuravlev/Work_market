@@ -12,29 +12,23 @@ public class PlayerCheckView : MonoBehaviour
     private GameObject viewWorkingObject;
     public GameObject ViewWorkingObject =>  viewWorkingObject;
 
-    [SerializeField] private PlayerInput playerInput;
     private IInteractable _currentTargetInteract;
+    private IInteractableMouse _currentTargetInteractMouse;
 
-    private InputAction _putObjectOnShelfAction;
-    private InputAction _clickTaskBoardButton;
-    private InputAction _clickTaskBoardTask;
-    private InputAction _buttonSelectedTaskCompleteAction;
-
+    public static PlayerCheckView Instance { get; private set;  }
     private void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         _mainCamera = CameraManager.Instance.GetComponent<Camera>().gameObject;
     }
 
-    private void Awake()
-    {
-        _putObjectOnShelfAction = playerInput.actions["PutObjectOnShelf"];
-        _clickTaskBoardButton = playerInput.actions["ClickTaskBoardButton"];
-        _clickTaskBoardTask = playerInput.actions["ClickTaskBoardTask"];
-        _buttonSelectedTaskCompleteAction = playerInput.actions["ButtonSelectedTaskComplete"];
-
-
-        DisableCurrentInputs();
-    }
     private bool needSetEquipCursor = false;
 
     void Update()
@@ -48,7 +42,7 @@ public class PlayerCheckView : MonoBehaviour
                 viewWorkingObject = hit.collider.gameObject;
                 needSetEquipCursor = false;
 
-                if (hit.collider.gameObject.TryGetComponent<IInteractable>(out var targetInteract)) //Подъем коробки 
+                if (hit.collider.gameObject.TryGetComponent<IInteractable>(out var targetInteract)) //все события с кликом на E
                 {
                     _currentTargetInteract = targetInteract;
                     needSetEquipCursor = true;
@@ -57,61 +51,30 @@ public class PlayerCheckView : MonoBehaviour
                     _currentTargetInteract = null;
                 }
 
+                if (hit.collider.gameObject.TryGetComponent<IInteractableMouse>(out var targetMouseInteract)) //все события с кликом на мышью
+                {
+                    _currentTargetInteractMouse = targetMouseInteract;
+                    needSetEquipCursor = true;
+                }
+                else
+                {
+                    _currentTargetInteractMouse = null;
+                }
 
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
                     needSetEquipCursor = true;
-                    sendPersonMessage(environmentWithMessage.PersonMessage);
+                    PersonMessageInfo.Instance.SetPersonMessage(environmentWithMessage.PersonMessage);
                 } else
                 {
                     ClearMessageAndVieBox();
                 }
-
-                if (hit.collider.gameObject.TryGetComponent<ShelfController>(out var shelf)) //продуктовая полка стеллажа
-                {
-                    needSetEquipCursor = true;
-                    _putObjectOnShelfAction.Enable();
-                }
-                else
-                {
-                    _putObjectOnShelfAction.Disable();
-                    shelf = null;
-                }
-
-                if (hit.collider.gameObject.TryGetComponent<TaskBoardButtonController>(out var taskBoardButton)) //кнопка на доске заданий
-                {
-                    _clickTaskBoardButton.Enable();
-                    needSetEquipCursor = true;
-                }
-                else
-                {
-                    _clickTaskBoardButton.Disable();
-                }
-
-                if (hit.collider.gameObject.TryGetComponent<TaskBoardTaskController>(out var boardTask)) //задание на доске заданий
-                {
-                    _clickTaskBoardTask.Enable();
-                    needSetEquipCursor = true;
-                }
-                else
-                {
-                    _clickTaskBoardTask.Disable();
-                }
-
-                if (hit.collider.gameObject.TryGetComponent<TaskActiveButtonController>(out var completeSelectedTask)) //задание на доске заданий
-                {
-                    _buttonSelectedTaskCompleteAction.Enable();
-                    needSetEquipCursor = true;
-                }
-                else
-                {
-                    _buttonSelectedTaskCompleteAction.Disable();
-                }
             }
             else
             {
+                _currentTargetInteract = null;
+                _currentTargetInteractMouse = null;
                 needSetEquipCursor = false;
-                DisableCurrentInputs();
                 ClearMessageAndVieBox();
             }
             _lastCheckTime = Time.time;
@@ -120,13 +83,10 @@ public class PlayerCheckView : MonoBehaviour
 
     }
 
-    private void DisableCurrentInputs()
+    private void ClearMessageAndVieBox()
     {
-        _putObjectOnShelfAction.Disable();
-        _clickTaskBoardButton.Disable();
-        _clickTaskBoardTask.Disable();
+        PersonMessageInfo.Instance.ClearPersonMessage();
     }
-
     public void OnPerformInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -134,73 +94,13 @@ public class PlayerCheckView : MonoBehaviour
             _currentTargetInteract?.Interact();
         }
     }
-
-    public void TaskBoardButtonEventKeyboard(InputAction.CallbackContext context)
+    public void LeftMouseCLickEventKeyboard(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            viewWorkingObject.GetComponent<TaskBoardButtonController>().AddTaskOnBoard();
-        }
-    }
-
-    public void ClickTaskBoardTaskEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            viewWorkingObject.GetComponent<TaskBoardTaskController>().AddTaskOnActiveTaskCapBoard(viewWorkingObject); //что за чушь
-        }
-    }
-    public void DropBoxOnEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            HandsPollBoxes.Instance.DropHandBox();
-        }
-    }
-
-    public void CompleteSelectedTaskOnEventKeyboard(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            viewWorkingObject.GetComponent<TaskActiveButtonController>().AddTaskOnActiveBoard();
+            _currentTargetInteractMouse?.InteractMouse();
         }
     }
 
 
-
-
-    public void PutObjectOnShelfOnEventKeyboard(InputAction.CallbackContext context)
-    {
-        CurrentBoxSetting currentBox = HandsPollBoxes.Instance.CurrentBoxHasCountObjects();
-        if (context.performed && currentBox != null)
-        {
-            ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
-            if (HandsPollBoxes.Instance.CurrentObjectInHandName == shelfController._shelfName ) //проверка что товар в коробке и на полке совпадают
-            {
-                if (currentBox.CurrentCountObjectsInBox > 0)
-                {
-                    shelfController.AddOneObject(currentBox);
-                }
-            }
-            else
-            {
-                if (shelfController._shelfName == "EMPTY" && HandsPollBoxes.Instance.CurrentObjectInHandName != "EMPTY")
-                {
-                    if (currentBox.CurrentCountObjectsInBox > 0)
-                    {
-                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
-                    }
-                }
-            }
-        }
-    }
-
-    private void ClearMessageAndVieBox()
-    {
-        PersonMessageInfo.Instance.ClearPersonMessage();
-    }
-    public void sendPersonMessage(string message)
-    {
-        PersonMessageInfo.Instance.SetPersonMessage(message);
-    }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShelfController : MonoBehaviour
+public class ShelfController : MonoBehaviour, IInteractableMouse
 {
     [SerializeField] public string _shelfName;
 
@@ -30,6 +30,11 @@ public class ShelfController : MonoBehaviour
                 Debug.LogWarning($"Неизвестный тип коробки");
                 break;
         }
+    }
+
+    public void InteractMouse()
+    {
+        HandsPollBoxes.Instance.InteractMouse();
     }
 
     public void OnEnable()
@@ -63,4 +68,6 @@ public class ShelfController : MonoBehaviour
             currentBox.DecrementOneObjectInBox();
         }
     }
+
+
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6324151877176918440}
   - component: {fileID: -6323476910533128468}
   - component: {fileID: -7715214060009393577}
-  - component: {fileID: 4188575817472675400}
+  - component: {fileID: 3191387785368307662}
   m_Layer: 0
   m_Name: Task_1
   m_TagString: Untagged
@@ -128,7 +128,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.020000005, z: 0.020000005}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4188575817472675400
+--- !u!114 &3191387785368307662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,6 +137,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 807440579499532035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e7debdc5ed6894ab91b80f4cd0efa2, type: 3}
+  m_Script: {fileID: 11500000, guid: 35121e2a6b0bf724797e434e5699a618, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaskBoardTaskController
+  m_EditorClassIdentifier: Assembly-CSharp::TaskBoards.Main.TaskController

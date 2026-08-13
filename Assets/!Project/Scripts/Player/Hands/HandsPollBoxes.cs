@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 
@@ -12,7 +13,6 @@ public class HandsPollBoxes : MonoBehaviour
 
     public static HandsPollBoxes Instance { get; private set; }
 
-    //private string currentBoxNameInHands;
     private GameObject currentObjectInHand = null;
 
     public GameObject CurrentObjectInHand => currentObjectInHand;
@@ -53,6 +53,33 @@ public class HandsPollBoxes : MonoBehaviour
         }
     }
 
+    public void InteractMouse()
+    {
+        CurrentBoxSetting currentBox = CurrentBoxHasCountObjects();
+        if (currentBox != null)
+        {
+            GameObject viewWorkingObject = PlayerCheckView.Instance.ViewWorkingObject;
+            ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
+            if (currentBox._currentBoxSetting.typeBox == shelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            {
+                if (currentBox.CurrentCountObjectsInBox > 0)
+                {
+                    shelfController.AddOneObject(currentBox);
+                }
+            }
+            else
+            {
+                if (shelfController._shelfName == "EMPTY" && currentBox._currentBoxSetting.typeBox != "EMPTY")
+                {
+                    if (currentBox.CurrentCountObjectsInBox > 0)
+                    {
+                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
+                    }
+                }
+            }
+        }
+    }
+
     private void SendBoxInPool(bool needRelease)
     {
         AbstractPoolBoxes currentBoxPool = currentObjectInHand.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
@@ -86,9 +113,15 @@ public class HandsPollBoxes : MonoBehaviour
         Destroy(currentObjectInHand.GetComponent<Rigidbody>());
         Destroy(currentObjectInHand.GetComponent<BoxCollider>());
     }
-    public void DropHandBox()
+
+    public void DropBoxOnEventKeyboard()
     {
-        if (currentObjectInHand != null)
+
+    }
+
+    public void DropHandBox(InputAction.CallbackContext context)
+    {
+        if (context.performed && currentObjectInHand != null)
         {
             currentObjectInHand.AddComponent<Rigidbody>();
 
@@ -96,5 +129,4 @@ public class HandsPollBoxes : MonoBehaviour
             SendBoxInPool(false);
         }
     }
-
 }

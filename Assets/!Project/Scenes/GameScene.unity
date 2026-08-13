@@ -5003,7 +5003,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 503
-  playerInput: {fileID: 1169732083}
 --- !u!1001 &861510666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6659,7 +6658,19 @@ MonoBehaviour:
     m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 856962677}
+        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
+        m_MethodName: LeftMouseCLickEventKeyboard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
@@ -6724,9 +6735,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: DropBoxOnEventKeyboard
+      - m_Target: {fileID: 1257241629}
+        m_TargetAssemblyTypeName: HandsPollBoxes, Assembly-CSharp
+        m_MethodName: DropHandBox
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6738,102 +6749,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 93931c6e-50c2-4957-b71d-ed67a2cc992d
     m_ActionName: 'Player/DropObject[/Keyboard/g]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: UtilizeEmptyBoxesOnEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8689debb-6653-4df2-bc4c-9bf7997c3e8b
-    m_ActionName: 'Player/TrashEmptyBoxes[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: PutObjectOnShelfOnEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: faa0ea49-6119-4e61-81b6-cfbc4f082382
-    m_ActionName: 'Player/PutObjectOnShelf[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: ClickOnUniversalButtonEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c81926cc-33ca-4a32-9656-7228f80cdebd
-    m_ActionName: 'Player/ClickUniversalButton[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: TaskBoardButtonEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9c2660cb-0aa4-4506-971a-2d3bf6992ed2
-    m_ActionName: 'Player/ClickTaskBoardButton[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: ClickTaskBoardTaskEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c45b171b-f35d-42a4-a2a4-fab54e709e25
-    m_ActionName: 'Player/ClickTaskBoardTask[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 856962677}
-        m_TargetAssemblyTypeName: PlayerCheckView, Assembly-CSharp
-        m_MethodName: CompleteSelectedTaskOnEventKeyboard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cd2b5331-7bea-4b12-9d02-ceb15e4b7b80
-    m_ActionName: 'Player/ButtonSelectedTaskComplete[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 856962677}
@@ -6870,6 +6785,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1180717073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9061183313028828821, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+  m_PrefabInstance: {fileID: 2017157313488793857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1180717079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180717073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d9c34a3e414de43a30de12e51d7eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TaskBoards.Current.TaskController
 --- !u!4 &1190954707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6267210351611771021, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
@@ -9672,6 +9604,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
+--- !u!1 &1814377745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8263696072755438767, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+  m_PrefabInstance: {fileID: 2017157313488793857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1816089098
 GameObject:
   m_ObjectHideFlags: 0
@@ -11577,6 +11514,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3160782, y: 2.027566, z: 3.9920886}
   m_Center: {x: -0.08064175, y: -0.017256021, z: -0.0085350275}
+--- !u!114 &1106015757441734629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293450669069487449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedbe1af23c482d4780a89ee256a0ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TaskBoards.Main.TaskBoardController
 --- !u!4 &1174043820061965736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6267210351611771021, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
@@ -11659,7 +11608,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8263696072755438767, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
       propertyPath: m_Name
-      value: TaskActiveBoard
+      value: TaskBoardCurrent
       objectReference: {fileID: 0}
     - target: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11701,10 +11650,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5983213799927785096, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8263696072755438767, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3817190721754327340}
+    - targetCorrespondingSourceObject: {fileID: 9061183313028828821, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1180717079}
   m_SourcePrefab: {fileID: 100100000, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
 --- !u!4 &2531646079033674059 stripped
 Transform:
@@ -11781,6 +11737,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9005368267231380638, guid: 75f79cd1de58ea440a74785232eae664, type: 3}
   m_PrefabInstance: {fileID: 2017157313488793857}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3817190721754327340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814377745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28967b3a990dcd74aa3caf04011ba1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TaskBoards.Current.TaskBoardController
 --- !u!1001 &6031701484691067532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11888,7 +11856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6341048385669603635, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
       propertyPath: m_Name
-      value: TaskBoard
+      value: TaskBoardMain
       objectReference: {fileID: 0}
     - target: {fileID: 6341048385669603635, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
       propertyPath: m_Layer
@@ -11898,7 +11866,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Task_3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7228247837022002757, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6706789123819639351, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
     - {fileID: 5897578558813845951, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
@@ -11913,6 +11882,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6341048385669603635, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1106015757441734628}
+    - targetCorrespondingSourceObject: {fileID: 6341048385669603635, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1106015757441734629}
   m_SourcePrefab: {fileID: 100100000, guid: 7dd1ae381e339d44e8ee6e50f1709462, type: 3}
 --- !u!1001 &7192749101792367477
 PrefabInstance:
