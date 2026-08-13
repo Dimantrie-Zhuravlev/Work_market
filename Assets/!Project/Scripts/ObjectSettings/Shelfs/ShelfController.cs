@@ -34,7 +34,29 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
 
     public void InteractMouse()
     {
-        HandsPollBoxes.Instance.InteractMouse();
+        CurrentBoxSetting currentBox = HandObjectsController.Instance.CurrentBoxHasCountObjects();
+        if (currentBox != null)
+        {
+            GameObject viewWorkingObject = PlayerCheckView.Instance.ViewWorkingObject;
+            ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
+            if (currentBox._currentBoxSetting.typeBox == shelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            {
+                if (currentBox.CurrentCountObjectsInBox > 0)
+                {
+                    shelfController.AddOneObject(currentBox);
+                }
+            }
+            else
+            {
+                if (shelfController._shelfName == "EMPTY" && currentBox._currentBoxSetting.typeBox != "EMPTY")
+                {
+                    if (currentBox.CurrentCountObjectsInBox > 0)
+                    {
+                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
+                    }
+                }
+            }
+        }
     }
 
     public void OnEnable()

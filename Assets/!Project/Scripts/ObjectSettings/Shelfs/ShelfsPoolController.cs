@@ -19,16 +19,16 @@ public class ShelfsPoolController : MonoBehaviour
     public void ChangeShelfTypeAndAddObject(GameObject currentShelf)
     {
         ShelfController newShelf;
-        switch (HandsPollBoxes.Instance.CurrentObjectInHandName)
+        switch (HandObjectsController.Instance.CurrentObjectInHandName)
         {
             case EnumBoxesName.MakaronsBox:
                 newShelf = PoolMakaronShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
-                newShelf.AddOneObject(HandsPollBoxes.Instance.CurrentBoxHasCountObjects());
+                newShelf.AddOneObject(HandObjectsController.Instance.CurrentBoxHasCountObjects());
                 break;
 
             case EnumBoxesName.GoroxBox:
                 newShelf = PoolGoroxShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
-                newShelf.AddOneObject(HandsPollBoxes.Instance.CurrentBoxHasCountObjects());
+                newShelf.AddOneObject(HandObjectsController.Instance.CurrentBoxHasCountObjects());
                 break;
             default:
                 Debug.LogWarning($"Неизвестный тип коробки");

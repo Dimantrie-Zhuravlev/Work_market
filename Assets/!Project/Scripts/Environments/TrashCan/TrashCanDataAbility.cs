@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class TrashCanDataAbility : MonoBehaviour, IInteractable
+public class TrashCanDataAbility : MonoBehaviour, IInteractableMouse
 {
-    public void Interact()
+    public void InteractMouse()
     {
-        GameObject boxInHands = HandsPollBoxes.Instance.CurrentObjectInHand;
-        if (boxInHands != null && HandsPollBoxes.Instance.CurrentObjectInHandName == EnumBoxesName.EmptyBox)
-        {
-            PoolEmptyBoxes.Instance.Release(boxInHands);
-        }
+        GameObject boxInHands = HandObjectsController.Instance.CurrentObjectInHand;
+        if (boxInHands != null && boxInHands.TryGetComponent<CurrentBoxSetting>(out var box) && box._currentBoxSetting.typeBox == EnumBoxesName.EmptyBox) {
+            //if (box._currentBoxSetting.typeBox == EnumBoxesName.EmptyBox) 
+            //{
+                PoolEmptyBoxes.Instance.Release(boxInHands);
+                HandObjectsController.Instance.SetCurrentObject(null);
+            //}
+        } 
         else
         {
             PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Выкидывать можно только пустые коробки");
