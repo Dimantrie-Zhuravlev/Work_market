@@ -9,6 +9,10 @@ public class HandObjectsController : MonoBehaviour
     public GameObject CurrentObjectInHand => currentObjectInHand;
     public string CurrentObjectInHandName => currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox; //только для коробок
 
+    [SerializeField] private Animator _animator;
+
+    private int _hashIsHolding;
+
     public CurrentBoxSetting CurrentBoxHasCountObjects()
     {
         return currentObjectInHand == null ? null : currentObjectInHand.GetComponent<CurrentBoxSetting>();
@@ -24,10 +28,12 @@ public class HandObjectsController : MonoBehaviour
             return;
         }
         Instance = this;
+        _hashIsHolding = Animator.StringToHash("IsHolding");
     }
 
     public void PickUpObjectFromGround(GameObject newObject, StructureObjectPosition localPoition)
     {
+        _animator.SetBool(_hashIsHolding, true);
         newObject.transform.SetParent(transform, true);
         newObject.transform.SetLocalPositionAndRotation(localPoition.ObjectPosition, localPoition.ObjectRotation);
         Destroy(newObject.GetComponent<Rigidbody>());
@@ -44,6 +50,7 @@ public class HandObjectsController : MonoBehaviour
     {
         if (context.performed && currentObjectInHand != null && currentObjectInHand.TryGetComponent<IDropableObject>(out var drop))
         {
+            _animator.SetBool(_hashIsHolding, false);
             currentObjectInHand.AddComponent<Rigidbody>();
             drop.DropObject(currentObjectInHand);
             SetCurrentObject(null);

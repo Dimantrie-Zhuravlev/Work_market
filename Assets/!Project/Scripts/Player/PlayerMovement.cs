@@ -12,8 +12,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ссылки")]
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private CharacterController controller;
-    //[SerializeField] private PlayerAbilityCrouch _abilityCrouch;
+
+    private Animator _animator;
     private Vector3 playerVelocity;
+
+    private int _hashIsWalking;
 
     private bool isPlayerOnVerticalStair = false;
 
@@ -33,9 +36,14 @@ public class PlayerMovement : MonoBehaviour
 
     public float CurrentSpeed => currentSpeed;
 
+    public void Awake()
+    {
+        _animator = this.GetComponent<Animator>();
+    }
     private void Start()
     {
         SetBaseSpeed();
+        _hashIsWalking = Animator.StringToHash("IsWalking");
     }
     private void FixedUpdate()
     {
@@ -116,9 +124,11 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed)
         {
             _inputDirection = context.ReadValue<Vector2>();
+            _animator.SetBool(_hashIsWalking, true);      
         }
         else if (context.canceled)
         {
+            _animator.SetBool(_hashIsWalking, false);
             _inputDirection = Vector2.zero;
         }
     }
