@@ -11,7 +11,7 @@ public class TrayGhostTableController : MonoBehaviour, IInteractableMouse
         {
             gameObject.SetActive(false);
             GameObject tray = HandObjectsController.Instance.CurrentObjectInHand;
-            tray.GetComponent<TrayController>().AddBoxColliderOnDropObject(tray);
+            tray.GetComponent<TrayController>().EnableColliderOnDropObject(tray);
             tray.transform.SetParent(parentObject);
             tray.transform.SetPositionAndRotation(transform.position, transform.rotation);
             HandObjectsController.Instance.SetCurrentObject(null);

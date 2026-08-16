@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -36,8 +37,8 @@ public class HandObjectsController : MonoBehaviour
         _animator.SetBool(_hashIsHolding, true);
         newObject.transform.SetParent(transform, true);
         newObject.transform.SetLocalPositionAndRotation(localPoition.ObjectPosition, localPoition.ObjectRotation);
-        Destroy(newObject.GetComponent<Rigidbody>());
-        Destroy(newObject.GetComponent<BoxCollider>());
+        newObject.GetComponent<Rigidbody>().isKinematic = true;
+        newObject.GetComponent<BoxCollider>().enabled = false;
         SetCurrentObject(newObject);
     }
 
@@ -51,7 +52,7 @@ public class HandObjectsController : MonoBehaviour
         if (context.performed && currentObjectInHand != null && currentObjectInHand.TryGetComponent<IDropableObject>(out var drop))
         {
             _animator.SetBool(_hashIsHolding, false);
-            currentObjectInHand.AddComponent<Rigidbody>();
+            currentObjectInHand.GetComponent<Rigidbody>().isKinematic = false;
             drop.DropObject(currentObjectInHand);
             SetCurrentObject(null);
         }

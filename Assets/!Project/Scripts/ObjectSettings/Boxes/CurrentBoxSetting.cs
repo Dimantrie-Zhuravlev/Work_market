@@ -6,8 +6,6 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
 {
     [SerializeField] public BoxSettings _currentBoxSetting;
     private AbstractPoolBoxes _abstractPoolBox;
-    private StructureBoxCollider boxCollider = new StructureBoxCollider(new Vector3(0f, -0.14f, 0f), new Vector3(0.81f, 0.3f, 0.4f)); //точка создания коллайдера, для теста сделано через структуру
-
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 
     private int currentCountObjectsInBox;
@@ -91,30 +89,28 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     public void ChangeBoxTypeOnEmpty()
     {
         AbstractPoolBoxes currentAbstractClass = _abstractPoolBox;
-        AddBoxColliderOnDropObject(HandObjectsController.Instance.CurrentObjectInHand); //добавляет коллайдер коробке в руках
+        EnableColliderOnDropObject(HandObjectsController.Instance.CurrentObjectInHand); //добавляет коллайдер коробке в руках
 
         RestartObjectInBox();//заполняем коробку товарами
         currentAbstractClass.Release(HandObjectsController.Instance.CurrentObjectInHand); //релизим
 
         HandObjectsController inst1 = HandObjectsController.Instance;
         inst1.SetCurrentObject(PoolEmptyBoxes.Instance.Get(inst1.CurrentObjectInHand.transform.position, inst1.CurrentObjectInHand.transform.rotation, inst1.transform));
-
-        Destroy(HandObjectsController.Instance.CurrentObjectInHand.GetComponent<Rigidbody>());
-        Destroy(HandObjectsController.Instance.CurrentObjectInHand.GetComponent<BoxCollider>());
+        HandObjectsController.Instance.CurrentObjectInHand.GetComponent<Rigidbody>().isKinematic = true;
+        HandObjectsController.Instance.CurrentObjectInHand.GetComponent<BoxCollider>().enabled = false;
     }
 
     public void DropObject(GameObject currentObject)
     {
-        AddBoxColliderOnDropObject(currentObject);
+        //currentObject.GetComponent<BoxCollider>().enabled = true;
+        EnableColliderOnDropObject(currentObject);
         AbstractPoolBoxes currentBoxPool = currentObject.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
         currentObject.transform.SetParent(currentBoxPool.gameObject.transform);
     }
 
-    public void AddBoxColliderOnDropObject(GameObject currentObject)
+    public void EnableColliderOnDropObject(GameObject currentObject)
     {
-        var newCol = currentObject.AddComponent<BoxCollider>();
-        newCol.center = boxCollider.BoxColliderCenter;
-        newCol.size = boxCollider.BoxColliderSize;
+        currentObject.GetComponent<BoxCollider>().enabled = true;
     }
 
 }

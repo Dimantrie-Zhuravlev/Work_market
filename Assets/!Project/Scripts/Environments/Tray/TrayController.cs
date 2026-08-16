@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class TrayController : MonoBehaviour, IInteractable, IDropableObject
 {
-    private StructureBoxCollider boxCollider = new StructureBoxCollider(new Vector3(0f, -0.05f, 0f), new Vector3(0.7f, 0.15f, 1.37f)); //точка создания коллайдера, для теста сделано через структуру
-    public void AddBoxColliderOnDropObject(GameObject currentObject)
+    public void EnableColliderOnDropObject(GameObject currentObject)
     {
-        var newCol = gameObject.AddComponent<BoxCollider>();
-        newCol.center = boxCollider.BoxColliderCenter;
-        newCol.size = boxCollider.BoxColliderSize;
+        currentObject.GetComponent<BoxCollider>().enabled = true;
     }
 
     public void DropObject(GameObject currentObject)
     {
-        AddBoxColliderOnDropObject(gameObject);
+        EnableColliderOnDropObject(gameObject);
         currentObject.transform.SetParent(null);
     }
 
