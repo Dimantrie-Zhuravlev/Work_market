@@ -55,8 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58d41051327bcd4b95596807a1022d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
-  _shelfName: GOROX
-  _initialObjectsOnShelf: 1
+  _shelfProductName: GOROX
 --- !u!65 &5045784930635931003
 BoxCollider:
   m_ObjectHideFlags: 0

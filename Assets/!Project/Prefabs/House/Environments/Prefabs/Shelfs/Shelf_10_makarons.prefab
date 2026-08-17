@@ -718,8 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58d41051327bcd4b95596807a1022d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
-  _shelfName: MAKARON
-  _initialObjectsOnShelf: 0
+  _shelfProductName: MAKARON
 --- !u!1 &2481793403183531214
 GameObject:
   m_ObjectHideFlags: 0

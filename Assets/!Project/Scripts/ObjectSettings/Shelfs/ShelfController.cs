@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShelfController : MonoBehaviour, IInteractableMouse
 {
-    [SerializeField] public string _shelfName;
+    [SerializeField] public string _shelfProductName;
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
 
@@ -13,7 +13,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
 
     private void Start()
     {
-        switch (_shelfName)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
+        switch (_shelfProductName)  //Это нужно чтобы полки определили свой пул, из-за связи префаба-элемента
         {
             case EnumBoxesName.EmptyBox:
                 _currentPoolShelf = PoolEmptyShelf.Instance;
@@ -34,29 +34,37 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
 
     public void InteractMouse()
     {
-        CurrentBoxSetting currentBox = HandObjectsController.Instance.CurrentBoxHasCountObjects();
-        if (currentBox != null)
+        GameObject currentObjectInHand = HandObjectsController.Instance.CurrentObjectInHand;
+        if (currentObjectInHand != null)
         {
+            CurrentBoxSetting currentBox = currentObjectInHand.GetComponent<CurrentBoxSetting>();
             GameObject viewWorkingObject = PlayerCheckView.Instance.ViewWorkingObject;
-            ShelfController shelfController = viewWorkingObject.GetComponent<ShelfController>();
-            if (currentBox._currentBoxSetting.typeBox == shelfController._shelfName) //проверка что товар в коробке и на полке совпадают
+            if (currentObjectInHand.name == "Tray")
             {
-                if (currentBox.CurrentCountObjectsInBox > 0)
+                if (_shelfProductName != "EMPTY")
                 {
-                    shelfController.AddOneObject(currentBox);
+                    TakeoverOneObject();
                 }
             }
             else
             {
-                if (shelfController._shelfName == "EMPTY" && currentBox._currentBoxSetting.typeBox != "EMPTY")
+                if (currentBox.CurrentCountObjectsInBox > 0)
                 {
-                    if (currentBox.CurrentCountObjectsInBox > 0)
+                    if (currentBox._currentBoxSetting.typeBox == _shelfProductName) //проверка что товар в коробке и на полке совпадают
                     {
-                        ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
+                        AddOneObject(currentBox);
+                    }
+                    else
+                    {
+                        if (_shelfProductName == "EMPTY" && currentBox._currentBoxSetting.typeBox != "EMPTY")
+                        {
+                            ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
+                        }
                     }
                 }
             }
         }
+
     }
 
     public void OnEnable()
@@ -91,5 +99,13 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
         }
     }
 
-
+    public void TakeoverOneObject() {
+        int indexActiveElement = _ObjectsOnShelf.FindLastIndex(x => x.activeSelf);
+        print(indexActiveElement);
+        if (indexActiveElement == 0)
+        {
+            ShelfsPoolController.Instance.ChangeShelfTypeOnEmpty(this);
+        }
+        _ObjectsOnShelf[indexActiveElement].SetActive(false);
+    }
 }

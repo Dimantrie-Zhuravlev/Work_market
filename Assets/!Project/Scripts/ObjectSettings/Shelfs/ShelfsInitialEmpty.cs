@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ShelfsInitialEmpty : MonoBehaviour
 {
+
+
     void Start()
     {
         GameObject childContainer = transform.GetChild(0).gameObject; //заполнение стеллажа тремя пустыми секциями под товары

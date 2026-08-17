@@ -5,6 +5,24 @@ public class ShelfsPoolController : MonoBehaviour
 {
     public static ShelfsPoolController Instance { get; private set; }
 
+    private AbstractPoolShelf _SetPoolShelf() {
+        AbstractPoolShelf shelfValue = PoolMakaronShelf.Instance;
+        switch (HandObjectsController.Instance.CurrentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
+        {
+            case EnumBoxesName.MakaronsBox:
+                shelfValue = PoolMakaronShelf.Instance;
+                break;
+
+            case EnumBoxesName.GoroxBox:
+                shelfValue = PoolGoroxShelf.Instance;
+                break;
+            default:
+                Debug.LogWarning($"Неизвестный тип коробки");
+                break;
+        }
+        return shelfValue;
+     }
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -13,27 +31,21 @@ public class ShelfsPoolController : MonoBehaviour
             return;
         }
         Instance = this;
+
+    }
+
+    public void ChangeShelfTypeOnEmpty(ShelfController currentShelf)
+    {
+        PoolEmptyShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent);
+        currentShelf.CurrentPoolShelf.Release(currentShelf.gameObject);
     }
 
 
     public void ChangeShelfTypeAndAddObject(GameObject currentShelf)
     {
-        ShelfController newShelf;
-        switch (HandObjectsController.Instance.CurrentObjectInHandName)
-        {
-            case EnumBoxesName.MakaronsBox:
-                newShelf = PoolMakaronShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
-                newShelf.AddOneObject(HandObjectsController.Instance.CurrentBoxHasCountObjects());
-                break;
+        ShelfController newShelf = _SetPoolShelf().Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
+        newShelf.AddOneObject(HandObjectsController.Instance.CurrentObjectInHand.GetComponent<CurrentBoxSetting>());
 
-            case EnumBoxesName.GoroxBox:
-                newShelf = PoolGoroxShelf.Instance.Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
-                newShelf.AddOneObject(HandObjectsController.Instance.CurrentBoxHasCountObjects());
-                break;
-            default:
-                Debug.LogWarning($"Неизвестный тип коробки");
-                break;
-        }
 
         PoolEmptyShelf.Instance.Release(currentShelf);
     }

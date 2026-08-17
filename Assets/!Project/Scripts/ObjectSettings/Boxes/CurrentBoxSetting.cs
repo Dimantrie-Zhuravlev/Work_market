@@ -89,7 +89,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     public void ChangeBoxTypeOnEmpty()
     {
         AbstractPoolBoxes currentAbstractClass = _abstractPoolBox;
-        EnableColliderOnDropObject(HandObjectsController.Instance.CurrentObjectInHand); //добавляет коллайдер коробке в руках
+        EnableColliderOnDropObject(HandObjectsController.Instance.CurrentObjectInHand); //включает коллайдер коробке в руках
 
         RestartObjectInBox();//заполняем коробку товарами
         currentAbstractClass.Release(HandObjectsController.Instance.CurrentObjectInHand); //релизим
@@ -102,7 +102,6 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
 
     public void DropObject(GameObject currentObject)
     {
-        //currentObject.GetComponent<BoxCollider>().enabled = true;
         EnableColliderOnDropObject(currentObject);
         AbstractPoolBoxes currentBoxPool = currentObject.GetComponent<CurrentBoxSetting>().AbstractPoolBox;
         currentObject.transform.SetParent(currentBoxPool.gameObject.transform);

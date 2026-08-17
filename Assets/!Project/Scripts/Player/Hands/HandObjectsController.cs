@@ -8,17 +8,10 @@ public class HandObjectsController : MonoBehaviour
     private GameObject currentObjectInHand = null;
 
     public GameObject CurrentObjectInHand => currentObjectInHand;
-    public string CurrentObjectInHandName => currentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox; //только для коробок
 
     [SerializeField] private Animator _animator;
 
     private int _hashIsHolding;
-
-    public CurrentBoxSetting CurrentBoxHasCountObjects()
-    {
-        return currentObjectInHand == null ? null : currentObjectInHand.GetComponent<CurrentBoxSetting>();
-    }
-
 
     public static HandObjectsController Instance { get; private set; }
     void Start()
