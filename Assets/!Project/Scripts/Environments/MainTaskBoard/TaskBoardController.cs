@@ -108,7 +108,8 @@ namespace TaskBoards.Main
             var wrapper = new DataContainer { TasksArray = data };
             try
             {
-                await File.WriteAllTextAsync(_tasksSettingsServerName, JsonUtility.ToJson(wrapper, true));
+                await File.WriteAllTextAsync(_tasksSettingsServerName, JsonUtility.ToJson(wrapper, true)); //загрузка
+                await LoadTasksSettingsAsync(); //получение
             }
             catch (IOException e)
             {
