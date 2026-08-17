@@ -23,8 +23,9 @@ namespace TaskBoards.Current
             activeTask.SetActive(false);
         }
 
-        public void AddActiveTask()
+        public void AddActiveTask(SctructureTasksSettingsServer dataTask)
         {
+            activeTask.GetComponent<TaskBoards.Current.TaskController>().SetTaskQuest(dataTask);
             activeTask.SetActive(true);
         }
 

@@ -48,3 +48,4 @@ UnityAssetStore-*.json
 .takeSnapshot.snapshot
 
 /Logs/
+/Market_tasks_settings.json

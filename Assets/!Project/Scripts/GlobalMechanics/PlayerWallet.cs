@@ -25,6 +25,11 @@ public class PlayerWallet : MonoBehaviour
         _walletText.text = $"Баланс: {currentBalance}";
     }
 
+    public void IncreaseBalance(int decreaseCount)
+    {
+        currentBalance += decreaseCount;         
+        ChangeText();
+    }
 
     public bool DecreaseBalance(int decreaseCount)
     {
