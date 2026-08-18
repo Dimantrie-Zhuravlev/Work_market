@@ -9,22 +9,26 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 
     private int currentCountObjectsInBox;
+    public string _boxName;
     public int CurrentCountObjectsInBox => currentCountObjectsInBox;
 
     private List<GameObject> _objectsInBoxes = new List<GameObject>();
 
     private void Start()
     {
-        switch (_currentBoxSetting.typeBox)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
+        Transform childTransform = transform.GetChild(0);
+        _boxName = childTransform.name == "Objects" ? childTransform.GetChild(0).name : EnumBoxesName.EmptyProduct;
+
+        switch (_boxName)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
         {
-            case EnumBoxesName.EmptyBox:
+            case EnumBoxesName.EmptyProduct:
                 _abstractPoolBox = PoolEmptyBoxes.Instance;
                 break;
-            case EnumBoxesName.MakaronsBox:
+            case EnumBoxesName.MakaronsProduct:
                 _abstractPoolBox = PoolMakaronsBoxes.Instance;
                 break;
 
-            case EnumBoxesName.GoroxBox:
+            case EnumBoxesName.GoroxProduct:
                 _abstractPoolBox = PoolGoroxBoxes.Instance;
                 break;
 
@@ -51,7 +55,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
 
     public void RestartObjectInBox()
     {
-        if (_currentBoxSetting.typeBox != "EMPTY")
+        if (_boxName != EnumBoxesName.EmptyProduct)
         {
             Transform objectsContainer = transform.GetChild(0);
             for (int i = 0; i < objectsContainer.childCount; i++)

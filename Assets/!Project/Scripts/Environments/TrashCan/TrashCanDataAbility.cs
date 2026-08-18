@@ -5,7 +5,7 @@ public class TrashCanDataAbility : MonoBehaviour, IInteractableMouse
     public void InteractMouse()
     {
         GameObject boxInHands = HandObjectsController.Instance.CurrentObjectInHand;
-        if (boxInHands != null && boxInHands.TryGetComponent<CurrentBoxSetting>(out var box) && box._currentBoxSetting.typeBox == EnumBoxesName.EmptyBox)
+        if (boxInHands != null && boxInHands.TryGetComponent<CurrentBoxSetting>(out var box) && box._boxName == EnumBoxesName.EmptyProduct)
         {
             PoolEmptyBoxes.Instance.Release(boxInHands);
             HandObjectsController.Instance.SetCurrentObject(null);

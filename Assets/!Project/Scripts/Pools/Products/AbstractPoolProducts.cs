@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class AbstractPoolProducts : MonoBehaviour
+public abstract class AbstractPoolProducts : MonoBehaviour
 {
     [SerializeField] protected GameObject _objectProductPrefab;
+
+    public abstract string _PoolProductName();
 
     protected List<GameObject> _products = new List<GameObject>();
 

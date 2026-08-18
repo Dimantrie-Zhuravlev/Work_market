@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class TrayController : MonoBehaviour, IInteractable, IDropableObject
 {
@@ -29,13 +27,15 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
             TrayProductsPointPosition[i] = childContainer.transform.GetChild(i).transform;
         }
     }
-    private void ChangeProductsData(string poolName) {
+
+    private void ChangeProductsData(string poolName)
+    {
         switch (poolName)
         {
-            case "PoolProductMakaron":
+            case EnumBoxesName.MakaronsProduct:
                 ProductsData.Makarons++;
                 break;
-            case "PoolProductGorox":
+            case EnumBoxesName.GoroxProduct:
                 ProductsData.Goroxs++;
                 break;
         }
@@ -45,16 +45,16 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
     {
         int index = ProductsData.Goroxs + ProductsData.Makarons;
         TrayProducts.Add(productPool.Get(TrayProductsPointPosition[index].position, TrayProductsPointPosition[index].rotation, _productContainer));
-        ChangeProductsData(productPool.gameObject.name);
+        ChangeProductsData(productPool._PoolProductName());
     }
     public void PutProductFromShelf(AbstractPoolProducts productPool, string nameProduct)
     {
         switch (nameProduct)
         {
-            case "Makarons":
+            case EnumBoxesName.MakaronsProduct:
                 ProductsData.Makarons--;
                 break;
-            case "Gorox":
+            case EnumBoxesName.GoroxProduct:
                 ProductsData.Goroxs--;
                 break;
         }

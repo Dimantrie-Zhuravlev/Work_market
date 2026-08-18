@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class PoolProductMakaron : AbstractPoolProducts
 {
+    public override string _PoolProductName() => EnumBoxesName.MakaronsProduct;
     public static PoolProductMakaron Instance { get; private set; }
     public override void Awake()
     {

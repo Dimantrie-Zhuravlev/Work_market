@@ -7,13 +7,13 @@ public class ShelfsPoolController : MonoBehaviour
 
     private AbstractPoolShelf _SetPoolShelf() {
         AbstractPoolShelf shelfValue = PoolMakaronShelf.Instance;
-        switch (HandObjectsController.Instance.CurrentObjectInHand.GetComponent<CurrentBoxSetting>()._currentBoxSetting.typeBox)
+        switch (HandObjectsController.Instance.CurrentObjectInHand.GetComponent<CurrentBoxSetting>()._boxName)
         {
-            case EnumBoxesName.MakaronsBox:
+            case EnumBoxesName.MakaronsProduct:
                 shelfValue = PoolMakaronShelf.Instance;
                 break;
 
-            case EnumBoxesName.GoroxBox:
+            case EnumBoxesName.GoroxProduct:
                 shelfValue = PoolGoroxShelf.Instance;
                 break;
             default:

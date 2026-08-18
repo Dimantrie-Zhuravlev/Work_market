@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableRightMouse
 {
-    [SerializeField] public string _shelfProductName;
+    public string _shelfProductName;
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
 
@@ -14,17 +14,19 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
 
     private void Start()
     {
+        _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct;
+
         switch (_shelfProductName)  //Это нужно чтобы полки определили свой пул, из-за связи префаба-элемента
         {
-            case EnumBoxesName.EmptyBox:
+            case EnumBoxesName.EmptyProduct:
                 _currentPoolShelf = PoolEmptyShelf.Instance;
                 break;
-            case EnumBoxesName.MakaronsBox:
+            case EnumBoxesName.MakaronsProduct:
                 _currentPoolShelf = PoolMakaronShelf.Instance;
                 _currentPoolProduct = PoolProductMakaron.Instance;
                 break;
 
-            case EnumBoxesName.GoroxBox:
+            case EnumBoxesName.GoroxProduct:
                 _currentPoolShelf = PoolGoroxShelf.Instance;
                 _currentPoolProduct = PoolProductGorox.Instance;
                 break;
@@ -45,7 +47,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
             if (currentObjectInHand.name == "Tray")
             {
                 TrayController tray = currentObjectInHand.GetComponent<TrayController>();
-                if (_shelfProductName != "EMPTY" && !tray.isTrayFull)
+                if (_shelfProductName != EnumBoxesName.EmptyProduct && !tray.isTrayFull)
                 {
                     tray.PickUpProductFromShelf(_currentPoolProduct);
                     TakeoverOneObject();
@@ -55,13 +57,13 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
             {
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
-                    if (currentBox._currentBoxSetting.typeBox == _shelfProductName) //проверка что товар в коробке и на полке совпадают
+                    if (currentBox._boxName == _shelfProductName) //проверка что товар в коробке и на полке совпадают
                     {
                         AddOneObjectFromBox(currentBox);
                     }
                     else
                     {
-                        if (_shelfProductName == "EMPTY" && currentBox._currentBoxSetting.typeBox != "EMPTY")
+                        if (_shelfProductName == EnumBoxesName.EmptyProduct && currentBox._boxName != EnumBoxesName.EmptyProduct)
                         {
                             ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
                         }
@@ -122,21 +124,21 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
             TrayController tray = currentObjectInHand.GetComponent<TrayController>();
             switch (_shelfProductName)
             {
-                case EnumBoxesName.MakaronsBox:
+                case EnumBoxesName.MakaronsProduct:
                     if (tray.CurrentTrayProducts.Makarons > 0 && Get()) //проверяем есть ли на подносе макароны
                     {
-                        tray.PutProductFromShelf(_currentPoolProduct, "Makarons"); // убираем макароны с подноса если есть место на сл
+                        tray.PutProductFromShelf(_currentPoolProduct, EnumBoxesName.MakaronsProduct); // убираем макароны с подноса если есть место на сл
                     }
                     break;
 
-                case EnumBoxesName.GoroxBox:
+                case EnumBoxesName.GoroxProduct:
                     if (tray.CurrentTrayProducts.Goroxs > 0 && Get()) //проверяем есть ли на подносе макароны
                     {
-                        tray.PutProductFromShelf(_currentPoolProduct, "Gorox"); // убираем макароны с подноса если есть место на сл
+                        tray.PutProductFromShelf(_currentPoolProduct, EnumBoxesName.GoroxProduct); // убираем макароны с подноса если есть место на сл
                     }
                     break;
 
-                case EnumBoxesName.EmptyBox:
+                case EnumBoxesName.EmptyProduct:
                     print("Пока ничего не делаем");
                     break;
 
