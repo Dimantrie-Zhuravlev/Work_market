@@ -653,6 +653,7 @@ GameObject:
   - component: {fileID: 2843724815756432442}
   - component: {fileID: 5521880952390660803}
   - component: {fileID: 7219067296639759718}
+  - component: {fileID: -5907425186258674356}
   m_Layer: 0
   m_Name: Shelf_10_makarons
   m_TagString: Untagged
@@ -719,6 +720,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
   _shelfProductName: MAKARON
+--- !u!114 &-5907425186258674356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187928407659930046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0148325b1a3094aa1b051f32340e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
+  personMessage: "\u041F\u043E\u043B\u043A\u0430 \u043C\u0430\u043A\u0430\u0440\u043E\u043D"
 --- !u!1 &2481793403183531214
 GameObject:
   m_ObjectHideFlags: 0

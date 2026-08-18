@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5388122515031291251}
   - component: {fileID: 4019427935740135032}
   - component: {fileID: -1110742994361429508}
+  - component: {fileID: 3830465893646734383}
   m_Layer: 0
   m_Name: Shelf_Empty
   m_TagString: Untagged
@@ -67,3 +68,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
   _shelfProductName: EMPTY
+--- !u!114 &3830465893646734383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321712211264314525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0148325b1a3094aa1b051f32340e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
+  personMessage: "\u041F\u0443\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u043A\u0430"

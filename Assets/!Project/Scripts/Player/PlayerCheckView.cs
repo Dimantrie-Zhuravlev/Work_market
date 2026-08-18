@@ -14,6 +14,7 @@ public class PlayerCheckView : MonoBehaviour
 
     private IInteractable _currentTargetInteract;
     private IInteractableMouse _currentTargetInteractMouse;
+    private IInteractableRightMouse _currentTargetInteractRightMouse;
 
     public static PlayerCheckView Instance { get; private set;  }
     private void Start()
@@ -61,6 +62,16 @@ public class PlayerCheckView : MonoBehaviour
                     _currentTargetInteractMouse = null;
                 }
 
+                if (hit.collider.gameObject.TryGetComponent<IInteractableRightMouse>(out var targetMouseRightInteract)) //все события с кликом на мышью
+                {
+                    _currentTargetInteractRightMouse = targetMouseRightInteract;
+                    needSetEquipCursor = true;
+                }
+                else
+                {
+                    _currentTargetInteractRightMouse = null;
+                }
+
                 if (hit.collider.gameObject.TryGetComponent<EnvironmentsPersonMessage>(out var environmentWithMessage)) //чтение сообщений от предметов если есть
                 {
                     needSetEquipCursor = true;
@@ -101,6 +112,12 @@ public class PlayerCheckView : MonoBehaviour
             _currentTargetInteractMouse?.InteractMouse();
         }
     }
-
+    public void RightMouseCLickEventKeyboard(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _currentTargetInteractRightMouse?.InteractRightMouse();
+        }
+    }
 
 }

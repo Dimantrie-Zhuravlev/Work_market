@@ -4,7 +4,7 @@ using System.Linq;
 
 public class AbstractPoolProducts : MonoBehaviour
 {
-    [SerializeField] protected GameObject _objectBoxPrefab;
+    [SerializeField] protected GameObject _objectProductPrefab;
 
     protected List<GameObject> _products = new List<GameObject>();
 
@@ -58,7 +58,7 @@ public class AbstractPoolProducts : MonoBehaviour
 
     public virtual GameObject CreateObject(Vector3 position, Quaternion rotation)
     {
-        var obj = Instantiate(_objectBoxPrefab, position, rotation, transform);
+        var obj = Instantiate(_objectProductPrefab, position, rotation, transform);
         _products.Add(obj);
         return obj;
     }

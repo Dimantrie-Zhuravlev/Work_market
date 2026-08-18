@@ -66,8 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58d41051327bcd4b95596807a1022d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
-  _shelfName: EMPTY
-  _initialObjectsOnShelf: 0
+  _shelfProductName: 
 --- !u!1 &3635621935261046698
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +150,7 @@ GameObject:
   - component: {fileID: 1500226124134846004}
   - component: {fileID: 151023453332743310}
   - component: {fileID: 4760582174399756827}
+  - component: {fileID: 4502362311904026167}
   m_Layer: 0
   m_Name: ParkWall
   m_TagString: Untagged
@@ -230,6 +230,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4502362311904026167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4081438423149724545}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019999998, y: 0.020000001, z: 0.020000016}
+  m_Center: {x: 0, y: 0, z: 0.00000011920929}
 --- !u!1 &4321712211264314525
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,8 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58d41051327bcd4b95596807a1022d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
-  _shelfName: EMPTY
-  _initialObjectsOnShelf: 0
+  _shelfProductName: 
 --- !u!1 &5009983946645902912
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,8 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58d41051327bcd4b95596807a1022d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShelfController
-  _shelfName: EMPTY
-  _initialObjectsOnShelf: 0
+  _shelfProductName: 
 --- !u!1 &8924510112720150102
 GameObject:
   m_ObjectHideFlags: 0

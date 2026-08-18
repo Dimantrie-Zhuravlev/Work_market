@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class AbstractPoolProductMakaron : AbstractPoolProducts
+public class PoolProductGorox : AbstractPoolProducts
 {
-    public static AbstractPoolProductMakaron Instance { get; private set; }
+    public static PoolProductGorox Instance { get; private set; }
     public override void Awake()
     {
         if (Instance != null && Instance != this)

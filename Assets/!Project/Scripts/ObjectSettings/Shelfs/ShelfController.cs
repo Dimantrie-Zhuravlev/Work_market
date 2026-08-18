@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShelfController : MonoBehaviour, IInteractableMouse
+public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableRightMouse
 {
     [SerializeField] public string _shelfProductName;
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
 
     private AbstractPoolShelf _currentPoolShelf;
+    private AbstractPoolProducts _currentPoolProduct;
     public AbstractPoolShelf CurrentPoolShelf => _currentPoolShelf;
 
     private void Start()
@@ -20,10 +21,12 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
                 break;
             case EnumBoxesName.MakaronsBox:
                 _currentPoolShelf = PoolMakaronShelf.Instance;
+                _currentPoolProduct = PoolProductMakaron.Instance;
                 break;
 
             case EnumBoxesName.GoroxBox:
                 _currentPoolShelf = PoolGoroxShelf.Instance;
+                _currentPoolProduct = PoolProductGorox.Instance;
                 break;
 
             default:
@@ -41,8 +44,10 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
             GameObject viewWorkingObject = PlayerCheckView.Instance.ViewWorkingObject;
             if (currentObjectInHand.name == "Tray")
             {
-                if (_shelfProductName != "EMPTY")
+                TrayController tray = currentObjectInHand.GetComponent<TrayController>();
+                if (_shelfProductName != "EMPTY" && !tray.isTrayFull)
                 {
+                    tray.PickUpProductFromShelf(_currentPoolProduct);
                     TakeoverOneObject();
                 }
             }
@@ -52,7 +57,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
                 {
                     if (currentBox._currentBoxSetting.typeBox == _shelfProductName) //проверка что товар в коробке и на полке совпадают
                     {
-                        AddOneObject(currentBox);
+                        AddOneObjectFromBox(currentBox);
                     }
                     else
                     {
@@ -91,7 +96,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
         obj.SetActive(false);
     }
 
-    public void AddOneObject(CurrentBoxSetting currentBox)
+    public void AddOneObjectFromBox(CurrentBoxSetting currentBox)
     {
         if (Get())
         {
@@ -99,13 +104,46 @@ public class ShelfController : MonoBehaviour, IInteractableMouse
         }
     }
 
-    public void TakeoverOneObject() {
+    public void TakeoverOneObject()
+    {
         int indexActiveElement = _ObjectsOnShelf.FindLastIndex(x => x.activeSelf);
-        print(indexActiveElement);
         if (indexActiveElement == 0)
         {
             ShelfsPoolController.Instance.ChangeShelfTypeOnEmpty(this);
         }
         _ObjectsOnShelf[indexActiveElement].SetActive(false);
+    }
+
+    public void InteractRightMouse()
+    {
+        GameObject currentObjectInHand = HandObjectsController.Instance.CurrentObjectInHand;
+        if (currentObjectInHand != null && currentObjectInHand.name == "Tray")
+        {
+            TrayController tray = currentObjectInHand.GetComponent<TrayController>();
+            switch (_shelfProductName)
+            {
+                case EnumBoxesName.MakaronsBox:
+                    if (tray.CurrentTrayProducts.Makarons > 0 && Get()) //проверяем есть ли на подносе макароны
+                    {
+                        tray.PutProductFromShelf(_currentPoolProduct, "Makarons"); // убираем макароны с подноса если есть место на сл
+                    }
+                    break;
+
+                case EnumBoxesName.GoroxBox:
+                    if (tray.CurrentTrayProducts.Goroxs > 0 && Get()) //проверяем есть ли на подносе макароны
+                    {
+                        tray.PutProductFromShelf(_currentPoolProduct, "Gorox"); // убираем макароны с подноса если есть место на сл
+                    }
+                    break;
+
+                case EnumBoxesName.EmptyBox:
+                    print("Пока ничего не делаем");
+                    break;
+
+                default:
+                    Debug.LogWarning($"Неизвестный тип стеллажа");
+                    break;
+            }
+        }
     }
 }

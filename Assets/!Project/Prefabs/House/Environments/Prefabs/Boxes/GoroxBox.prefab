@@ -656,7 +656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (7)
+      value: Gorox (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -718,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (6)
+      value: Gorox (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (3)
+      value: Gorox (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -842,7 +842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (8)
+      value: Gorox (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -904,7 +904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (4)
+      value: Gorox (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -966,7 +966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (2)
+      value: Gorox (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1090,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (1)
+      value: Gorox (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1152,7 +1152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8430174312261905961, guid: ccc9922d0b3d9104bb4dbcdb90a63e20, type: 3}
       propertyPath: m_Name
-      value: Gorox (5)
+      value: Gorox (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
