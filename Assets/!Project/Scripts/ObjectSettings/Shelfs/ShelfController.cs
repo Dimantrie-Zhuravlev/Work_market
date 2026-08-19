@@ -15,26 +15,8 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
     private void Start()
     {
         _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct;
-
-        switch (_shelfProductName)  //Это нужно чтобы полки определили свой пул, из-за связи префаба-элемента
-        {
-            case EnumBoxesName.EmptyProduct:
-                _currentPoolShelf = PoolEmptyShelf.Instance;
-                break;
-            case EnumBoxesName.MakaronsProduct:
-                _currentPoolShelf = PoolMakaronShelf.Instance;
-                _currentPoolProduct = PoolProductMakaron.Instance;
-                break;
-
-            case EnumBoxesName.GoroxProduct:
-                _currentPoolShelf = PoolGoroxShelf.Instance;
-                _currentPoolProduct = PoolProductGorox.Instance;
-                break;
-
-            default:
-                Debug.LogWarning($"Неизвестный тип коробки");
-                break;
-        }
+        _currentPoolShelf = ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductShelfPool;
+        _currentPoolProduct = ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductPool;
     }
 
     public void InteractMouse()

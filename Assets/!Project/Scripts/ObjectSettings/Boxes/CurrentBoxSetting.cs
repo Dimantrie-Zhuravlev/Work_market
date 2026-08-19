@@ -19,23 +19,8 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
         Transform childTransform = transform.GetChild(0);
         _boxName = childTransform.name == "Objects" ? childTransform.GetChild(0).name : EnumBoxesName.EmptyProduct;
 
-        switch (_boxName)  //Это нужно чтобы дочерние элементы определили свой пул, из-за связи префаба-элемента
-        {
-            case EnumBoxesName.EmptyProduct:
-                _abstractPoolBox = PoolEmptyBoxes.Instance;
-                break;
-            case EnumBoxesName.MakaronsProduct:
-                _abstractPoolBox = PoolMakaronsBoxes.Instance;
-                break;
+        _abstractPoolBox = ConnectNamesProducts.Instance.DataProducts(_boxName)._ProductsBoxPool;
 
-            case EnumBoxesName.GoroxProduct:
-                _abstractPoolBox = PoolGoroxBoxes.Instance;
-                break;
-
-            default:
-                Debug.LogWarning($"Неизвестный тип коробки");
-                break;
-        }
         currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
         RestartObjectInBox();
     }

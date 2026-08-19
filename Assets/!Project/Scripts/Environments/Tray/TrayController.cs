@@ -28,15 +28,29 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
         }
     }
 
-    private void ChangeProductsData(string poolName)
+    private void ChangeProductsData(string poolName, bool isIncrease)
     {
         switch (poolName)
         {
             case EnumBoxesName.MakaronsProduct:
-                ProductsData.Makarons++;
+                if (isIncrease)
+                {
+                    ProductsData.Makarons++;
+                }
+                else
+                {
+                    ProductsData.Makarons--;
+                }
                 break;
             case EnumBoxesName.GoroxProduct:
-                ProductsData.Goroxs++;
+                if (isIncrease)
+                {
+                    ProductsData.Goroxs++;
+                }
+                else
+                {
+                    ProductsData.Goroxs--;
+                }
                 break;
         }
     }
@@ -45,19 +59,11 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
     {
         int index = ProductsData.Goroxs + ProductsData.Makarons;
         TrayProducts.Add(productPool.Get(TrayProductsPointPosition[index].position, TrayProductsPointPosition[index].rotation, _productContainer));
-        ChangeProductsData(productPool._PoolProductName());
+        ChangeProductsData(productPool._PoolProductName(), true);
     }
     public void PutProductFromShelf(AbstractPoolProducts productPool, string nameProduct)
     {
-        switch (nameProduct)
-        {
-            case EnumBoxesName.MakaronsProduct:
-                ProductsData.Makarons--;
-                break;
-            case EnumBoxesName.GoroxProduct:
-                ProductsData.Goroxs--;
-                break;
-        }
+        ChangeProductsData(nameProduct, false);
         int index = TrayProducts.Select((value, i) => new { value, i })
                            .Where(x => x.value != null && x.value.name.Contains(nameProduct))
                            .Select(x => x.i)
