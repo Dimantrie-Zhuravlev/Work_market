@@ -18,8 +18,8 @@ namespace TaskBoards.Current
             currentQuest = dataTask;
             levelText.text = $"Сложность: {dataTask.TaskLevel}";
             rewardText.text = $"Награда: {dataTask.Reward}";
-            molokoText.text = $"Нужно {dataTask.Makaron} макарон";
-            goroxText.text = $"Нужно: {dataTask.Gorox} гороха";
+            molokoText.text = dataTask.Makaron > 0 ? $"Нужно {dataTask.Makaron} макарон" : "";
+            goroxText.text = dataTask.Gorox > 0 ? $"Нужно: {dataTask.Gorox} гороха" : "";
         }
 
 
@@ -32,7 +32,8 @@ namespace TaskBoards.Current
                 TaskBoardController.Instance.DeleteActiveTask();
                 PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
                 QuestProductsController.Instance.ClearCurentQuest();
-            } else
+            }
+            else
             {
                 PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Не все предметы доставлены");
             }

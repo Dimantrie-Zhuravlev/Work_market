@@ -4,11 +4,11 @@ using UnityEngine;
 public struct SctructureTasksSettingsServer
 {
     public int TaskLevel;
-    public int Reward;
     public int Makaron;
     public int Gorox;
+    public Money Reward;
 
-    public SctructureTasksSettingsServer(int level, int makaron, int gorox, int reward)
+    public SctructureTasksSettingsServer(int level, int makaron, int gorox, Money reward)
     {
         TaskLevel = level;
         Makaron = makaron;

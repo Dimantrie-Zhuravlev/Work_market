@@ -4028,9 +4028,29 @@ PrefabInstance:
       value: SupplyGoroxPark
       objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: _poolBoxes
       value: 
       objectReference: {fileID: 1434104007}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPriceKop
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPriceRub
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice._rubles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice._kopecks
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: currentMessageOnBoxView
       value: "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
@@ -4042,6 +4062,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+--- !u!1 &464487412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464487413}
+  m_Layer: 0
+  m_Name: ProductsCalculationPrices
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &464487413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464487412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 764193413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &466400678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5531,6 +5582,7 @@ Transform:
   - {fileID: 1816089099}
   - {fileID: 546474868}
   - {fileID: 610369168}
+  - {fileID: 464487413}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &765165075 stripped
@@ -11638,7 +11690,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolGoroxBoxes
   _objectBoxPrefab: {fileID: 1180285585874766646, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
-  PriceOneBox: 30
 --- !u!4 &1447390691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5388122515031291251, guid: 82edb1d508c341c4ba554ed401567f77, type: 3}
@@ -14596,7 +14647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolEmptyBoxes
   _objectBoxPrefab: {fileID: 9086872706680233911, guid: fef150d2d0665524a914e57d0cb23e3a, type: 3}
-  PriceOneBox: 0
 --- !u!4 &1990132846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2843724815756432442, guid: a814c0c46b2fc614cb2ecc787fb80d4c, type: 3}
@@ -15480,7 +15530,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolMakaronsBoxes
   _objectBoxPrefab: {fileID: 6905394491905813135, guid: 3f3547a736ae885488aec379c8cf493f, type: 3}
-  PriceOneBox: 25
 --- !u!4 &2112468102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1304941374246888477, guid: 13570d4bd37e3944f937c01d1ac18237, type: 3}
@@ -15692,9 +15741,29 @@ PrefabInstance:
       value: SupplyMakaronsPark
       objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: _poolBoxes
       value: 
       objectReference: {fileID: 2110729405}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPriceKop
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPriceRub
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice._rubles
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: BoxPrice._kopecks
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: currentMessageOnBoxView
       value: "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430

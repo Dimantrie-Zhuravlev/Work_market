@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c81694f2f0bdd24bb9d7fcda512373d, type: 3}
   m_Name: MakaronsBoxSetting
   m_EditorClassIdentifier: Assembly-CSharp::BoxSettings
-  type: MAKARON
-  maxObjectsInBox: 6
-  playerMessageView: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u043C\u0430\u043A\u0430\u0440\u043E\u043D"
+  maxObjectsInBox: 8

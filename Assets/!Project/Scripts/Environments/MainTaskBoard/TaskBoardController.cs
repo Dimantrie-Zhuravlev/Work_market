@@ -46,7 +46,9 @@ namespace TaskBoards.Main
                 {
                     makarons = Random.Range(1, 5);
                 }
-                SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makarons, gorox, makarons * 2 + gorox*3);
+                Money makarons1 = ProductsRewardings.MakaronsReward * makarons;
+                Money gorox1 = ProductsRewardings.GoroxReward * gorox;
+                SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makarons, gorox, makarons1 + gorox1);
 
 
                 GameObject currentTask = _tasksList.Find(elem => !elem.activeInHierarchy);

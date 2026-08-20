@@ -9,6 +9,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 
     private int currentCountObjectsInBox;
+    [HideInInspector]
     public string _boxName;
     public int CurrentCountObjectsInBox => currentCountObjectsInBox;
 

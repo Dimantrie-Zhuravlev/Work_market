@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour
 {
-    private int currentBalance = 100;
+    private Money currentBalance = new Money(10, 0);
     [SerializeField] TMP_Text _walletText;
-    public int CurrentBalance => currentBalance;
+    public Money CurrentBalance => currentBalance;
 
     public static PlayerWallet Instance { get; private set; }
 
@@ -25,13 +25,13 @@ public class PlayerWallet : MonoBehaviour
         _walletText.text = $"Баланс: {currentBalance}";
     }
 
-    public void IncreaseBalance(int decreaseCount)
+    public void IncreaseBalance(Money decreaseCount)
     {
-        currentBalance += decreaseCount;         
+        currentBalance = currentBalance + decreaseCount;         
         ChangeText();
     }
 
-    public bool DecreaseBalance(int decreaseCount)
+    public bool DecreaseBalance(Money decreaseCount)
     {
         if (currentBalance >= decreaseCount)
         {

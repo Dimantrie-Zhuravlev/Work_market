@@ -6,7 +6,18 @@ public abstract class AbstractSupplyPark : MonoBehaviour
 {
     protected List<CurrentBoxSetting> _productBoxes = new List<CurrentBoxSetting>();
     protected int currentCountProductBoxes;
+
+    [SerializeField] private int BoxPriceRub;
+    [SerializeField] private int BoxPriceKop;
+
+    private Money _boxPrice;
+    public Money BoxPrice => _boxPrice;
     public abstract void AddBoxOnSupplyPark();
+
+    private void Awake()
+    {
+        _boxPrice = new Money(BoxPriceRub, BoxPriceKop);
+    }
 
     protected void updateCurrentBoxesCount()
     {

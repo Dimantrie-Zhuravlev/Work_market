@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class AbstractPoolBoxes : MonoBehaviour
 {
     [SerializeField] protected GameObject _objectBoxPrefab;
-    [SerializeField] public int PriceOneBox;
 
     protected List<GameObject> _objectBoxes = new List<GameObject>();
 

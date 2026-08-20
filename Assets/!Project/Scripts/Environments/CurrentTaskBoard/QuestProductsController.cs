@@ -12,7 +12,6 @@ public class QuestProductsController : MonoBehaviour
 
     private void Start()
     {
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
