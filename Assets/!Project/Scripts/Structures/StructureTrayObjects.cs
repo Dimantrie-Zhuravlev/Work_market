@@ -3,11 +3,13 @@ using UnityEngine;
 public struct StructureTrayObjects
 {
     public int Makarons;
-    public int Goroxs;
+    public int Gorox;
+    public int TotalProductsFroQuest;
 
-    public StructureTrayObjects(int makarons, int goroxs)
+    public StructureTrayObjects(int makarons, int gorox, int totalProductsFroQuest)
     {
         Makarons = makarons;
-        Goroxs = goroxs;
+        Gorox = gorox;
+        TotalProductsFroQuest = totalProductsFroQuest;
     }
 }

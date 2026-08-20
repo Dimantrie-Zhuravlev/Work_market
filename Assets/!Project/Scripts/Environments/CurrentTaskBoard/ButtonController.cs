@@ -6,7 +6,7 @@ namespace TaskBoards.Current
     {
         public void Interact()
         {
-            //TaskBoards.Current.TaskBoardController.Instance.DeleteActiveTask();
+            print("Не реализовано");
         }
     }
 

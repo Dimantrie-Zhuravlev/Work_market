@@ -109,14 +109,14 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
                 case EnumBoxesName.MakaronsProduct:
                     if (tray.CurrentTrayProducts.Makarons > 0 && Get()) //проверяем есть ли на подносе макароны
                     {
-                        tray.PutProductFromShelf(_currentPoolProduct, EnumBoxesName.MakaronsProduct); // убираем макароны с подноса если есть место на сл
+                        tray.PutProductFromTray(EnumBoxesName.MakaronsProduct); // убираем макароны с подноса если есть место на сл
                     }
                     break;
 
                 case EnumBoxesName.GoroxProduct:
-                    if (tray.CurrentTrayProducts.Goroxs > 0 && Get()) //проверяем есть ли на подносе макароны
+                    if (tray.CurrentTrayProducts.Gorox > 0 && Get()) //проверяем есть ли на подносе макароны
                     {
-                        tray.PutProductFromShelf(_currentPoolProduct, EnumBoxesName.GoroxProduct); // убираем макароны с подноса если есть место на сл
+                        tray.PutProductFromTray(EnumBoxesName.GoroxProduct); // убираем макароны с подноса если есть место на сл
                     }
                     break;
 

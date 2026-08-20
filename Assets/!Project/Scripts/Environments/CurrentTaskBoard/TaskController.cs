@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using TaskBoards.Current;
 
 namespace TaskBoards.Current
 {
@@ -24,9 +25,17 @@ namespace TaskBoards.Current
 
         public void Interact()
         {
-            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"На баланс добавлено {currentQuest.Reward}");
-            TaskBoards.Current.TaskBoardController.Instance.DeleteActiveTask();
-            PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
+            StructureTrayObjects quest = QuestProductsController.Instance.QuestData;
+            if (quest.TotalProductsFroQuest == 0)
+            {
+                PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"На баланс добавлено {currentQuest.Reward}");
+                TaskBoardController.Instance.DeleteActiveTask();
+                PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
+                QuestProductsController.Instance.ClearCurentQuest();
+            } else
+            {
+                PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Не все предметы доставлены");
+            }
         }
     }
 

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TrayController : MonoBehaviour, IInteractable, IDropableObject
 {
-    private List<GameObject> TrayProducts = new List<GameObject>(8);
+    private GameObject[] TrayProducts = new GameObject[8];
     private Transform[] TrayProductsPointPosition = new Transform[8];
-    private StructureTrayObjects ProductsData = new StructureTrayObjects(0, 0);
+    private StructureTrayObjects ProductsData = new StructureTrayObjects(0, 0, 0);
     private Transform _productContainer;
 
-    public bool isTrayFull => (ProductsData.Goroxs + ProductsData.Makarons) >= 8;
+    public bool isTrayFull => ProductsData.TotalProductsFroQuest >= 8;
     public StructureTrayObjects CurrentTrayProducts => ProductsData;
 
     public void EnableColliderOnDropObject(GameObject currentObject)
@@ -18,7 +18,6 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
     }
     private void Start()
     {
-        TrayProducts = new List<GameObject>();
         _productContainer = transform.GetChild(1).transform;
 
         GameObject childContainer = transform.GetChild(2).gameObject;
@@ -36,20 +35,24 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
                 if (isIncrease)
                 {
                     ProductsData.Makarons++;
+                    ProductsData.TotalProductsFroQuest++;
                 }
                 else
                 {
                     ProductsData.Makarons--;
+                    ProductsData.TotalProductsFroQuest--;
                 }
                 break;
             case EnumBoxesName.GoroxProduct:
                 if (isIncrease)
                 {
-                    ProductsData.Goroxs++;
+                    ProductsData.Gorox++;
+                    ProductsData.TotalProductsFroQuest++;
                 }
                 else
                 {
-                    ProductsData.Goroxs--;
+                    ProductsData.Gorox--;
+                    ProductsData.TotalProductsFroQuest--;
                 }
                 break;
         }
@@ -57,19 +60,30 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
 
     public void PickUpProductFromShelf(AbstractPoolProducts productPool)
     {
-        int index = ProductsData.Goroxs + ProductsData.Makarons;
-        TrayProducts.Add(productPool.Get(TrayProductsPointPosition[index].position, TrayProductsPointPosition[index].rotation, _productContainer));
-        ChangeProductsData(productPool._PoolProductName(), true);
+        for (int i = 0; i < TrayProducts.Length; i++)
+        {
+            if (TrayProducts[i] == null)
+            {
+                ChangeProductsData(productPool._PoolProductName(), true); //проверка на занятость ShelfController
+                TrayProducts[i] = productPool.Get(TrayProductsPointPosition[i].position, TrayProductsPointPosition[i].rotation, _productContainer);
+                break; // Нашли и убрали первый попавшийся — выходим, чтобы не трогать остальные
+            }
+        }
+
     }
-    public void PutProductFromShelf(AbstractPoolProducts productPool, string nameProduct)
+
+    public void PutProductFromTray(string nameProduct)
     {
         ChangeProductsData(nameProduct, false);
-        int index = TrayProducts.Select((value, i) => new { value, i })
-                           .Where(x => x.value != null && x.value.name.Contains(nameProduct))
-                           .Select(x => x.i)
-                           .LastOrDefault();
-        productPool.Release(TrayProducts[index]);
-        TrayProducts[index] = null;
+        for (int i = 0; i < TrayProducts.Length; i++)
+        {
+            if (TrayProducts[i] != null && TrayProducts[i].name.Contains(nameProduct))
+            {
+                ConnectNamesProducts.Instance.DataProducts(nameProduct)._ProductPool.Release(TrayProducts[i]);
+                TrayProducts[i] = null;
+                break;
+            }
+        }
     }
 
     public void DropObject(GameObject currentObject)
