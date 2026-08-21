@@ -57,6 +57,16 @@ public struct Money : IEquatable<Money>, IComparable<Money>
         return FromTotalKopecks(totalKopecks);
     }
 
+    // Деление на целое число (округление вниз)
+    public static Money operator /(Money money, int divisor)
+    {
+        long totalKopecks = ((long)money._rubles * 100 + money._kopecks) / divisor;
+        return FromTotalKopecks(totalKopecks);
+    }
+
+    #endregion
+
+    #region Сравнения
     public static bool operator >(Money money1, Money money2)
     {
         return money1.Rubles * 100 + money1.Kopecks > money2.Rubles * 100 + money2.Kopecks;
@@ -73,18 +83,6 @@ public struct Money : IEquatable<Money>, IComparable<Money>
     {
         return money1.Rubles * 100 + money1.Kopecks <= money2.Rubles * 100 + money2.Kopecks;
     }
-
-    // Деление на целое число (округление вниз)
-    public static Money operator /(Money money, int divisor)
-    {
-        long totalKopecks = ((long)money._rubles * 100 + money._kopecks) / divisor;
-        return FromTotalKopecks(totalKopecks);
-    }
-
-    #endregion
-
-    #region Сравнения
-
     public bool Equals(Money other) => _rubles == other._rubles && _kopecks == other._kopecks;
     public int CompareTo(Money other) => GetTotalKopecks().CompareTo(other.GetTotalKopecks());
 

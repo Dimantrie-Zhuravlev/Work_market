@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
 {
-    [SerializeField] public BoxSettings _currentBoxSetting;
+    [HideInInspector]
+    public BoxSettings _currentBoxSetting;
     private AbstractPoolBoxes _abstractPoolBox;
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
 

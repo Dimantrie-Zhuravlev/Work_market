@@ -412,7 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b566cbc64fbb5614586b8e2d930e25ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
-  _currentBoxSetting: {fileID: 11400000, guid: c4fd68d0f7ee20e4c9b1695d7a3a6b0b, type: 2}
+  _currentBoxSetting: {fileID: 11400000, guid: 93e5a8a5aef9b6e48b24f46c8d064d10, type: 2}
+  _boxName: 
 --- !u!114 &-8476191534282216999
 MonoBehaviour:
   m_ObjectHideFlags: 0
