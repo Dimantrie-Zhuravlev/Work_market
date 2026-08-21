@@ -4052,6 +4052,22 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPrice._rubles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPrice._kopecks
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPriceNew._rubles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPriceNew._kopecks
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: currentMessageOnBoxView
       value: "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
         \u0433\u043E\u0440\u043E\u0445\u0430"
@@ -15763,6 +15779,22 @@ PrefabInstance:
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: BoxPrice._kopecks
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPrice._rubles
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPrice._kopecks
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPriceNew._rubles
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
+      propertyPath: _boxPriceNew._kopecks
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2772682560744361388, guid: 20c5664b725cf6a48ab83927e306ddcd, type: 3}
       propertyPath: currentMessageOnBoxView
