@@ -16,6 +16,8 @@ public class PlayerCheckView : MonoBehaviour
     private IInteractableMouse _currentTargetInteractMouse;
     private IInteractableRightMouse _currentTargetInteractRightMouse;
 
+    public bool IsCarryingBox { get; private set; } = false;
+    public void SetCarryingBox(bool value) => IsCarryingBox = value;
     public static PlayerCheckView Instance { get; private set;  }
     private void Start()
     {
