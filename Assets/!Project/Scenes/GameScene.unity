@@ -8812,6 +8812,9 @@ PrefabInstance:
       addedObject: {fileID: 1114546739}
     - targetCorrespondingSourceObject: {fileID: 990903540611260484, guid: 8e1471e805192fd4e902f7cc7eec8378, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1114546741}
+    - targetCorrespondingSourceObject: {fileID: 990903540611260484, guid: 8e1471e805192fd4e902f7cc7eec8378, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1114546737}
     - targetCorrespondingSourceObject: {fileID: 990903540611260484, guid: 8e1471e805192fd4e902f7cc7eec8378, type: 3}
       insertIndex: -1
@@ -8895,7 +8898,7 @@ CharacterController:
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1114546737
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -8959,6 +8962,22 @@ MonoBehaviour:
   scheduler: {fileID: 1114546739}
   checkView: {fileID: 1114546734}
   rotation: {fileID: 1114546735}
+--- !u!114 &1114546741
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114546732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b769f09e88ffda544aa40d62f49bb9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarryBoxAbility
+  abilityPriority: 1
+  carrySpeed: 5
+  controller: {fileID: 1114546736}
+  mainCamera: {fileID: 1645529328}
 --- !u!1001 &1123647605
 PrefabInstance:
   m_ObjectHideFlags: 0
