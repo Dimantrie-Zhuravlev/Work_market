@@ -64,6 +64,11 @@ public struct Money : IEquatable<Money>, IComparable<Money>
         return FromTotalKopecks(totalKopecks);
     }
 
+    public static float operator /(Money money, Money divisor)
+    {
+        return (float)(money._rubles * 100 + money._kopecks) / (divisor._rubles * 100 + divisor._kopecks);
+    }
+
     #endregion
 
     #region Сравнения

@@ -32,6 +32,7 @@ namespace TaskBoards.Current
                 TaskBoardController.Instance.DeleteActiveTask();
                 PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
                 QuestProductsController.Instance.ClearCurentQuest();
+                ExperienceSystem.Instance.AddCurrentExperience(currentQuest.Reward);
             }
             else
             {
