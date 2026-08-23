@@ -23,11 +23,6 @@ namespace DiasGames.Abilities
 
         // actions reference
         protected CharacterActions _action;
-
-        /// <summary>
-        /// Set reference to get actions for character (for input)
-        /// </summary>
-        /// <param name="newAction"></param>
         public void SetActionReference(ref CharacterActions newAction)
         {
             _action = newAction;
