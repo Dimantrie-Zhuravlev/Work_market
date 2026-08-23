@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour, IInteractable
@@ -10,29 +8,40 @@ public class DoorController : MonoBehaviour, IInteractable
     private bool doorOpened = false;
 
     private int _stateHash;
-    private bool isAnimating = false; 
+    private bool isAnimating = false;
+
+    [SerializeField] int needLvlToOpen = 0;
+
 
     private void Awake()
     {
         _stateHash = Animator.StringToHash("IsOpen");
-        _message = this.GetComponent<EnvironmentsPersonMessage>();
-        _animator = this.GetComponent<Animator>();
+        _message = GetComponent<EnvironmentsPersonMessage>();
+        _animator = GetComponent<Animator>();
     }
     //
     public void Interact()
     {
-        if (isAnimating) return;
-        bool targetState = !_animator.GetBool("IsOpen");
+        if (ExperienceSystem.Instance.CurrentLevel >= needLvlToOpen)
+        {
+            if (isAnimating) return;
+            bool targetState = !_animator.GetBool("IsOpen");
 
-        isAnimating = true;
-        _animator.SetBool("IsOpen", targetState);
+            isAnimating = true;
+            _animator.SetBool("IsOpen", targetState);
 
 
-        doorOpened = !doorOpened;
-        _animator.SetBool(_stateHash, doorOpened);
+            doorOpened = !doorOpened;
+            _animator.SetBool(_stateHash, doorOpened);
 
-        float animationTime = 1f;
-        Invoke(nameof(UnlockInteraction), animationTime);
+            float animationTime = 1f;
+            Invoke(nameof(UnlockInteraction), animationTime);
+        }
+        else
+        {
+            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Нужен {needLvlToOpen} уровень");
+        }
+
     }
 
     private void UnlockInteraction()

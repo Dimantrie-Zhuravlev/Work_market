@@ -13,9 +13,11 @@ public class ExperienceSystem : MonoBehaviour
 
     private int currentLevel;
     private Money currentExperienceCount = new Money(0, 0);
-    private Money[] needExperience = { new Money(2, 0), new Money(3, 0) };
+    private Money[] needExperience = { new Money(2, 0), new Money(3, 0), new Money(5, 0), new Money(9, 0) };
 
     private bool isMaxLevel = false;
+
+    public int CurrentLevel => currentLevel;
 
     private float _currentFillValue;
     private void Start()

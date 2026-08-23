@@ -39,7 +39,7 @@ public class PlayerCheckView : MonoBehaviour
         if (Time.time - _lastCheckTime > _checkInterval)
         {
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 5f, _layerMask, QueryTriggerInteraction.Ignore);
+            bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 3f, _layerMask, QueryTriggerInteraction.Ignore);
             if (hasHit && hit.collider)
             {
                 viewWorkingObject = hit.collider.gameObject;
