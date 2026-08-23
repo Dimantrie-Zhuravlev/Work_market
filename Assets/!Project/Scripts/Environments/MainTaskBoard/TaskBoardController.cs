@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TaskBoards.Main
@@ -12,7 +10,7 @@ namespace TaskBoards.Main
         private List<GameObject> _tasksList = new List<GameObject>();
         private readonly int _maxTasksCount = 8;
 
-        public static TaskBoards.Main.TaskBoardController Instance;
+        public static TaskBoardController Instance;
 
         public bool CanAddNewTask => currentCountsTasks < _maxTasksCount;
 
@@ -35,7 +33,11 @@ namespace TaskBoards.Main
                 _tasksList.Add(currentItem);
                 currentItem.SetActive(false);
             }
+
+            TimeGameManager.OnThirtyMinutesPassed += AddNewTask; //подписка на прошедшие полчаса игрового времени
         }
+
+
         public void AddNewTask()
         {
             if (CanAddNewTask)
