@@ -9,14 +9,9 @@ public class UniversalButtonEvent : MonoBehaviour, IInteractable
     public void Interact()
     {
         Money priceBox = _abstractSupply.BoxPrice;
-        if (PlayerWallet.Instance.CurrentBalance >= priceBox)
+        if (_abstractSupply.CurrentCountProductBoxes < 4 && PlayerWallet.Instance.CanPayShoping(priceBox))
         {
-            PlayerWallet.Instance.DecreaseBalance(priceBox);
             _abstractSupply.AddBoxOnSupplyPark();
-        }
-        else
-        {
-            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {priceBox}");
         }
     }
 }

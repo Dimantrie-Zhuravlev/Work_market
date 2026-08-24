@@ -5,8 +5,6 @@ public class PlayerWallet : MonoBehaviour
 {
     private Money currentBalance = new Money(10, 0);
     [SerializeField] TMP_Text _walletText;
-    public Money CurrentBalance => currentBalance;
-
     public static PlayerWallet Instance { get; private set; }
 
     public void Awake()
@@ -20,6 +18,20 @@ public class PlayerWallet : MonoBehaviour
         ChangeText();
     }
 
+    public bool CanPayShoping(Money shopingPrice)
+    {
+        if (currentBalance >= shopingPrice)
+        {
+            currentBalance -= shopingPrice;
+            ChangeText();
+            return true;
+        } else
+        {
+            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {shopingPrice}");
+        }
+        return false;        
+    }
+
     private void ChangeText()
     {
         _walletText.text = $"Баланс: {currentBalance}";
@@ -30,16 +42,4 @@ public class PlayerWallet : MonoBehaviour
         currentBalance = currentBalance + decreaseCount;         
         ChangeText();
     }
-
-    public bool DecreaseBalance(Money decreaseCount)
-    {
-        if (currentBalance >= decreaseCount)
-        {
-            currentBalance -= decreaseCount;
-            ChangeText();
-            return true;
-        }
-        return false;
-    }
-
 }

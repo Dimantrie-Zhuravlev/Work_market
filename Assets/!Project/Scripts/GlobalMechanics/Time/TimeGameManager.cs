@@ -12,6 +12,7 @@ public class TimeGameManager : MonoBehaviour
     [SerializeField] private int _timerInterval;
 
     public static event Action OnThirtyMinutesPassed;
+    public static event Action OnTwentyMinutesPassed;
 
     private GameTime globalTimer;
 
@@ -34,6 +35,10 @@ public class TimeGameManager : MonoBehaviour
             if (globalTimer.Minutes % 30 == 0)
             {
                 OnThirtyMinutesPassed?.Invoke();
+            }
+            if (globalTimer.Minutes % 20 == 0)
+            {
+                OnTwentyMinutesPassed?.Invoke();
             }
         }
     }

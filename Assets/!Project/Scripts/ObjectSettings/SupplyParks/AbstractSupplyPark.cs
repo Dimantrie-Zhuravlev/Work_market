@@ -9,6 +9,7 @@ public abstract class AbstractSupplyPark : MonoBehaviour
 
     [SerializeField] private Money _boxPrice;
     public Money BoxPrice => _boxPrice;
+    public int CurrentCountProductBoxes => currentCountProductBoxes;
     public abstract void AddBoxOnSupplyPark();
 
     protected void updateCurrentBoxesCount()

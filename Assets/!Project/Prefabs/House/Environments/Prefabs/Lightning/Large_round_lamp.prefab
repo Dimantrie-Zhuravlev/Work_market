@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 230855641686713960}
   - component: {fileID: 8700709138109428343}
   - component: {fileID: 8767740235705281607}
+  - component: {fileID: 3374718707031912717}
   m_Layer: 0
   m_Name: Large_round_lamp
   m_TagString: Untagged
@@ -105,10 +106,10 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.94509804, g: 0.92156863, b: 0.7882353, a: 1}
-  m_Intensity: 80
+  m_Intensity: 60
   m_Range: 15
   m_SpotAngle: 179
-  m_InnerSpotAngle: 105.826385
+  m_InnerSpotAngle: 105.82637
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 0
@@ -144,7 +145,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -222,3 +223,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentsPersonMessage
   personMessage: "\u041E\u0441\u0432\u0435\u0449\u0435\u043D\u0438\u0435 1"
+--- !u!114 &3374718707031912717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5743137043179274956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511bebf61101d214594dfcd69ca706a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoofLightning
+  countElectricityIn20Minutes: 500
+  isMechanismActive: 1
