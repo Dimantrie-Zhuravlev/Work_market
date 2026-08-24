@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
 
     private CharacterActions _actions = new CharacterActions();
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void Update()
     {
         if (scheduler != null)
