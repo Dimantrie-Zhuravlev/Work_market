@@ -1,7 +1,5 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class HandObjectsController : MonoBehaviour
 {
