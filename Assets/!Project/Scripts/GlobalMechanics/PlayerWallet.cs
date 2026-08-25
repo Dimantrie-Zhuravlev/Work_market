@@ -1,24 +1,25 @@
 using TMPro;
 using UnityEngine;
 
-public class PlayerWallet : MonoBehaviour
+public class PlayerWallet : MonoSingleton<PlayerWallet>
 {
     private Money currentBalance = new Money(10, 0);
-    [SerializeField] TMP_Text _walletText;
-    public static PlayerWallet Instance { get; private set; }
 
-    public void Awake()
+    public Money CurrentBalance => currentBalance;
+    TMP_Text _walletText;
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        base.Awake();
+        _walletText = GetComponent<TMP_Text>();
         ChangeText();
     }
 
-    public bool CanPayShoping(Money shopingPrice)
+    private void OnEnable()
+    {
+        ChangeText();
+    }
+
+    public bool CanPayShoping(Money shopingPrice, bool isUIActive = false)
     {
         if (currentBalance >= shopingPrice)
         {
@@ -27,7 +28,7 @@ public class PlayerWallet : MonoBehaviour
             return true;
         } else
         {
-            PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {shopingPrice}");
+            if (!isUIActive) PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"Не хватает {shopingPrice}");
         }
         return false;        
     }

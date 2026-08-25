@@ -6,4 +6,6 @@ public interface IGlobalProductData
 
     Money PriceBox { get; }
     Money PriceProduct { get; }
+
+    AbstractSupplyPark SupplyPark { get; }
 }

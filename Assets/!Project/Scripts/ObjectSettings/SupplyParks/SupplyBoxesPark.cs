@@ -6,7 +6,7 @@ public class SupplyBoxesPark : AbstractSupplyPark
 {
     [SerializeField] AbstractPoolBoxes _poolBoxes;
     [Tooltip("Сообщение на коробке")]
-    [SerializeField] string currentMessageOnBoxView;    
+    [SerializeField] string currentMessageOnBoxView;
     GameObject childContainer;
     public override void Start()
     {
@@ -22,14 +22,11 @@ public class SupplyBoxesPark : AbstractSupplyPark
 
     public override void AddBoxOnSupplyPark()
     {
-        if (currentCountProductBoxes < 4)
-        {
-            int index = _productBoxes.IndexOf(null);
-            GameObject newProductBox = _poolBoxes.Get(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation, childContainer.transform);
-            newProductBox.GetComponent<Rigidbody>().isKinematic = true;
-            _productBoxes[index] = newProductBox.GetComponent<CurrentBoxSetting>();
-            newProductBox.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage(currentMessageOnBoxView);
-            updateCurrentBoxesCount();
-        }
+        int index = _productBoxes.IndexOf(null);
+        GameObject newProductBox = _poolBoxes.Get(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation, childContainer.transform);
+        newProductBox.GetComponent<Rigidbody>().isKinematic = true;
+        _productBoxes[index] = newProductBox.GetComponent<CurrentBoxSetting>();
+        newProductBox.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage(currentMessageOnBoxView);
+        updateCurrentBoxesCount();
     }
 }

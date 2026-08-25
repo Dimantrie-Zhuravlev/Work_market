@@ -398,6 +398,8 @@ MonoBehaviour:
   _nameLabel: {fileID: 8743810653758266343}
   _labelPriceBox: {fileID: 8943795535011674080}
   _labelPriceProduct: {fileID: 2183485662513443921}
+  _labelSupplyBoxes: {fileID: 1982322986952372378}
+  _shopUIController: {fileID: 0}
 --- !u!1 &3386054736047737766
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0430 \u043F\u043E\u043B\u043A\u0430\u0445 3/4"
+  m_text: "\u041A\u043E\u0440\u043E\u0431\u043E\u043A 3/4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -655,7 +657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7417238469442877458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8471020321227194618}
+        m_TargetAssemblyTypeName: ListItemRender, Assembly-CSharp
+        m_MethodName: BuyBox
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5961038670127041782
 GameObject:
   m_ObjectHideFlags: 0
