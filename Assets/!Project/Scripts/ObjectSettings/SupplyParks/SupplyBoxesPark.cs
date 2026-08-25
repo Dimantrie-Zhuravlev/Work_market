@@ -8,8 +8,9 @@ public class SupplyBoxesPark : AbstractSupplyPark
     [Tooltip("Сообщение на коробке")]
     [SerializeField] string currentMessageOnBoxView;    
     GameObject childContainer;
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         childContainer = transform.GetChild(0).gameObject;
 
         for (int i = 0; i < 4; i++) //Предзаполнение массива 4 null 

@@ -98,6 +98,7 @@ public struct Money : IEquatable<Money>, IComparable<Money>
     // Конвертация из общего количества копеек (удобно для расчетов)
     public static Money FromTotalKopecks(long totalKopecks)
     {
+        //Debug.Log(totalKopecks);
         int r = (int)(totalKopecks / 100);
         int k = (int)(totalKopecks % 100);
 
@@ -106,6 +107,8 @@ public struct Money : IEquatable<Money>, IComparable<Money>
             r -= 1;
             k += 100;
         }
+        //Debug.Log(r);
+        //Debug.Log(k);
         return new Money(r, k);
     }
 
