@@ -1,20 +1,14 @@
 using System;
+using TMPro;
 using UnityEngine;
 
-public class CrosshairController : MonoBehaviour
+public class CrosshairController : MonoSingleton<CrosshairController>
 {
-    public static CrosshairController Instance { get; private set; }
-
     [SerializeField] public GameObject _equipCursor;
 
-    public void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        base.Awake();
     }
 
     public void SetEquipCursor(bool isEquipCursor)

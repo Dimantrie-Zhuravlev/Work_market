@@ -48,14 +48,4 @@ public class ComputerObjectController : MonoBehaviour, IInteractable
             Cursor.visible = true;
         }
     }
-
-    public void CloseComputer()
-    {
-        mainCanvas.SetActive(true);
-        ComputerCanvas.SetActive(false);
-        _playerInput.SwitchCurrentActionMap("Player");
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
-        Cursor.visible = false;
-    }
 }

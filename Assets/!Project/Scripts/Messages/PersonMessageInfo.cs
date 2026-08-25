@@ -1,19 +1,14 @@
 using TMPro;
 using UnityEngine;
 
-public class PersonMessageInfo : MonoBehaviour
+public class PersonMessageInfo : MonoSingleton<PersonMessageInfo>
 {
-    [SerializeField] private TMP_Text _messageText;
-    public static PersonMessageInfo Instance { get; set; }
+    private TMP_Text _messageText;
 
-    private void Start()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        base.Awake();
+        _messageText = GetComponent<TMP_Text>();
         ClearPersonMessage();
     }
 

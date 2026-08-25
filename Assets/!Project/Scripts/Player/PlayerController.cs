@@ -11,12 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCheckView checkView;
     [SerializeField] private PlayerRotation rotation;
 
+
     private CharacterActions _actions = new CharacterActions();
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+
     private void Update()
     {
         if (scheduler != null)
