@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: abebb575b5b5d364bb7176807aeea2f3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 388484
+  packageName: 'Low-poly engines: Electric_motor, Motorcycle_engine, Petrol_engine
+    (Demo).'
+  packageVersion: 1.0
+  assetPath: Assets/Engines (Demo)/Material/Material.mat
+  uploadId: 939748
