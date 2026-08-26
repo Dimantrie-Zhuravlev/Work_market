@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrayController : MonoBehaviour, IInteractable, IDropableObject
+public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
 {
     private GameObject[] TrayProducts = new GameObject[8];
     private Transform[] TrayProductsPointPosition = new Transform[8];
@@ -92,7 +92,7 @@ public class TrayController : MonoBehaviour, IInteractable, IDropableObject
         currentObject.transform.SetParent(null);
     }
 
-    public void Interact()
+    public void InteractMouse()
     {
         if (HandObjectsController.Instance.CurrentObjectInHand == null)
         {
