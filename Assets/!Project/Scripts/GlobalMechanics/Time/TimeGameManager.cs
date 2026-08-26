@@ -13,6 +13,8 @@ public class TimeGameManager : MonoBehaviour
 
     public static event Action OnThirtyMinutesPassed;
     public static event Action OnTwentyMinutesPassed;
+    public static event Action OnTenMinutesPassed;
+    public static event Action OnFiveMinutesPassed;
 
     public static TimeGameManager Instance { get; private set; }
 
@@ -43,8 +45,7 @@ public class TimeGameManager : MonoBehaviour
             int intervalsPassed = Mathf.FloorToInt(_accumulator / _timerInterval);
             for (int i = 0; i < intervalsPassed; i++)
             {
-                globalTimer += 10;
-                ReloadTimerText();
+                globalTimer += 5;
                 if (globalTimer.Minutes % 30 == 0)
                 {
                     OnThirtyMinutesPassed?.Invoke();
@@ -52,6 +53,15 @@ public class TimeGameManager : MonoBehaviour
                 if (globalTimer.Minutes % 20 == 0)
                 {
                     OnTwentyMinutesPassed?.Invoke();
+                }
+                if (globalTimer.Minutes % 10 == 0)
+                {
+                    ReloadTimerText();
+                    OnTenMinutesPassed?.Invoke();
+                }
+                if (globalTimer.Minutes % 5 == 0)
+                {
+                    OnFiveMinutesPassed?.Invoke();
                 }
             }
             // Оставляем только остаток, который не дотянул до полных 10 минут

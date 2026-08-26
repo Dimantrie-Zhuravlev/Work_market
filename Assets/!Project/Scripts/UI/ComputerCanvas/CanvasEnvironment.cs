@@ -7,7 +7,8 @@ public class CanvasEnvironment : MonoBehaviour
     [SerializeField] GameObject mainCanvas;
     [Header("Панели магазина и улучшений")]
     [SerializeField] GameObject panelMenu;
-    [SerializeField] GameObject panelShop; 
+    [SerializeField] GameObject panelShop;
+    [SerializeField] GameObject panelSystem;
     [SerializeField] GameObject panelUpgrades;
 
 
@@ -17,6 +18,7 @@ public class CanvasEnvironment : MonoBehaviour
         panelMenu.SetActive(true);
         panelShop.SetActive(false);
         panelUpgrades.SetActive(false);
+        panelSystem.SetActive(false);
         currentPanelActive = 0;
     }
 
@@ -37,6 +39,9 @@ public class CanvasEnvironment : MonoBehaviour
                 case 2:
                     ClosePanelUpgrades();
                     break;
+                case 3:
+                    ClosePanelSystem();
+                    break;
             }
 
         }
@@ -54,6 +59,13 @@ public class CanvasEnvironment : MonoBehaviour
         panelUpgrades.SetActive(false);
     }
 
+    public void ClosePanelSystem()
+    {
+        currentPanelActive = 0;
+        panelMenu.SetActive(true);
+        panelSystem.SetActive(false);
+    }
+
     public void OpenPanelShop()
     {
         panelMenu.SetActive(false);
@@ -66,6 +78,13 @@ public class CanvasEnvironment : MonoBehaviour
         panelMenu.SetActive(false);
         panelUpgrades.SetActive(true);
         currentPanelActive = 2;
+    }
+
+    public void OpenPanelSystem()
+    {
+        panelMenu.SetActive(false);
+        panelSystem.SetActive(true);
+        currentPanelActive = 3;
     }
 
     public void CloseComputer()
