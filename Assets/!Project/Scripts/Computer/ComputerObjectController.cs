@@ -43,7 +43,7 @@ public class ComputerObjectController : MonoBehaviour, IInteractable
             mainCanvas.SetActive(false);
             ComputerCanvas.SetActive(true);
 
-            _playerInput.SwitchCurrentActionMap("UI"); // Разблокируем мышь
+            //_playerInput.SwitchCurrentActionMap("ComputerUI"); // Разблокируем мышь
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

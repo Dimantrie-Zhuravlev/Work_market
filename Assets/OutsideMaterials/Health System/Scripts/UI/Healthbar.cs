@@ -9,8 +9,8 @@ namespace Ilumisoft.HealthSystem.UI
         [field:SerializeField]
         public HealthComponent Health { get; set; }
 
-        [SerializeField]
-        Canvas canvas;
+        [SerializeField] Canvas.Game.CanvasEnvironment canvas;
+
 
         [SerializeField]
         Image fillImage;
