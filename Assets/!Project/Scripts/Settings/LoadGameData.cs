@@ -7,7 +7,7 @@ public class LoadGameData : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     public void LoadSettings(int indexFile)
     {
