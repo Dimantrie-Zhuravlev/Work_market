@@ -7,14 +7,14 @@ namespace TaskBoards.Main
 {
     public class TaskBoardController : MonoBehaviour
     {
-        private List<GameObject> _tasksList = new List<GameObject>();
+        private List<GameObject> _tasksList;
         private readonly int _maxTasksCount = 8;
 
         public static TaskBoardController Instance;
 
         public bool CanAddNewTask => currentCountsTasks < _maxTasksCount;
 
-        private int currentCountsTasks = 0;
+        private int currentCountsTasks;
 
         private void Start()
         {
@@ -24,8 +24,10 @@ namespace TaskBoards.Main
                 return;
             }
             Instance = this;
-
-
+            //инициализация
+            _tasksList = new List<GameObject>();
+            currentCountsTasks = 0;
+            //инициализация
             Transform tasksContainer = transform.GetChild(1);
             for (int i = 0; i < tasksContainer.childCount; i++)
             {
@@ -54,7 +56,6 @@ namespace TaskBoards.Main
 
                 SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makarons, gorox, makarons1 + gorox1);
 
-
                 GameObject currentTask = _tasksList.Find(elem => !elem.activeInHierarchy);
                 currentTask.GetComponent<TaskBoards.Main.TaskController>().SetTaskQuest(data);
                 currentTask.SetActive(true);
@@ -64,7 +65,6 @@ namespace TaskBoards.Main
             {
                 PersonMessageLifeCycle.Instance.SendLifeCycleMessage("Лимит заданий");
             }
-
         }
 
         public void DeleteSelectedTask(GameObject selectedTask)
@@ -72,6 +72,11 @@ namespace TaskBoards.Main
             int index = _tasksList.IndexOf(selectedTask);
             _tasksList[index].SetActive(false);
             currentCountsTasks = _tasksList.Count(obj => obj.activeInHierarchy);
+        }
+
+        private void OnDestroy()
+        {
+            TimeGameManager.OnThirtyMinutesPassed -= AddNewTask;
         }
 
     }

@@ -9,7 +9,6 @@ public class ComputerObjectController : MonoBehaviour, IInteractable
 
     [SerializeField] GameObject mainCanvas;
     [SerializeField] GameObject ComputerCanvas;
-    [SerializeField] private PlayerInput _playerInput;
 
     public ComputerObjectController Instance { get; private set; }
 
@@ -42,8 +41,6 @@ public class ComputerObjectController : MonoBehaviour, IInteractable
             Time.timeScale = 0;
             mainCanvas.SetActive(false);
             ComputerCanvas.SetActive(true);
-
-            //_playerInput.SwitchCurrentActionMap("ComputerUI"); // Разблокируем мышь
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

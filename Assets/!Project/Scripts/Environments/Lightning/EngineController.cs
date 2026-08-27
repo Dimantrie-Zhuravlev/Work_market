@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.Port;
 
 public class EngineController : MonoBehaviour, IInteractable
 {
-    private int maxCapacity = 5000;
-    private int capacity = 5000;
+    private readonly int maxCapacity = 5000;
+    private int capacity;
     private EnvironmentsPersonMessage message;
 
     [SerializeField] List<AbstractElectricity> listConsumption;
@@ -15,14 +16,13 @@ public class EngineController : MonoBehaviour, IInteractable
     public int MaxCapacity => maxCapacity;
     public int Capacity => capacity;
 
-    private int countFuel = 0;
+    private int countFuel;
 
     public int CountFuel => countFuel;
     public void AddFuel(int fuel)
     {
         countFuel += fuel;
     }
-
     public void ResetMessage ()
     {
         message.AddCurrentMessage($"({(float)capacity / maxCapacity * 100}%), топлива {countFuel}/{MaxCountFuel}");
@@ -39,6 +39,7 @@ public class EngineController : MonoBehaviour, IInteractable
         }
         Instance = this;
         countFuel = 1;
+        capacity = maxCapacity;
         message = GetComponent<EnvironmentsPersonMessage>();
         TimeGameManager.OnFiveMinutesPassed += ChangeCapacityPerTime;
         ResetMessage();
@@ -84,5 +85,10 @@ public class EngineController : MonoBehaviour, IInteractable
                 electricity.ElectricityComponentLaunch();
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        TimeGameManager.OnFiveMinutesPassed -= ChangeCapacityPerTime;
     }
 }

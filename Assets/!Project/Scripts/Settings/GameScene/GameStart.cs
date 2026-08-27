@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,9 +12,12 @@ public class GameStart : MonoBehaviour
     {
         _playerInput.FindActionMap("ComputerUI").Disable();
         _playerInput.FindActionMap("PauseUI").Disable();
+        _playerInput.FindActionMap("MainMenu").Disable();
         _playerInput.FindActionMap("Player").Enable();
 
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        Cursor.visible = false;
         mainCanvas.SetActive(true);
         ComputerCanvas.SetActive(false);
         PauseCanvas.SetActive(false);

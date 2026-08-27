@@ -12,9 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerRotation rotation;
 
 
-    private CharacterActions _actions = new CharacterActions();
+    private CharacterActions _actions;
 
-
+    private void Start()
+    {
+        _actions = new CharacterActions();
+    }
     private void Update()
     {
         if (scheduler != null)
