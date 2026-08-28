@@ -22,4 +22,9 @@ public class MenuSceneStart : MonoBehaviour
         InformationPanel.SetActive(false);
         GamePanel.SetActive(false);
     }
+
+    public void SaveClick(int index)
+    {
+        LoadGameData.Instance.LoadSettings(index);
+    }
 }

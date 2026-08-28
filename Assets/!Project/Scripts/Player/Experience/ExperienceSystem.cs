@@ -11,16 +11,18 @@ public class ExperienceSystem : MonoBehaviour
 
     [SerializeField] private float _animationDuration = 4f; //Время анимации шкалы опыта
 
-    private int currentLevel;
-    private Money currentExperienceCount = new Money(0, 0);
+    private StructureExperience _experience;
+
     private Money[] needExperience = { new Money(2, 0), new Money(3, 0), new Money(5, 0), new Money(9, 0) };
 
     private bool isMaxLevel = false;
 
-    public int CurrentLevel => currentLevel;
+    public int CurrentLevel => _experience.Level;
+    public StructureExperience Experience => _experience;
 
     private float _currentFillValue;
-    private void Start()
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -30,14 +32,18 @@ public class ExperienceSystem : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        currentLevel = 0;
-        UpdateExperience(currentExperienceCount);
-        UpdateLevelLabel();
     }
 
     private void UpdateLevelLabel()
     {
-        _levelLabel.text = $"Level {currentLevel}";
+        _levelLabel.text = $"Level {_experience.Level}";
+    }
+
+    public void InitialExperience(StructureExperience newExperience)
+    {
+        _experience = newExperience;
+        UpdateLevelLabel();
+        StartCoroutine(FillAmount(_experience.CurrentExperience / needExperience[_experience.Level], 1f));
     }
 
     public void UpdateExperience(Money newCurrentExp)
@@ -45,8 +51,8 @@ public class ExperienceSystem : MonoBehaviour
         if (!isMaxLevel)
         {
             StopAllCoroutines(); // На случай, если опыт пришел дважды быстро подряд ;
-            currentExperienceCount += newCurrentExp;
-            StartCoroutine(AnimateFill(currentExperienceCount / needExperience[currentLevel]));
+            _experience.CurrentExperience += newCurrentExp;
+            StartCoroutine(AnimateFill(_experience.CurrentExperience / needExperience[_experience.Level]));
         }
     }
 
@@ -56,13 +62,13 @@ public class ExperienceSystem : MonoBehaviour
 
         if (targetValue >= 1f)
         {
-            if (currentLevel != needExperience.Length - 1)
+            if (_experience.Level != needExperience.Length - 1)
             {
                 _currentFillValue = 0;
-                currentExperienceCount = currentExperienceCount - needExperience[currentLevel];
-                currentLevel++;
+                _experience.CurrentExperience -= needExperience[_experience.Level];
+                _experience.Level++;
                 UpdateLevelLabel();
-                yield return StartCoroutine(FillAmount(currentExperienceCount / needExperience[currentLevel], 0.5f));
+                yield return StartCoroutine(FillAmount(_experience.CurrentExperience / needExperience[_experience.Level], 0.5f));
             } else
             {
                 isMaxLevel = true;

@@ -1,6 +1,4 @@
-using UnityEditor.Overlays;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class GameSaveManager : MonoBehaviour
 {
@@ -12,12 +10,17 @@ public class GameSaveManager : MonoBehaviour
 
     private void SaveDataFile()
     {
-        LoadGameData.Instance.SaveFileSetting(new StructureSaveFile(PlayerWallet.Instance.CurrentBalance));
+        LoadGameData.Instance.SaveFileSetting(new StructureSaveFile(
+            PlayerWallet.Instance.CurrentBalance, //Текущий баланс
+            ExperienceSystem.Instance.Experience //Текущий опыт      
+            ));
     }
 
-    public void InstantiateDataGame() {
+    public void InstantiateDataGame()
+    {
         _saveData = LoadGameData.Instance.FileData;
         PlayerWallet.Instance.LoadInitialWallet(_saveData.CurrentBalance);
+        ExperienceSystem.Instance.InitialExperience(_saveData.Experience);
     }
 
     private void OnDestroy()

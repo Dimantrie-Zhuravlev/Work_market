@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneSwitcher : MonoBehaviour
+public static class SceneSwitcher
 {
     private enum ScenesName
     {
         MainMenuScene_01,
         GameScene_02
     }
-    public void LoanMainMenu()
+    public static void LoanMainMenu()
     {
         SceneManager.LoadScene(ScenesName.MainMenuScene_01.ToString(), LoadSceneMode.Single);
     }
-    public void LoadGameScene()
+    public static void LoadGameScene()
     {
         SceneManager.LoadScene(ScenesName.GameScene_02.ToString(), LoadSceneMode.Single);
     }

@@ -23,7 +23,6 @@ namespace Canvas.Pause
 
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-
             }
         }
         public void ClosePause(InputAction.CallbackContext context)
