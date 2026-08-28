@@ -12,8 +12,9 @@ public class GameSaveManager : MonoBehaviour
     {
         LoadGameData.Instance.SaveFileSetting(new StructureSaveFile(
             PlayerWallet.Instance.CurrentBalance, //Текущий баланс
-            ExperienceSystem.Instance.Experience //Текущий опыт      
-            ));
+            ExperienceSystem.Instance.Experience, //Текущий опыт
+            EngineController.Instance.EngineData
+        ));
     }
 
     public void InstantiateDataGame()
@@ -21,6 +22,7 @@ public class GameSaveManager : MonoBehaviour
         _saveData = LoadGameData.Instance.FileData;
         PlayerWallet.Instance.LoadInitialWallet(_saveData.CurrentBalance);
         ExperienceSystem.Instance.InitialExperience(_saveData.Experience);
+        EngineController.Instance.InitializeStartCapacity(_saveData.EngineData);
     }
 
     private void OnDestroy()

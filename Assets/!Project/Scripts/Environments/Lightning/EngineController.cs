@@ -4,8 +4,8 @@ using static UnityEditor.Experimental.GraphView.Port;
 
 public class EngineController : MonoBehaviour, IInteractable
 {
-    private readonly int maxCapacity = 5000;
-    private int capacity;
+    [SerializeField] private readonly int maxCapacity = 5000;
+
     private EnvironmentsPersonMessage message;
 
     [SerializeField] List<AbstractElectricity> listConsumption;
@@ -13,24 +13,20 @@ public class EngineController : MonoBehaviour, IInteractable
 
     public static EngineController Instance { get; private set; }
 
-    public int MaxCapacity => maxCapacity;
-    public int Capacity => capacity;
-
-    private int countFuel;
-
-    public int CountFuel => countFuel;
+    private StructureEngineData _engineData;
+    public StructureEngineData EngineData => _engineData;
     public void AddFuel(int fuel)
     {
-        countFuel += fuel;
+        _engineData.CountFuel += fuel;
     }
-    public void ResetMessage ()
+    public void ResetMessage()
     {
-        message.AddCurrentMessage($"({(float)capacity / maxCapacity * 100}%), топлива {countFuel}/{MaxCountFuel}");
+        message.AddCurrentMessage($"({(float)_engineData.Capacity / maxCapacity * 100}%), топлива {_engineData.CountFuel}/{MaxCountFuel}");
     }
 
     public List<AbstractElectricity> ListConsumption => listConsumption;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -38,11 +34,11 @@ public class EngineController : MonoBehaviour, IInteractable
             return;
         }
         Instance = this;
-        countFuel = 1;
-        capacity = maxCapacity;
         message = GetComponent<EnvironmentsPersonMessage>();
+    }
+    private void Start()
+    {
         TimeGameManager.OnFiveMinutesPassed += ChangeCapacityPerTime;
-        ResetMessage();
     }
 
     public int CalculateCurrentConsumption()
@@ -59,10 +55,10 @@ public class EngineController : MonoBehaviour, IInteractable
     private void ChangeCapacityPerTime()
     {
 
-        capacity = Mathf.Clamp(capacity- CalculateCurrentConsumption(), 0, maxCapacity);
+        _engineData.Capacity = Mathf.Clamp(_engineData.Capacity - CalculateCurrentConsumption(), 0, maxCapacity);
         ResetMessage();
 
-        if (capacity ==0)
+        if (_engineData.Capacity == 0)
         {
             TimeGameManager.OnTwentyMinutesPassed -= ChangeCapacityPerTime;
             foreach (var electricity in listConsumption)
@@ -74,17 +70,23 @@ public class EngineController : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if ((float)capacity / maxCapacity * 100 < 20 && countFuel > 0)
+        if ((float)_engineData.Capacity / maxCapacity * 100 < 20 && _engineData.CountFuel > 0)
         {
-            countFuel--;
+            _engineData.CountFuel--;
             TimeGameManager.OnTwentyMinutesPassed += ChangeCapacityPerTime;
-            capacity = maxCapacity;
+            _engineData.Capacity = maxCapacity;
             ResetMessage();
             foreach (var electricity in listConsumption)
             {
                 electricity.ElectricityComponentLaunch();
             }
         }
+    }
+
+    public void InitializeStartCapacity(StructureEngineData capacityNew)
+    {
+        _engineData = capacityNew.Capacity < 0 ? new StructureEngineData(maxCapacity, 1, maxCapacity) : capacityNew; //костыльные присвоение стартовых значений
+        ResetMessage();
     }
 
     private void OnDestroy()

@@ -14,9 +14,10 @@ public class ConsumtionEngineController : MonoBehaviour
     [SerializeField] Money _fuelPrice;
 
     private EngineController currentData;
+    private StructureEngineData currentEngineData;
 
     public static ConsumtionEngineController Instance { get; private set; }
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -32,19 +33,20 @@ public class ConsumtionEngineController : MonoBehaviour
     private void OnEnable()
     {
         currentData = EngineController.Instance;
-        _engineStateLabel.text = $"Состояние: {(float)currentData.Capacity / currentData.MaxCapacity * 100}% ({currentData.Capacity}/{currentData.MaxCapacity})";
+        currentEngineData = EngineController.Instance.EngineData;
+        _engineStateLabel.text = $"Состояние: {(float)currentEngineData.Capacity / currentEngineData.MaxCapacity * 100}% ({currentEngineData.Capacity}/{currentEngineData.MaxCapacity})";
         CalculateConsumption();
-        _countFuelLabel.text = $"Топливо: {currentData.CountFuel}/{currentData.MaxCountFuel}";
+        _countFuelLabel.text = $"Топливо: {currentEngineData.CountFuel}/{currentData.MaxCountFuel}";
         _buttonBuyFuelLabel.text = $"Добавить топливо {_fuelPrice.ToString()}";
         _balanceText.text = $"Текущий баланс {PlayerWallet.Instance.CurrentBalance.ToString()}";
     }
 
     public void BuyFuel()
     {
-        if (currentData.CountFuel < currentData.MaxCountFuel && PlayerWallet.Instance.CanPayShoping(_fuelPrice))
+        if (currentEngineData.CountFuel < currentData.MaxCountFuel && PlayerWallet.Instance.CanPayShoping(_fuelPrice))
         {
             currentData.AddFuel(1);
-            _countFuelLabel.text = $"Топливо: {currentData.CountFuel}/{currentData.MaxCountFuel}";
+            _countFuelLabel.text = $"Топливо: {currentEngineData.CountFuel}/{currentData.MaxCountFuel}";
             _balanceText.text = $"Текущий баланс {PlayerWallet.Instance.CurrentBalance.ToString()}";
             currentData.ResetMessage();
         }

@@ -65,14 +65,13 @@ public class LoadGameData : MonoBehaviour
             case 0:
                 print("1");
                 break;
-
         }
     }
 
 
     private StructureSaveFile CreateDefaultData()
     {
-        return new StructureSaveFile(new Money(10, 0), new StructureExperience(0, new Money(0, 0)));
+        return new StructureSaveFile(new Money(10, 0), new StructureExperience(0, new Money(0, 0)), new StructureEngineData(-1000, 0, 0) );
     }
     public void SaveFileSetting(StructureSaveFile data)
     {
