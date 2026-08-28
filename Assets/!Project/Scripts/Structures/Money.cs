@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable] // Обязательно для отображения в инспекторе Unity
 public struct Money : IEquatable<Money>, IComparable<Money>
 {
-    [SerializeField] private int _rubles;
-    [SerializeField] private int _kopecks; // Всегда хранится от 0 до 99
+    [SerializeField] public int _rubles;
+    [SerializeField] public int _kopecks; // Всегда хранится от 0 до 99
 
     public int Rubles => _rubles;
     public int Kopecks => _kopecks;

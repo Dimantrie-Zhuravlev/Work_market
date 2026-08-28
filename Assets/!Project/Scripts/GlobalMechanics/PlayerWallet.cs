@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerWallet : MonoSingleton<PlayerWallet>
 {
-    private Money currentBalance = new Money(10, 0);
+    private Money currentBalance;
 
     public Money CurrentBalance => currentBalance;
     TMP_Text _walletText;
@@ -41,6 +41,12 @@ public class PlayerWallet : MonoSingleton<PlayerWallet>
     public void IncreaseBalance(Money decreaseCount)
     {
         currentBalance = currentBalance + decreaseCount;         
+        ChangeText();
+    }
+
+    public void LoadInitialWallet (Money wallet)
+    {
+        currentBalance = wallet;
         ChangeText();
     }
 }

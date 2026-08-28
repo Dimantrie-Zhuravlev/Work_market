@@ -15,6 +15,7 @@ public class TimeGameManager : MonoBehaviour
     public static event Action OnTwentyMinutesPassed;
     public static event Action OnTenMinutesPassed;
     public static event Action OnFiveMinutesPassed;
+    public static event Action OnHourPassed;
 
     public static TimeGameManager Instance { get; private set; }
 
@@ -57,12 +58,18 @@ public class TimeGameManager : MonoBehaviour
                 if (globalTimer.Minutes % 10 == 0)
                 {
                     ReloadTimerText();
+                    if (globalTimer.Minutes % 60 == 0)
+                    {
+                        OnHourPassed?.Invoke();
+                    }
                     OnTenMinutesPassed?.Invoke();
                 }
                 if (globalTimer.Minutes % 5 == 0)
                 {
                     OnFiveMinutesPassed?.Invoke();
                 }
+
+                
             }
             // Оставляем только остаток, который не дотянул до полных 10 минут
             _accumulator -= _timerInterval;

@@ -8,6 +8,8 @@ public class GameStart : MonoBehaviour
     [SerializeField] GameObject mainCanvas;
     [SerializeField] GameObject ComputerCanvas;
     [SerializeField] GameObject PauseCanvas;
+    [SerializeField] GameSaveManager _gameManager;
+
     private void Awake()
     {
         _playerInput.FindActionMap("ComputerUI").Disable();
@@ -21,5 +23,7 @@ public class GameStart : MonoBehaviour
         mainCanvas.SetActive(true);
         ComputerCanvas.SetActive(false);
         PauseCanvas.SetActive(false);
+
+        _gameManager.InstantiateDataGame();
     }
 }
