@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.Port;
 
 public class ConsumtionEngineController : MonoBehaviour
 {
@@ -46,7 +45,7 @@ public class ConsumtionEngineController : MonoBehaviour
         if (currentEngineData.CountFuel < currentData.MaxCountFuel && PlayerWallet.Instance.CanPayShoping(_fuelPrice))
         {
             currentData.AddFuel(1);
-            _countFuelLabel.text = $"Топливо: {currentEngineData.CountFuel}/{currentData.MaxCountFuel}";
+            _countFuelLabel.text = $"Топливо: {currentData.EngineData.CountFuel}/{currentData.MaxCountFuel}";
             _balanceText.text = $"Текущий баланс {PlayerWallet.Instance.CurrentBalance.ToString()}";
             currentData.ResetMessage();
         }

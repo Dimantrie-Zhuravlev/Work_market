@@ -7,16 +7,11 @@ public abstract class AbstractSupplyPark : MonoBehaviour
     protected List<CurrentBoxSetting> _productBoxes = new List<CurrentBoxSetting>();
     protected int currentCountProductBoxes;
 
-    protected Money _boxPrice;
-    [SerializeField] protected int indexInGlobalData;
-
-    public virtual void Start ()
-    {
-        _boxPrice = ProductsGlobalData.Instance.ProductsGlobal[indexInGlobalData].PriceBox;
-    }
-    public Money BoxPrice => _boxPrice;
+    public virtual void Awake () {}
     public int CurrentCountProductBoxes => currentCountProductBoxes;
     public abstract void AddBoxOnSupplyPark();
+
+    public abstract void AddBoxOnSupplyPark(GameObject box);
 
     protected void updateCurrentBoxesCount()
     {

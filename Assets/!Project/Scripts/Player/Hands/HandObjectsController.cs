@@ -12,7 +12,7 @@ public class HandObjectsController : MonoBehaviour
     private int _hashIsHolding;
 
     public static HandObjectsController Instance { get; private set; }
-    void Start()
+    void Awake()
     {
         if (Instance != null && Instance != this)
         {

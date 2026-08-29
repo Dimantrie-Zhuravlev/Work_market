@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1180285585874766646}
   serializedVersion: 2
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -0.5, y: 0.5, z: 17.5}
+  m_LocalPosition: {x: -9.25, y: 2.108, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -102,7 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrentBoxSetting
   _currentBoxSetting: {fileID: 11400000, guid: c8cbd2271708ba14794f62f54270dc79, type: 2}
-  _boxName: 
+  handsTransform: {fileID: 0}
+  SypplusContainer: {fileID: 0}
+  _boxName: Gorox
 --- !u!114 &8201607301365067073
 MonoBehaviour:
   m_ObjectHideFlags: 0

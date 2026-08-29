@@ -8,19 +8,16 @@ namespace Canvas.Pause
         private int currentPanelActive = 0;
 
         [SerializeField] private InputActionAsset _playerInput;
-        
-
         public void ActivePause(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                Time.timeScale = 0;
-                gameObject.SetActive(true);
-
                 _playerInput.FindActionMap("ComputerUI").Disable();
                 _playerInput.FindActionMap("PauseUI").Enable();
                 _playerInput.FindActionMap("Player").Disable();
 
+                Time.timeScale = 0;
+                gameObject.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }

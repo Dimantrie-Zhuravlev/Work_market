@@ -39,7 +39,7 @@ public class TimeGameManager : MonoBehaviour
     public void Update()
     {
         if (!_isRunning) return; // Используем unscaledDeltaTime — оно тикает всегда, даже при Time.timeScale = 0
-        _accumulator += Time.unscaledDeltaTime; 
+        _accumulator += Time.deltaTime; 
         if (_accumulator >= _timerInterval)
         {
             // Если игрок "отошел" надолго, за это время могло пройти несколько интервалов

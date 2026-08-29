@@ -8,9 +8,8 @@ public class SupplyBoxesPark : AbstractSupplyPark
     [Tooltip("Сообщение на коробке")]
     [SerializeField] string currentMessageOnBoxView;
     GameObject childContainer;
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
         childContainer = transform.GetChild(0).gameObject;
 
         for (int i = 0; i < 4; i++) //Предзаполнение массива 4 null 
@@ -19,7 +18,16 @@ public class SupplyBoxesPark : AbstractSupplyPark
         }
     }
 
-
+    public override void AddBoxOnSupplyPark(GameObject box)
+    {
+        int index = _productBoxes.IndexOf(null);
+        box.GetComponent<Rigidbody>().isKinematic = true;
+        box.transform.SetParent(childContainer.transform);
+        box.transform.SetPositionAndRotation(childContainer.transform.GetChild(index).gameObject.transform.position, childContainer.transform.GetChild(index).gameObject.transform.rotation);
+        _productBoxes[index] = box.GetComponent<CurrentBoxSetting>();
+        box.GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage(currentMessageOnBoxView);
+        updateCurrentBoxesCount();
+    }
     public override void AddBoxOnSupplyPark()
     {
         int index = _productBoxes.IndexOf(null);

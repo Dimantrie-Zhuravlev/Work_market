@@ -23,7 +23,9 @@ public class GameStart : MonoBehaviour
         mainCanvas.SetActive(true);
         ComputerCanvas.SetActive(false);
         PauseCanvas.SetActive(false);
-
+    }
+    private void Start()
+    {
         _gameManager.InstantiateDataGame();
     }
 }

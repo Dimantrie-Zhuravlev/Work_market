@@ -7,26 +7,56 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     [HideInInspector]
     public BoxSettings _currentBoxSetting;
     private AbstractPoolBoxes _abstractPoolBox;
+    private GameObject _abstractPoolBoxGameObject;
     public AbstractPoolBoxes AbstractPoolBox => _abstractPoolBox;
+
+    private List<AbstractSupplyPark> listSupply = new List<AbstractSupplyPark>();
+    [SerializeField] Transform SypplusContainer;
 
     private int currentCountObjectsInBox;
     [HideInInspector]
     public string _boxName;
+
+    private string nameId;
+    public string NameId => nameId;
     public int CurrentCountObjectsInBox => currentCountObjectsInBox;
 
     private List<GameObject> _objectsInBoxes = new List<GameObject>();
 
-    private void Start()
+    public void Awake()
+    {
+        InitNameId();
+    }
+    public void OnEnable()
+    {
+        if (!isLoadSave)
+        {
+            currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
+            InitializeAwake();
+            RestartObjectInBox();
+        }
+    }
+
+    public void InitNameId()
+    {
+        nameId = gameObject.name;
+    }
+    private void InitializeAwake(bool isRestore = false)
     {
         Transform childTransform = transform.GetChild(0);
         _boxName = childTransform.name == "Objects" ? childTransform.GetChild(0).name : EnumBoxesName.EmptyProduct;
-
         _abstractPoolBox = ConnectNamesProducts.Instance.DataProducts(_boxName)._ProductsBoxPool;
-
-        currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
-        RestartObjectInBox();
+        _abstractPoolBoxGameObject = ConnectNamesProducts.Instance.DataProducts(_boxName)._BoxPoolGameObject;
+        if (SypplusContainer == null)
+        {
+            SypplusContainer = GameObject.FindWithTag("SupplyParksContainer").transform;
+        }
+        for (int i = 0; i < SypplusContainer.childCount; i++)
+        {
+            AbstractSupplyPark currentItem = SypplusContainer.GetChild(i).gameObject.GetComponent<AbstractSupplyPark>();
+            listSupply.Add(currentItem);
+        }
     }
-
     public void Interact()
     {
         if (HandObjectsController.Instance.CurrentObjectInHand == null)
@@ -39,30 +69,27 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
             HandObjectsController.Instance.PickUpObjectFromGround(gameObject, new StructureObjectPosition(new Vector3(0, 0, 0), Quaternion.Euler(180f, 0, 0)));
         }
     }
-
     public void RestartObjectInBox()
     {
         if (_boxName != EnumBoxesName.EmptyProduct)
         {
+            int counts1 = 0;
             Transform objectsContainer = transform.GetChild(0);
-            for (int i = 0; i < objectsContainer.childCount; i++)
+            int indexInActive = isLoadSave ? currentCountObjectsInBox : _currentBoxSetting.MaxObjectsInBox;
+            for (int i = 0; i < _currentBoxSetting.MaxObjectsInBox; i++)
             {
                 GameObject currentItem = objectsContainer.GetChild(i).gameObject;
                 _objectsInBoxes.Add(currentItem);
-                currentItem.SetActive(true);
-                if (i >= _currentBoxSetting.MaxObjectsInBox)
-                {
-                    currentItem.SetActive(false);
-                }
+                counts1 = i < indexInActive ? counts1 + 1 : counts1;
+                currentItem.SetActive(i < indexInActive);
             }
-            currentCountObjectsInBox = _currentBoxSetting.MaxObjectsInBox;
             SetNewMessageForCount();
         }
     }
 
     public void SetNewMessageForCount()
     {
-        EnvironmentsPersonMessage message = this.GetComponent<EnvironmentsPersonMessage>();
+        EnvironmentsPersonMessage message = GetComponent<EnvironmentsPersonMessage>();
         message.AddCurrentMessage($"({currentCountObjectsInBox})");
     }
 
@@ -102,5 +129,35 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
     {
         currentObject.GetComponent<BoxCollider>().enabled = true;
     }
-
+    private bool isLoadSave = false;
+    public void RestoreState(StructureBoxSave state)
+    {
+        currentCountObjectsInBox = state.CountObjectsInBox;
+        isLoadSave = true;
+        RestartObjectInBox();
+        gameObject.SetActive(state.IsActive);
+        InitializeAwake();
+        SetNewMessageForCount();
+        switch (state.ParentName)
+        {
+            case "SupplyMakaronsPark":
+                listSupply[0].AddBoxOnSupplyPark(gameObject);
+                break;
+            case "SupplyGoroxPark":
+                listSupply[1].AddBoxOnSupplyPark(gameObject);
+                break;
+            case "Hands":
+                HandObjectsController.Instance.PickUpObjectFromGround(gameObject, new StructureObjectPosition(new Vector3(0, 0, 0), Quaternion.Euler(180f, 0, 0)));
+                break;
+            default:
+                gameObject.transform.SetParent(_abstractPoolBoxGameObject.transform);
+                transform.localPosition = state.Position;
+                break;
+        }
+    }
+    public StructureBoxSave GetStructureData()
+    {
+        string newParenStringt = transform.parent.name == "BoxesSupplyPark" ? transform.parent.transform.parent.name : transform.parent.name;
+        return new StructureBoxSave(NameId, transform.position, gameObject.activeInHierarchy, newParenStringt, currentCountObjectsInBox);
+    }
 }

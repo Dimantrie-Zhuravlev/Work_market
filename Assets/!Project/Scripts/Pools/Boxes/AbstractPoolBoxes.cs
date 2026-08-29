@@ -13,7 +13,6 @@ public abstract class AbstractPoolBoxes : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, это просто коробка
         {
             _objectBoxes.Add(transform.GetChild(i).gameObject);
-            _objectBoxes[i].SetActive(false);
         }
     }
 

@@ -20,7 +20,7 @@ public class TrayGhostTableController : MonoBehaviour, IInteractableMouse
 
     private void Awake()
     {
-       gameObject.SetActive(false);
+        gameObject.SetActive(false);
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
