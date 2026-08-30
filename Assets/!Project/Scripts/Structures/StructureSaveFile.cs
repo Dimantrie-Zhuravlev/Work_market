@@ -31,6 +31,19 @@ public struct StructureEngineData
 }
 
 [System.Serializable]
+public struct StructurePlayerData
+{
+    public Vector3 Position;
+    public Quaternion Rotation;
+
+    public StructurePlayerData(Vector3 position, Quaternion rotation)
+    {
+        Position = position;
+        Rotation = rotation;
+    }
+}
+
+[System.Serializable]
 public struct StructureBoxSave
 {
     public string NameId;
@@ -53,17 +66,21 @@ public struct StructureBoxSave
 [System.Serializable]
 public struct StructureSaveFile 
 {
+    public bool HasSavedGame;
     public Money CurrentBalance;
     public StructureExperience Experience;
     public StructureEngineData EngineData;
     public List<StructureBoxSave> BoxesData;
+    public StructurePlayerData Player;
 
-    public StructureSaveFile(Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData )
+    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePlayerData player )
     {
+        HasSavedGame = hasSavedGame;
         CurrentBalance = currentBalance;
         Experience = experience;
         EngineData = engineData;
         BoxesData = boxesData;
+        Player = player;
     }
 
 }

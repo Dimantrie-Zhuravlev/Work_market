@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,19 +7,23 @@ public class GameSaveManager : MonoBehaviour
     private StructureSaveFile _saveData;
 
     private List<CurrentBoxSetting> _globalEntitiesCache;
+
+    [SerializeField] GameObject _player;
     public void SaveDataFile()
     {
         print("saveFile");
         _globalEntitiesCache = Resources.FindObjectsOfTypeAll<CurrentBoxSetting>().ToList();
 
         var sceneData = new List<StructureBoxSave>();
+        Quaternion playerRotation = _player.GetComponent<PlayerRotation>().CameraRotation();
 
         LoadGameData.Instance.SaveFileSetting(new StructureSaveFile(
+        true,
         PlayerWallet.Instance.CurrentBalance, //Текущий баланс
         ExperienceSystem.Instance.Experience, //Текущий опыт
         EngineController.Instance.EngineData,
-        _globalEntitiesCache.Where(item => item.gameObject.activeInHierarchy).Select(item => item.GetStructureData()).ToList()
-
+        _globalEntitiesCache.Where(item => item.gameObject.activeInHierarchy).Select(item => item.GetStructureData()).ToList(),
+        new StructurePlayerData(_player.transform.position, playerRotation)
     ));
     }
     public void InstantiateDataGame()
@@ -26,7 +31,7 @@ public class GameSaveManager : MonoBehaviour
         _saveData = LoadGameData.Instance.FileData;
         PlayerWallet.Instance.LoadInitialWallet(_saveData.CurrentBalance);
         ExperienceSystem.Instance.InitialExperience(_saveData.Experience);
-        EngineController.Instance.InitializeStartCapacity(_saveData.EngineData);
+        EngineController.Instance.InitializeStartCapacity(_saveData.EngineData, _saveData.HasSavedGame);
 
         //коробки
         var sceneData = _saveData.BoxesData;
@@ -46,5 +51,11 @@ public class GameSaveManager : MonoBehaviour
                 if (element.NameId != "") element.RestoreState(box);
             }
         }
+        if (_saveData.HasSavedGame)
+        {
+            _player.transform.position = _saveData.Player.Position;
+            _player.GetComponent<PlayerRotation>().SetCameraRotation(_saveData.Player.Rotation);
+        }
+        _player.SetActive(true);
     }
 }

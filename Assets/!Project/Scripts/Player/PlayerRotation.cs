@@ -11,20 +11,33 @@ public class PlayerRotation : MonoBehaviour
     [SerializeField] private Transform _orbitalCamera;
     [SerializeField] private Transform _person;
 
+
+    private bool _rotationLoaded = false;
     private Vector2 _orbitAngles;
-    private void Awake()
-    {
-        _orbitAngles = new Vector2(90, 90);
-    }
     void Update()
     {
-
+        if (_rotationLoaded)
+        {
+            _rotationLoaded = false;
+            return; // пропустить этот кадр
+        }
         Vector3 cameraForward = _orbitalCamera.forward;
         Vector3 cameraRight = _orbitalCamera.right;
         Quaternion targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
-
-        this.gameObject.transform.rotation = Quaternion.Euler(0f, _orbitAngles.y, 0f);
+        gameObject.transform.rotation = Quaternion.Euler(0f, _orbitAngles.y, 0f);
         _orbitalCamera.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f);
+    }
+
+    public Quaternion CameraRotation() => _orbitalCamera.rotation;
+    public void SetCameraRotation(Quaternion newAngle)
+    {
+        Vector3 euler = newAngle.eulerAngles;
+        _rotationLoaded = true;
+        _orbitAngles.x = euler.x;
+        _orbitAngles.y = euler.y;
+
+        gameObject.transform.rotation = Quaternion.Euler(0f, newAngle.y, 0f);
+        _orbitalCamera.rotation = newAngle;
     }
 
     public void OnLook(InputAction.CallbackContext context)

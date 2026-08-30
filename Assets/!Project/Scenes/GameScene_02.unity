@@ -13375,6 +13375,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 990903540611260484, guid: 8e1471e805192fd4e902f7cc7eec8378, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1048095330947747484, guid: 8e1471e805192fd4e902f7cc7eec8378, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 20.073198
@@ -23228,6 +23232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a3e7e431e9bd44db73b23cb974a978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSaveManager
+  _player: {fileID: 1114546732}
 --- !u!4 &1929831451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616659025400586512, guid: e4258852b84ff95448ddf4a2f8f212a4, type: 3}

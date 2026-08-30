@@ -82,9 +82,9 @@ public class EngineController : MonoBehaviour, IInteractable
         }
     }
 
-    public void InitializeStartCapacity(StructureEngineData capacityNew)
+    public void InitializeStartCapacity(StructureEngineData capacityNew, bool hasSave)
     {
-        _engineData = capacityNew.Capacity < 0 ? new StructureEngineData(maxCapacity, 1, maxCapacity) : capacityNew; //костыльные присвоение стартовых значений
+        _engineData = !hasSave ? new StructureEngineData(maxCapacity, 1, maxCapacity) : capacityNew; //костыльные присвоение стартовых значений
         ResetMessage();
     }
 
