@@ -42,14 +42,14 @@ public class LoadGameData : MonoBehaviour
         {
             string json = File.ReadAllText(currentFilePath);
             DataContainer result = JsonUtility.FromJson<DataContainer>(json);
-            if (result.Version != _version)
-            {
-                changeVersion(result.Version);
-            }
-            else
+            if (result.Version == _version)
             {
                 fileData = result.SaveFile;
             }
+            //else
+            //{
+            //    changeVersion(result.Version);
+            //}
         }
         else
         {
@@ -59,15 +59,15 @@ public class LoadGameData : MonoBehaviour
         SceneSwitcher.LoadGameScene();
     }
 
-    private void changeVersion(int fileVersion)
-    {
-        switch (fileVersion)
-        {
-            case 0:
-                print("1");
-                break;
-        }
-    }
+    //private void changeVersion(int fileVersion)
+    //{
+    //    switch (fileVersion)
+    //    {
+    //        case 0:
+    //            print("1");
+    //            break;
+    //    }
+    //}
 
 
     private StructureSaveFile CreateDefaultData()
