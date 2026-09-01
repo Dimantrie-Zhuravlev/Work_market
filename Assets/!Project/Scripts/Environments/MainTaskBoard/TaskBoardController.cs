@@ -16,7 +16,7 @@ namespace TaskBoards.Main
 
         private int currentCountsTasks;
 
-        private void Start()
+        private void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -35,8 +35,26 @@ namespace TaskBoards.Main
                 _tasksList.Add(currentItem);
                 currentItem.SetActive(false);
             }
+        }
 
+        private void Start()
+        {
             TimeGameManager.OnThirtyMinutesPassed += AddNewTask; //подписка на прошедшие полчаса игрового времени
+        }
+
+        public List<SctructureTasksSettingsServer> GetTasksList()
+        {
+            return _tasksList.Where(item=>item.activeInHierarchy).Select(item => item.GetComponent<TaskBoards.Main.TaskController>().CurrentQuest).ToList();
+        }
+
+        public void LoadDataList(List<SctructureTasksSettingsServer> loadData)
+        {
+            for (int i = 0; i < loadData.Count; i++) {
+                GameObject currentTask = _tasksList.Find(elem => !elem.activeInHierarchy);
+                currentTask.gameObject.GetComponent<TaskBoards.Main.TaskController>().SetTaskQuest(loadData[i]);
+                currentTask.SetActive(true);
+                currentCountsTasks = Mathf.Clamp(currentCountsTasks + 1, 0, _maxTasksCount);
+            }
         }
 
 
@@ -51,10 +69,10 @@ namespace TaskBoards.Main
                     makarons = Random.Range(1, 5);
                 }
 
-                Money makarons1 = ProductsGlobalData.Instance.ProductsGlobal[0].PriceProduct * makarons;
-                Money gorox1 = ProductsGlobalData.Instance.ProductsGlobal[1].PriceProduct * gorox;
+                Money makaronsPrice = ProductsGlobalData.Instance.ProductsGlobal[0].PriceProduct * makarons;
+                Money goroxPrice = ProductsGlobalData.Instance.ProductsGlobal[1].PriceProduct * gorox;
 
-                SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makarons, gorox, makarons1 + gorox1);
+                SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makaronsPrice + goroxPrice, new StructureTaskObjects(makarons, gorox));
 
                 GameObject currentTask = _tasksList.Find(elem => !elem.activeInHierarchy);
                 currentTask.GetComponent<TaskBoards.Main.TaskController>().SetTaskQuest(data);

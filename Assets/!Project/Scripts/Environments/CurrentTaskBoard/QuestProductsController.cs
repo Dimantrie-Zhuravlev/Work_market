@@ -10,7 +10,7 @@ public class QuestProductsController : MonoBehaviour
 
     private GameObject[] arrayGhosts = new GameObject[2];
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -18,10 +18,12 @@ public class QuestProductsController : MonoBehaviour
             return;
         }
         Instance = this;
+
         Transform ghostsContainer = transform.GetChild(0);
         arrayGhosts[0] = ghostsContainer.GetChild(0).gameObject; //Макароны
         arrayGhosts[1] = ghostsContainer.GetChild(1).gameObject; //Горох
-        ClearCurentQuest();
+
+        ClearCurrentQuest(); //проверить нужно ли при старте чистить
     }
 
     public void AddQuestGhostsProducts(StructureTrayObjects taskDetails)
@@ -50,7 +52,7 @@ public class QuestProductsController : MonoBehaviour
         return ProductsData;
     }
 
-    public void ClearCurentQuest()
+    public void ClearCurrentQuest()
     {
         ProductsData = new StructureTrayObjects(0, 0, 0);
         foreach (var item in arrayGhosts)

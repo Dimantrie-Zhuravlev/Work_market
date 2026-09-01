@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCheckView checkView;
     [SerializeField] private PlayerRotation rotation;
 
-
     private CharacterActions _actions;
 
+    private void Awake()
+    {
+       gameObject.SetActive(false);
+    }
     private void Start()
     {
         _actions = new CharacterActions();

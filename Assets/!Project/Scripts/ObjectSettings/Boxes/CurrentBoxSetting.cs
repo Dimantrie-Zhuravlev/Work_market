@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
+public class CurrentBoxSetting : MonoBehaviour, IInteractableMouse, IDropableObject
 {
     [HideInInspector]
     public BoxSettings _currentBoxSetting;
@@ -57,7 +57,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractable, IDropableObject
             listSupply.Add(currentItem);
         }
     }
-    public void Interact()
+    public void InteractMouse()
     {
         if (HandObjectsController.Instance.CurrentObjectInHand == null)
         {

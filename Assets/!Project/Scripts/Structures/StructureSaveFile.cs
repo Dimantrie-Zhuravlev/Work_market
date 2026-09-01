@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public struct StructureExperience
@@ -62,9 +63,24 @@ public struct StructureBoxSave
     }
 }
 
+[System.Serializable]
+public struct BoardTasks
+{
+    public SctructureTasksSettingsServer CurrentTask;
+    public List<SctructureTasksSettingsServer> ListMainTasks;
+    public StructureTrayObjects GhostsElements;
+
+    public BoardTasks(List<SctructureTasksSettingsServer> tasks, SctructureTasksSettingsServer currentTask, StructureTrayObjects ghostsElements)
+    {
+        CurrentTask = currentTask;
+        ListMainTasks = tasks;
+        GhostsElements = ghostsElements;
+    }
+}
+
 
 [System.Serializable]
-public struct StructureSaveFile 
+public struct StructureSaveFile
 {
     public bool HasSavedGame;
     public Money CurrentBalance;
@@ -72,8 +88,9 @@ public struct StructureSaveFile
     public StructureEngineData EngineData;
     public List<StructureBoxSave> BoxesData;
     public StructurePlayerData Player;
+    public BoardTasks Tasks;
 
-    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePlayerData player )
+    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePlayerData player, BoardTasks tasks)
     {
         HasSavedGame = hasSavedGame;
         CurrentBalance = currentBalance;
@@ -81,6 +98,7 @@ public struct StructureSaveFile
         EngineData = engineData;
         BoxesData = boxesData;
         Player = player;
+        Tasks = tasks;
     }
 
 }

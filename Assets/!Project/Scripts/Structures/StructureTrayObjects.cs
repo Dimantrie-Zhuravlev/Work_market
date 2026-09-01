@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public struct StructureTrayObjects
 {
     public int Makarons;

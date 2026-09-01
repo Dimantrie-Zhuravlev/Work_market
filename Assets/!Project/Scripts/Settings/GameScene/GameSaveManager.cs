@@ -11,7 +11,6 @@ public class GameSaveManager : MonoBehaviour
     [SerializeField] GameObject _player;
     public void SaveDataFile()
     {
-        print("saveFile");
         _globalEntitiesCache = Resources.FindObjectsOfTypeAll<CurrentBoxSetting>().ToList();
 
         var sceneData = new List<StructureBoxSave>();
@@ -23,8 +22,9 @@ public class GameSaveManager : MonoBehaviour
         ExperienceSystem.Instance.Experience, //Текущий опыт
         EngineController.Instance.EngineData,
         _globalEntitiesCache.Where(item => item.gameObject.activeInHierarchy).Select(item => item.GetStructureData()).ToList(),
-        new StructurePlayerData(_player.transform.position, playerRotation)
-    ));
+        new StructurePlayerData(_player.transform.position, playerRotation),
+        new BoardTasks(TaskBoards.Main.TaskBoardController.Instance.GetTasksList(), TaskBoards.Current.TaskBoardController.Instance.CurrentData, QuestProductsController.Instance.QuestData)
+        ));
     }
     public void InstantiateDataGame()
     {
@@ -54,7 +54,14 @@ public class GameSaveManager : MonoBehaviour
         if (_saveData.HasSavedGame)
         {
             _player.transform.position = _saveData.Player.Position;
-            _player.GetComponent<PlayerRotation>().SetCameraRotation(_saveData.Player.Rotation);
+            _player.GetComponent<PlayerRotation>().SetCameraRotation(_saveData.Player.Rotation); //Это игрок
+
+            TaskBoards.Main.TaskBoardController.Instance.LoadDataList(_saveData.Tasks.ListMainTasks);
+            if (_saveData.Tasks.CurrentTask.Reward != new Money(0,0))
+            {
+                TaskBoards.Current.TaskBoardController.Instance.AddActiveTask(_saveData.Tasks.CurrentTask);
+                QuestProductsController.Instance.AddQuestGhostsProducts(_saveData.Tasks.GhostsElements);
+            }
         }
         _player.SetActive(true);
     }

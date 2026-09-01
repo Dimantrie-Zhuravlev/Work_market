@@ -12,6 +12,8 @@ namespace TaskBoards.Main
 
         private SctructureTasksSettingsServer currentQuest;
 
+        public SctructureTasksSettingsServer CurrentQuest => currentQuest;
+
         public void Interact()
         {
             if (!TaskBoards.Current.TaskBoardController.Instance.IsActiveTaskActive)
@@ -30,8 +32,8 @@ namespace TaskBoards.Main
             currentQuest = dataTask;
             levelText.text = $"Сложность: {dataTask.TaskLevel}";
             rewardText.text = $"Награда: {dataTask.Reward}";
-            molokoText.text = dataTask.Makaron > 0 ? $"Нужно {dataTask.Makaron} макарон" :"";
-            goroxText.text = dataTask.Gorox > 0 ? $"Нужно: {dataTask.Gorox} гороха" : "";
+            molokoText.text = dataTask.Objects.Makaron > 0 ? $"Нужно {dataTask.Objects.Makaron} макарон" :"";
+            goroxText.text = dataTask.Objects.Gorox > 0 ? $"Нужно: {dataTask.Objects.Gorox} гороха" : "";
         }
     }
 

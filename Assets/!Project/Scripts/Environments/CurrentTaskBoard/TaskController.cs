@@ -12,15 +12,15 @@ namespace TaskBoards.Current
         [SerializeField] TMP_Text goroxText;
 
         private SctructureTasksSettingsServer currentQuest;
-
         public void SetTaskQuest(SctructureTasksSettingsServer dataTask)
         {
             currentQuest = dataTask;
             levelText.text = $"Сложность: {dataTask.TaskLevel}";
             rewardText.text = $"Награда: {dataTask.Reward}";
-            molokoText.text = dataTask.Makaron > 0 ? $"Нужно {dataTask.Makaron} макарон" : "";
-            goroxText.text = dataTask.Gorox > 0 ? $"Нужно: {dataTask.Gorox} гороха" : "";
+            molokoText.text = dataTask.Objects.Makaron > 0 ? $"Нужно {dataTask.Objects.Makaron} макарон" : "";
+            goroxText.text = dataTask.Objects.Gorox > 0 ? $"Нужно: {dataTask.Objects.Gorox} гороха" : "";
         }
+
 
 
         public void Interact()
@@ -31,7 +31,7 @@ namespace TaskBoards.Current
                 PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"На баланс добавлено {currentQuest.Reward}");
                 TaskBoardController.Instance.DeleteActiveTask();
                 PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
-                QuestProductsController.Instance.ClearCurentQuest();
+                QuestProductsController.Instance.ClearCurrentQuest();
                 ExperienceSystem.Instance.UpdateExperience(currentQuest.Reward);
             }
             else

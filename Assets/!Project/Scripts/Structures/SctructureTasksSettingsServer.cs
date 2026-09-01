@@ -1,18 +1,31 @@
 using System;
 using UnityEngine;
+
+[Serializable]
+public struct StructureTaskObjects
+{
+    public int Gorox;
+    public int Makaron;
+
+    public StructureTaskObjects(int makarons, int gorox)
+    {
+        Makaron = makarons;
+        Gorox = gorox;
+    }
+}
+
+
 [Serializable]
 public struct SctructureTasksSettingsServer
 {
     public int TaskLevel;
-    public int Makaron;
-    public int Gorox;
     public Money Reward;
+    public StructureTaskObjects Objects;
 
-    public SctructureTasksSettingsServer(int level, int makaron, int gorox, Money reward)
+    public SctructureTasksSettingsServer(int level,Money reward, StructureTaskObjects objects)
     {
         TaskLevel = level;
-        Makaron = makaron;
-        Gorox = gorox;
         Reward = reward;
+        Objects = objects;
     }
 }

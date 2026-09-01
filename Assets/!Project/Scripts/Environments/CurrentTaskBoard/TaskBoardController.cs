@@ -10,7 +10,7 @@ namespace TaskBoards.Current
 
         public bool IsActiveTaskActive => activeTask.activeInHierarchy;
 
-        void Start()
+        private void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -18,16 +18,21 @@ namespace TaskBoards.Current
                 return;
             }
             Instance = this;
-
             activeTask = transform.GetChild(1).transform.GetChild(0).gameObject;
             activeTask.SetActive(false);
         }
 
+        public SctructureTasksSettingsServer currendData;
+        public SctructureTasksSettingsServer CurrentData => currendData;
+
         public void AddActiveTask(SctructureTasksSettingsServer dataTask)
         {
+            currendData = dataTask;
+            print(CurrentData.Reward);
             activeTask.GetComponent<TaskBoards.Current.TaskController>().SetTaskQuest(dataTask); //вывешивание самой бумажки с заданием
             activeTask.SetActive(true);
-            QuestProductsController.Instance.AddQuestGhostsProducts(new StructureTrayObjects(dataTask.Makaron, dataTask.Gorox, dataTask.Makaron + dataTask.Gorox));
+            QuestProductsController.Instance.AddQuestGhostsProducts(new StructureTrayObjects(dataTask.Objects.Makaron, dataTask.Objects.Gorox, dataTask.Objects.Makaron + dataTask.Objects.Gorox));
+            print(CurrentData.Reward);
         }
 
         public void DeleteActiveTask()
@@ -35,6 +40,7 @@ namespace TaskBoards.Current
             if (IsActiveTaskActive)
             {
                 activeTask.SetActive(false);
+                currendData = new SctructureTasksSettingsServer();
             }
             else
             {
