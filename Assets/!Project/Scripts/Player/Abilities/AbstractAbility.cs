@@ -28,7 +28,7 @@ namespace DiasGames.Abilities
             _action = newAction;
         }
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             _animator = GetComponent<Animator>();
             _hashIsWalking = Animator.StringToHash("IsWalking");

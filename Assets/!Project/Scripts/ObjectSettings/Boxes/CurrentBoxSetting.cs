@@ -66,7 +66,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractableMouse, IDropableObj
                 gameObject.transform.parent.gameObject.transform.parent.gameObject.GetComponent<AbstractSupplyPark>().PullBoxFromPark(gameObject);
             }
 
-            HandObjectsController.Instance.PickUpObjectFromGround(gameObject, new StructureObjectPosition(new Vector3(0, 0, 0), Quaternion.Euler(180f, 0, 0)));
+            HandObjectsController.Instance.PickUpObjectFromGround(gameObject, "box");
         }
     }
     public void RestartObjectInBox()
@@ -147,7 +147,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractableMouse, IDropableObj
                 listSupply[1].AddBoxOnSupplyPark(gameObject);
                 break;
             case "Hands":
-                HandObjectsController.Instance.PickUpObjectFromGround(gameObject, new StructureObjectPosition(new Vector3(0, 0, 0), Quaternion.Euler(180f, 0, 0)));
+                HandObjectsController.Instance.PickUpObjectFromGround(gameObject, "box");
                 break;
             default:
                 gameObject.transform.SetParent(_abstractPoolBoxGameObject.transform);

@@ -1,8 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Windows;
+using UnityEngine.XR;
 
-public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
+public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject, ILoadableDependant<TrayProductsData>
 {
     private GameObject[] TrayProducts = new GameObject[8];
     private Transform[] TrayProductsPointPosition = new Transform[8];
@@ -16,7 +17,7 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
     {
         currentObject.GetComponent<BoxCollider>().enabled = true;
     }
-    private void Start()
+    private void Awake()
     {
         _productContainer = transform.GetChild(1).transform;
 
@@ -24,6 +25,44 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
         for (int i = 0; i < TrayProductsPointPosition.Length; i++)
         {
             TrayProductsPointPosition[i] = childContainer.transform.GetChild(i).transform;
+        }
+    }
+    private void Start()
+    {
+
+    }
+
+    public TrayProductsData SaveTrayData()
+    {
+        return new TrayProductsData(new StructurePositionData(transform.position, transform.rotation), transform.parent?.name, TrayProducts.Select(item => item == null ? null : item.name).ToList());
+    }
+
+    public void LoadData(TrayProductsData trayData)
+    {
+        if (trayData.ParentName != "table1_3m_08m_1m_with_tray") //т.к. на сцене он изначально на своем столе
+        {
+            if (trayData.ParentName == "Hands")
+            {
+                HandObjectsController.Instance.PickUpObjectFromGround(gameObject, "tray");
+            }
+            else //Нет родителя, свободно валяется
+            {
+                transform.SetPositionAndRotation(trayData.TrayPosition.Position, trayData.TrayPosition.Rotation);
+            }
+        }
+        ConnectNamesProducts connectNames = ConnectNamesProducts.Instance;
+        for (int i = 0; i < trayData.TrayProductsList.Count; i++)
+        {
+            if (trayData.TrayProductsList[i].Length > 0 && !string.IsNullOrEmpty(trayData.TrayProductsList[i]))
+            {
+                AbstractPoolProducts poolProduct = connectNames.DataProducts(trayData.TrayProductsList[i].Split(' ')[0])._ProductPool; //Определение пула по названию
+                ChangeProductsData(poolProduct._PoolProductName(), true);
+                TrayProducts[i] = poolProduct.Get(TrayProductsPointPosition[i].position, TrayProductsPointPosition[i].rotation, _productContainer);
+            }
+            else
+            {
+                TrayProducts[i] = null;
+            }
         }
     }
 
@@ -72,7 +111,7 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
 
     }
 
-    public void PutProductFromTray(string nameProduct)
+    public void PutProductFromTray(string nameProduct) //выкладка в задание
     {
         ChangeProductsData(nameProduct, false);
         for (int i = 0; i < TrayProducts.Length; i++)
@@ -100,7 +139,8 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
             {
                 TrayGhostTableController.Instance.gameObject.SetActive(true);
             }
-            HandObjectsController.Instance.PickUpObjectFromGround(gameObject, new StructureObjectPosition(new Vector3(0, 0.1f, 0.3f), Quaternion.Euler(0, -90f, 0))); //поднятие подноса
+            HandObjectsController.Instance.PickUpObjectFromGround(gameObject, "tray"); //поднятие подноса
         }
     }
+
 }

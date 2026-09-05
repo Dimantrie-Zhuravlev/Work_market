@@ -28,11 +28,9 @@ namespace TaskBoards.Current
         public void AddActiveTask(SctructureTasksSettingsServer dataTask)
         {
             currendData = dataTask;
-            print(CurrentData.Reward);
             activeTask.GetComponent<TaskBoards.Current.TaskController>().SetTaskQuest(dataTask); //вывешивание самой бумажки с заданием
             activeTask.SetActive(true);
             QuestProductsController.Instance.AddQuestGhostsProducts(new StructureTrayObjects(dataTask.Objects.Makaron, dataTask.Objects.Gorox, dataTask.Objects.Makaron + dataTask.Objects.Gorox));
-            print(CurrentData.Reward);
         }
 
         public void DeleteActiveTask()

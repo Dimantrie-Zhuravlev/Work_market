@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class QuestProductsController : MonoBehaviour
+public class QuestProductsController : MonoBehaviour, ILoadableDependant<StructureTrayObjects>
 {
     public static QuestProductsController Instance { get; private set; }
 
@@ -65,4 +65,27 @@ public class QuestProductsController : MonoBehaviour
         }
     }
 
+    public void LoadData(StructureTrayObjects taskDetails)
+    {
+        ProductsData = taskDetails;
+        if (taskDetails.Makarons > 0)
+        {
+            arrayGhosts[0].SetActive(true);
+            arrayGhosts[0].GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage($"Нужно еще {taskDetails.Makarons} макарон");
+        } else
+        {
+            arrayGhosts[0].SetActive(false);
+            transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+        }
+        if (taskDetails.Gorox > 0)
+        {
+            arrayGhosts[1].SetActive(true);
+            arrayGhosts[1].GetComponent<EnvironmentsPersonMessage>().SetCurrentMessage($"Нужно еще {taskDetails.Gorox} гороха");
+        }
+        else
+        {
+            arrayGhosts[1].SetActive(false);
+            transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+        }
+    }
 }

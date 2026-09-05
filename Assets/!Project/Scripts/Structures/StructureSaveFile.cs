@@ -32,12 +32,12 @@ public struct StructureEngineData
 }
 
 [System.Serializable]
-public struct StructurePlayerData
+public struct StructurePositionData
 {
     public Vector3 Position;
     public Quaternion Rotation;
 
-    public StructurePlayerData(Vector3 position, Quaternion rotation)
+    public StructurePositionData(Vector3 position, Quaternion rotation)
     {
         Position = position;
         Rotation = rotation;
@@ -80,6 +80,24 @@ public struct BoardTasks
 
 
 [System.Serializable]
+public struct TrayProductsData
+{
+    public StructurePositionData TrayPosition;
+    public string ParentName;
+    public List<string> TrayProductsList;
+
+    public TrayProductsData(StructurePositionData trayPosition, string parentName, List<string> trayProductsList)
+    {
+        TrayPosition = trayPosition;
+        ParentName = parentName;
+        TrayProductsList = trayProductsList;
+    }
+}
+
+
+
+
+[System.Serializable]
 public struct StructureSaveFile
 {
     public bool HasSavedGame;
@@ -87,10 +105,11 @@ public struct StructureSaveFile
     public StructureExperience Experience;
     public StructureEngineData EngineData;
     public List<StructureBoxSave> BoxesData;
-    public StructurePlayerData Player;
+    public StructurePositionData Player;
     public BoardTasks Tasks;
+    public TrayProductsData Tray;
 
-    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePlayerData player, BoardTasks tasks)
+    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePositionData player, BoardTasks tasks, TrayProductsData tray)
     {
         HasSavedGame = hasSavedGame;
         CurrentBalance = currentBalance;
@@ -99,6 +118,7 @@ public struct StructureSaveFile
         BoxesData = boxesData;
         Player = player;
         Tasks = tasks;
+        Tray = tray;
     }
 
 }
