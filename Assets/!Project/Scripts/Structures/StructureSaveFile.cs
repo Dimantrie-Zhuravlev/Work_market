@@ -93,8 +93,28 @@ public struct TrayProductsData
         TrayProductsList = trayProductsList;
     }
 }
+[System.Serializable]
+public struct ShelfProductsData
+{
+    public string ShelfName;
+    public int ShelfCountProducts;
 
+    public ShelfProductsData(string shelfName, int shelfCountProducts)
+    {
+        ShelfName = shelfName;
+        ShelfCountProducts = shelfCountProducts;
+    }
+}
+[System.Serializable]
+public struct SupplyData
+{
+    public List<ShelfProductsData> Shelfs;
 
+    public SupplyData( List<ShelfProductsData> shelfs)
+    {
+        Shelfs = shelfs;
+    }
+}
 
 
 [System.Serializable]
@@ -108,8 +128,9 @@ public struct StructureSaveFile
     public StructurePositionData Player;
     public BoardTasks Tasks;
     public TrayProductsData Tray;
+    public List<SupplyData> Supplyes;
 
-    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePositionData player, BoardTasks tasks, TrayProductsData tray)
+    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePositionData player, BoardTasks tasks, TrayProductsData tray, List<SupplyData> supplyes)
     {
         HasSavedGame = hasSavedGame;
         CurrentBalance = currentBalance;
@@ -119,6 +140,7 @@ public struct StructureSaveFile
         Player = player;
         Tasks = tasks;
         Tray = tray;
+        Supplyes = supplyes;
     }
 
 }

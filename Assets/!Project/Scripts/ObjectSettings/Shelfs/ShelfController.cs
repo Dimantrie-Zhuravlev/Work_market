@@ -4,28 +4,27 @@ using UnityEngine;
 
 public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableRightMouse
 {
+    [HideInInspector]
     public string _shelfProductName;
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
+    public List<GameObject> ObjectsShelf => _ObjectsOnShelf; //используется исключительно для сохранения содержимого 
 
-    private AbstractPoolShelf _currentPoolShelf;
     private AbstractPoolProducts _currentPoolProduct;
-    public AbstractPoolShelf CurrentPoolShelf => _currentPoolShelf;
-
+    public int ShelfsData()
+    {
+        return _ObjectsOnShelf.Count(item => item.activeInHierarchy);
+    }
     private void Start()
     {
-        _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct;
-        _currentPoolShelf = ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductShelfPool;
+        _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct; //если ошибка проверить имя первого элемента дочернего, кроме empty
         _currentPoolProduct = ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductPool;
     }
-
     public void InteractMouse()
     {
         GameObject currentObjectInHand = HandObjectsController.Instance.CurrentObjectInHand;
         if (currentObjectInHand != null)
         {
-            CurrentBoxSetting currentBox = currentObjectInHand.GetComponent<CurrentBoxSetting>();
-            GameObject viewWorkingObject = PlayerCheckView.Instance.ViewWorkingObject;
             if (currentObjectInHand.name == "Tray")
             {
                 TrayController tray = currentObjectInHand.GetComponent<TrayController>();
@@ -37,6 +36,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
             }
             else
             {
+                CurrentBoxSetting currentBox = currentObjectInHand.GetComponent<CurrentBoxSetting>();
                 if (currentBox.CurrentCountObjectsInBox > 0)
                 {
                     if (currentBox._boxName == _shelfProductName) //проверка что товар в коробке и на полке совпадают
@@ -47,13 +47,21 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
                     {
                         if (_shelfProductName == EnumBoxesName.EmptyProduct && currentBox._boxName != EnumBoxesName.EmptyProduct)
                         {
-                            ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(viewWorkingObject);
+                            ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(PlayerCheckView.Instance.ViewWorkingObject);
                         }
                     }
                 }
             }
         }
+    }
 
+
+    public void UploadSaveProducts(int countObjectsUploda)
+    {
+        for (int i = 0; i < countObjectsUploda; i++)
+        {
+            _ObjectsOnShelf[i].SetActive(true);
+        }
     }
 
     public void OnEnable()
@@ -93,7 +101,7 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
         int indexActiveElement = _ObjectsOnShelf.FindLastIndex(x => x.activeSelf);
         if (indexActiveElement == 0)
         {
-            ShelfsPoolController.Instance.ChangeShelfTypeOnEmpty(this);
+            ShelfsPoolController.Instance.ChangeShelfTypeOnEmpty(this, ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductShelfPool);
         }
         _ObjectsOnShelf[indexActiveElement].SetActive(false);
     }

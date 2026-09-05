@@ -27,7 +27,6 @@ namespace TaskBoards.Main
             //инициализация
             _tasksList = new List<GameObject>();
             currentCountsTasks = 0;
-            //инициализация
             Transform tasksContainer = transform.GetChild(1);
             for (int i = 0; i < tasksContainer.childCount; i++)
             {

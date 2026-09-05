@@ -114,7 +114,8 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
     public void PutProductFromTray(string nameProduct) //выкладка в задание
     {
         ChangeProductsData(nameProduct, false);
-        for (int i = 0; i < TrayProducts.Length; i++)
+
+        for (int i = TrayProducts.Length-1; i >= 0; i--)
         {
             if (TrayProducts[i] != null && TrayProducts[i].name.Contains(nameProduct))
             {
@@ -123,6 +124,16 @@ public class TrayController : MonoBehaviour, IInteractableMouse, IDropableObject
                 break;
             }
         }
+
+        //for (int i = 0; i < TrayProducts.Length; i++)
+        //{
+        //    if (TrayProducts[i] != null && TrayProducts[i].name.Contains(nameProduct))
+        //    {
+        //        ConnectNamesProducts.Instance.DataProducts(nameProduct)._ProductPool.Release(TrayProducts[i]);
+        //        TrayProducts[i] = null;
+        //        break;
+        //    }
+        //}
     }
 
     public void DropObject(GameObject currentObject)
