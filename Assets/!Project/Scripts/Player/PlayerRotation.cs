@@ -11,6 +11,18 @@ public class PlayerRotation : MonoBehaviour
     [SerializeField] private Transform _orbitalCamera;
     [SerializeField] private Transform _person;
 
+    private float defaultSensitivity = 1.5f;
+    private float currentSensitivity;
+
+    private void updateSensitivity()
+    {
+        float _currentSensitivity = PlayerPrefs.HasKey("MouseSensitivity") ? PlayerPrefs.GetFloat("MouseSensitivity") : defaultSensitivity;
+        currentSensitivity = _currentSensitivity;
+    }
+    private void Awake()
+    {
+        updateSensitivity(); //Работает поскольку настройки на другой сцене
+    }
 
     private bool _rotationLoaded = false;
     private Vector2 _orbitAngles;
@@ -47,8 +59,8 @@ public class PlayerRotation : MonoBehaviour
         float deltaX = input.x;
         float deltaY = -input.y;
 
-        _orbitAngles.x += deltaY * _turnSpeed * Time.unscaledDeltaTime;
-        _orbitAngles.y += deltaX * _turnSpeed * Time.unscaledDeltaTime;
+        _orbitAngles.x += deltaY * _turnSpeed * Time.unscaledDeltaTime * currentSensitivity;
+        _orbitAngles.y += deltaX * _turnSpeed * Time.unscaledDeltaTime * currentSensitivity;
 
         _orbitAngles.x = Mathf.Clamp(_orbitAngles.x, _minVerticalAngle, _maxVerticalAngle);
         _orbitAngles.y = Mathf.Repeat(_orbitAngles.y, 360f); //362 градуса конвертируется в 2
