@@ -1,6 +1,7 @@
+using FMODUnity;
+using TaskBoards.Current;
 using TMPro;
 using UnityEngine;
-using TaskBoards.Current;
 
 namespace TaskBoards.Current
 {
@@ -10,6 +11,7 @@ namespace TaskBoards.Current
         [SerializeField] TMP_Text rewardText;
         [SerializeField] TMP_Text molokoText;
         [SerializeField] TMP_Text goroxText;
+        [SerializeField] private string pickupEvent = "event:/SFX/Play_Box_Pickup";
 
         private SctructureTasksSettingsServer currentQuest;
         public void SetTaskQuest(SctructureTasksSettingsServer dataTask)
@@ -28,6 +30,7 @@ namespace TaskBoards.Current
             StructureTrayObjects quest = QuestProductsController.Instance.QuestData;
             if (quest.TotalProductsFroQuest == 0)
             {
+                RuntimeManager.PlayOneShot(pickupEvent, transform.position);
                 PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"На баланс добавлено {currentQuest.Reward}");
                 TaskBoardController.Instance.DeleteActiveTask();
                 PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
