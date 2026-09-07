@@ -49,3 +49,7 @@ UnityAssetStore-*.json
 
 /Logs/
 /Market_tasks_settings.json
+
+Assets/Plugins/FMOD/platforms/mac/
+Assets/Plugins/FMOD/platforms/ios/
+Assets/Plugins/FMOD/platforms/linux/
