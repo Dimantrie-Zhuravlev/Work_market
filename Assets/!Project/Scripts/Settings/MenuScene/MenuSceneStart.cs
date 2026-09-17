@@ -12,7 +12,7 @@ public class MenuSceneStart : MonoBehaviour
 
     private void Start()
     {
-        _playerInput.FindActionMap("ComputerUI").Enable();
+        _playerInput.FindActionMap("ComputerUI").Disable();
         _playerInput.FindActionMap("PauseUI").Disable();
         _playerInput.FindActionMap("Player").Disable();
         _playerInput.FindActionMap("MainMenu").Enable();
@@ -21,10 +21,5 @@ public class MenuSceneStart : MonoBehaviour
         SettingsPanel.SetActive(false);
         InformationPanel.SetActive(false);
         GamePanel.SetActive(false);
-    }
-
-    public void SaveClick(int index)
-    {
-        LoadGameData.Instance.LoadSettings(index);
     }
 }
