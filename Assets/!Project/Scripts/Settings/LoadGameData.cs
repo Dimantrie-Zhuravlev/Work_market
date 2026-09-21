@@ -11,7 +11,6 @@ public class DataContainer
 
 public class LoadGameData : MonoBehaviour
 {
-    private int currentIndexGame;
     private int _version;
 
     public static LoadGameData Instance;
@@ -35,9 +34,8 @@ public class LoadGameData : MonoBehaviour
     }
     public void LoadSettings(int indexFile)
     {
-        currentIndexGame = indexFile;
         string basePath = Application.persistentDataPath;
-        currentFilePath = $"{basePath}/FilesSettings/Market_settings_{currentIndexGame}.json";
+        currentFilePath = $"{basePath}/FilesSettings/Market_settings_{indexFile}.json";
         if (File.Exists(currentFilePath))
         {
             string json = File.ReadAllText(currentFilePath);

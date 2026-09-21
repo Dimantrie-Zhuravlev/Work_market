@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// T — это сам тип наследника (например, PersonMessageUI)
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
@@ -10,11 +9,8 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_instance == null)
             {
-                // Пытаемся найти существующий в сцене
                 _instance = FindFirstObjectByType<T>();
 
-                // Если в сцене нет (наш случай с выключенным Canvas) 
-                // ИЛИ мы только что создали дубликат — загружаем из Resources
                 if (_instance == null)
                 {
                     var prefab = Resources.Load<T>(typeof(T).Name);
@@ -38,7 +34,6 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // Защита от дублей, если вдруг положили префаб вручную на сцену дважды
         if (_instance != null && _instance != this as T)
         {
             Destroy(gameObject);
