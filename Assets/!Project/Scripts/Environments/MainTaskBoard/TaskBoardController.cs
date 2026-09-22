@@ -68,8 +68,8 @@ namespace TaskBoards.Main
                     makarons = Random.Range(1, 5);
                 }
 
-                Money makaronsPrice = ProductsGlobalData.Instance.ProductsGlobal[0].PriceProduct * makarons;
-                Money goroxPrice = ProductsGlobalData.Instance.ProductsGlobal[1].PriceProduct * gorox;
+                Money makaronsPrice = ProductsGlobalData.Instance.ProductsParametres.Makaron.PriceProduct * makarons;
+                Money goroxPrice = ProductsGlobalData.Instance.ProductsParametres.Gorox.PriceProduct * gorox;
 
                 SctructureTasksSettingsServer data = new SctructureTasksSettingsServer(0, makaronsPrice + goroxPrice, new StructureTaskObjects(makarons, gorox));
 

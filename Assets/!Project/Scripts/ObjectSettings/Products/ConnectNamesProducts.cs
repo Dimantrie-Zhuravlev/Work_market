@@ -3,10 +3,6 @@ using UnityEngine;
 public class ConnectNamesProducts : MonoBehaviour
 {
     public static ConnectNamesProducts Instance { get; private set; }
-
-    [SerializeField] GameObject EmptyPoolBoxes;
-    [SerializeField] GameObject MakaronsPoolBoxes;
-    [SerializeField] GameObject GoroxPoolBoxes;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,22 +20,21 @@ public class ConnectNamesProducts : MonoBehaviour
         switch (productName)
         {
             case EnumBoxesName.EmptyProduct:
-                productsData._ProductShelfPool = PoolEmptyShelf.Instance;
-                productsData._ProductsBoxPool = PoolEmptyBoxes.Instance;
-                productsData._BoxPoolGameObject = EmptyPoolBoxes;
+                productsData._ProductShelfPool = PoolEmptyShelf.Instance; 
+                productsData._ProductsBoxPool = PoolEmptyBoxes.Instance; 
                 break;
             case EnumBoxesName.MakaronsProduct:
-                productsData._ProductShelfPool = PoolMakaronShelf.Instance;
-                productsData._ProductsBoxPool = PoolMakaronsBoxes.Instance;
-                productsData._ProductPool = PoolProductMakaron.Instance;
-                productsData._BoxPoolGameObject = MakaronsPoolBoxes;
+                productsData._ProductShelfPool = PoolMakaronShelf.Instance; //Пул shelfs
+                productsData._ProductsBoxPool = PoolMakaronsBoxes.Instance; //Пул коробок
+                productsData._ProductPool = PoolProductMakaron.Instance; //Пул самих предметов
+                productsData._ProductParametres = ProductsGlobalData.Instance.ProductsParametres.Makaron; //Стоимостные параметры и ссылка на стеллаж для закупок
                 break;
 
             case EnumBoxesName.GoroxProduct:
                 productsData._ProductShelfPool = PoolGoroxShelf.Instance;
                 productsData._ProductsBoxPool = PoolGoroxBoxes.Instance;
                 productsData._ProductPool = PoolProductGorox.Instance;
-                productsData._BoxPoolGameObject = GoroxPoolBoxes;
+                productsData._ProductParametres = ProductsGlobalData.Instance.ProductsParametres.Gorox;
                 break;
 
             default:

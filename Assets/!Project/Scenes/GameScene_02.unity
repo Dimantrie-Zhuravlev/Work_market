@@ -778,6 +778,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
+      propertyPath: _productName
+      value: Gorox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
       propertyPath: _spriteImage
       value: 
       objectReference: {fileID: 21300000, guid: adb5f7fa4d7ed0c4a94266d04a677c69, type: 3}
@@ -19748,6 +19752,10 @@ PrefabInstance:
       propertyPath: indexData
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
+      propertyPath: _productName
+      value: null
+      objectReference: {fileID: 0}
     - target: {fileID: 8994522565603415511, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -21732,6 +21740,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
+      propertyPath: _productName
+      value: Makarons
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
       propertyPath: _spriteImage
       value: 
       objectReference: {fileID: 21300000, guid: e69ce9c6006052c49b8058ac8bb5a5a2, type: 3}
@@ -23511,6 +23523,10 @@ PrefabInstance:
     - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
       propertyPath: indexData
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471020321227194618, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
+      propertyPath: _productName
+      value: null
       objectReference: {fileID: 0}
     - target: {fileID: 8994522565603415511, guid: b3eb07ce700b6be429f3dad4feebb382, type: 3}
       propertyPath: m_AnchorMax.y

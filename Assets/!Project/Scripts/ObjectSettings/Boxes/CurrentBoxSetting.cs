@@ -46,7 +46,7 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractableMouse, IDropableObj
         Transform childTransform = transform.GetChild(0);
         _boxName = childTransform.name == "Objects" ? childTransform.GetChild(0).name : EnumBoxesName.EmptyProduct;
         _abstractPoolBox = ConnectNamesProducts.Instance.DataProducts(_boxName)._ProductsBoxPool;
-        _abstractPoolBoxGameObject = ConnectNamesProducts.Instance.DataProducts(_boxName)._BoxPoolGameObject;
+        _abstractPoolBoxGameObject = ConnectNamesProducts.Instance.DataProducts(_boxName)._ProductsBoxPool.gameObject;
         if (SypplusContainer == null)
         {
             SypplusContainer = GameObject.FindWithTag("SupplyParksContainer").transform;

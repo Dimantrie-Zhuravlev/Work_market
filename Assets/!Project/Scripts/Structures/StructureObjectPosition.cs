@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public struct StructureObjectPosition
 {
     public readonly Vector3 ObjectPosition;

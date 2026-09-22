@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ListItemRender : MonoBehaviour
 {
-    [SerializeField] int indexData;
+    [SerializeField] string _productName;
     [SerializeField] TMP_Text _nameLabel;
     [SerializeField] TMP_Text _labelPriceBox;
     [SerializeField] TMP_Text _labelPriceProduct;
@@ -22,9 +22,9 @@ public class ListItemRender : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (indexData!=-1)
+        if (_productName != "null")
         {
-            currentData = ProductsGlobalData.Instance.ProductsGlobal[indexData];
+            currentData = ConnectNamesProducts.Instance.DataProducts(_productName)._ProductParametres;
             _nameLabel.text = currentData.Title;
             _labelPriceBox.text = $"Цена коробки {currentData.PriceBox}";
             _labelPriceProduct.text = $"Цена товара {currentData.PriceProduct}";
@@ -41,7 +41,7 @@ public class ListItemRender : MonoBehaviour
 
     public void  BuyBox()
     {
-        if (indexData != -1 && currentData.SupplyPark.CurrentCountProductBoxes < 4 && PlayerWallet.Instance.CanPayShoping(currentData.PriceBox, true))
+        if (_productName != "null" && currentData.SupplyPark.CurrentCountProductBoxes < 4 && PlayerWallet.Instance.CanPayShoping(currentData.PriceBox, true))
         {
             currentData.SupplyPark.AddBoxOnSupplyPark();
             _shopUIController.ResetViewBalance();
