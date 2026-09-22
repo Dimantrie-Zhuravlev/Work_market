@@ -41,7 +41,6 @@ public class ProductsTasksGarbage : MonoBehaviour
 
     public void CheckProduct(string objectName, int objectCount)
     {
-        print($"задание имя {objectName} кол-во {objectCount}");
         switch (objectName)
         {
             case (EnumBoxesName.MakaronsProduct):
