@@ -137,7 +137,10 @@ public class CurrentBoxSetting : MonoBehaviour, IInteractableMouse, IDropableObj
         RestartObjectInBox();
         gameObject.SetActive(state.IsActive);
         InitializeAwake();
-        SetNewMessageForCount();
+        if (_boxName != "Empty")
+        {
+            SetNewMessageForCount();
+        }
         switch (state.ParentName)
         {
             case "SupplyMakaronsPark":
