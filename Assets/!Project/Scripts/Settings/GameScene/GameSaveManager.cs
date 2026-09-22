@@ -36,7 +36,7 @@ public class GameSaveManager : MonoBehaviour
         EngineController.Instance.EngineData, //Двигатель
         _globalBoxesCache.Where(item => item.gameObject.activeInHierarchy).Select(item => item.GetStructureData()).ToList(), //Коробки
         new StructurePositionData(_player.transform.position, playerRotation), //Игрок
-        new BoardTasks(TaskBoards.Main.TaskBoardController.Instance.GetTasksList(), TaskBoards.Current.TaskBoardController.Instance.CurrentData, QuestProductsController.Instance.QuestData), //Задания
+        new BoardTasks(TaskBoards.Main.TaskBoardController.Instance.GetTasksList(), TaskBoards.Current.TaskBoardController.Instance.CurrentData), //Задания
         saveTray.SaveTrayData(),
         suppluyes.Select(elem => elem.SaveData()).ToList()
         ));
@@ -61,7 +61,6 @@ public class GameSaveManager : MonoBehaviour
             if (_saveData.Tasks.CurrentTask.Reward != new Money(0, 0))
             {
                 TaskBoards.Current.TaskBoardController.Instance.AddActiveTask(_saveData.Tasks.CurrentTask);
-                QuestProductsController.Instance.LoadData(_saveData.Tasks.GhostsElements);
             }
             saveTray.LoadData(_saveData.Tray);//Восстановление подноса
 

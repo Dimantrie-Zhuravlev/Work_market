@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c81694f2f0bdd24bb9d7fcda512373d, type: 3}
   m_Name: MakaronsBoxSetting
   m_EditorClassIdentifier: Assembly-CSharp::BoxSettings
-  maxObjectsInBox: 8
+  maxObjectsInBox: 10

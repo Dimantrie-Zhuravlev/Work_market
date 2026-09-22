@@ -89,7 +89,6 @@ namespace TaskBoards.Current
             PersonMessageLifeCycle.Instance.SendLifeCycleMessage($"На баланс добавлено {currentQuest.Reward}");
             DeleteActiveTask();
             PlayerWallet.Instance.IncreaseBalance(currentQuest.Reward);
-            QuestProductsController.Instance.ClearCurrentQuest();
             ExperienceSystem.Instance.UpdateExperience(currentQuest.Reward);
         }
 

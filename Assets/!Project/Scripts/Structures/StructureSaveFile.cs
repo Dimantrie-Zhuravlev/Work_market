@@ -68,13 +68,11 @@ public struct BoardTasks
 {
     public SctructureTasksSettingsServer CurrentTask;
     public List<SctructureTasksSettingsServer> ListMainTasks;
-    public StructureTrayObjects GhostsElements;
 
-    public BoardTasks(List<SctructureTasksSettingsServer> tasks, SctructureTasksSettingsServer currentTask, StructureTrayObjects ghostsElements)
+    public BoardTasks(List<SctructureTasksSettingsServer> tasks, SctructureTasksSettingsServer currentTask)
     {
         CurrentTask = currentTask;
         ListMainTasks = tasks;
-        GhostsElements = ghostsElements;
     }
 }
 
