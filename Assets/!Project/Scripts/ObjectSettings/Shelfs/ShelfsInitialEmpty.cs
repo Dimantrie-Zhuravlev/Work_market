@@ -24,7 +24,7 @@ public class ShelfsInitialEmpty : MonoBehaviour, ILoadableDependant<SupplyData>
             saveShelfs.Add(childContainer.transform.GetChild(i).GetComponent<ShelfController>());
         }
 
-        var dataList = saveShelfs.Select(shelf => new ShelfProductsData(shelf._shelfProductName, shelf.ObjectsShelf.Count(item => item.activeInHierarchy))).ToList();
+        var dataList = saveShelfs.Select(shelf => new ShelfProductsData(shelf.ShelfProductName, shelf.ObjectsShelf.Count(item => item.activeInHierarchy))).ToList();
         return new SupplyData(dataList);
     }
     public void LoadData(SupplyData data )

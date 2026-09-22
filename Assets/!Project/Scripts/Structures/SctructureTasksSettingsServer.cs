@@ -22,7 +22,7 @@ public struct SctructureTasksSettingsServer
     public Money Reward;
     public StructureTaskObjects Objects;
 
-    public SctructureTasksSettingsServer(int level,Money reward, StructureTaskObjects objects)
+    public SctructureTasksSettingsServer(int level, Money reward, StructureTaskObjects objects)
     {
         TaskLevel = level;
         Reward = reward;

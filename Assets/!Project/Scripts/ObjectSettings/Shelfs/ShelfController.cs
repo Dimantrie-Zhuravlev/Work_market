@@ -1,11 +1,16 @@
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
 public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableRightMouse
 {
+    private string _shelfProductName;
     [HideInInspector]
-    public string _shelfProductName;
+    public string _unicShelfName;
+
+    public string ShelfProductName => _shelfProductName;
+
 
     private List<GameObject> _ObjectsOnShelf = new List<GameObject>();
     public List<GameObject> ObjectsShelf => _ObjectsOnShelf; //используется исключительно для сохранения содержимого 
@@ -17,8 +22,14 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
     }
     private void Start()
     {
-        _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct; //если ошибка проверить имя первого элемента дочернего, кроме empty
+        InitName();
         _currentPoolProduct = ConnectNamesProducts.Instance.DataProducts(_shelfProductName)._ProductPool;
+    }
+
+    public void InitName()
+    {
+        _shelfProductName = transform.childCount > 0 ? transform.GetChild(0).name : EnumBoxesName.EmptyProduct; //если ошибка проверить имя первого элемента дочернего, кроме empty
+        _unicShelfName = $"{gameObject.name} {gameObject.transform.parent.transform.parent.name}";
     }
     public void InteractMouse()
     {
@@ -48,24 +59,26 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
                         if (_shelfProductName == EnumBoxesName.EmptyProduct && currentBox._boxName != EnumBoxesName.EmptyProduct)
                         {
                             ShelfsPoolController.Instance.ChangeShelfTypeAndAddObject(PlayerCheckView.Instance.ViewWorkingObject);
-                        }
+                         }
                     }
                 }
             }
         }
     }
 
-
     public void UploadSaveProducts(int countObjectsUploda)
     {
         for (int i = 0; i < countObjectsUploda; i++)
         {
+            InitName();
+            ProductsTasksGarbage.Instance.AddProductInStructure(this);
             _ObjectsOnShelf[i].SetActive(true);
         }
     }
 
     public void OnEnable()
     {
+        _ObjectsOnShelf.Clear();
         for (int i = 0; i < transform.childCount; i++) //Предзаполнение массива дочерними элементами, в данном случае это пачки макарон, банки гороха и тд
         {
             _ObjectsOnShelf.Add(transform.GetChild(i).gameObject);
@@ -94,6 +107,11 @@ public class ShelfController : MonoBehaviour, IInteractableMouse, IInteractableR
         {
             currentBox.DecrementOneObjectInBox();
         }
+    }
+
+    public bool HasActiveElements()
+    {
+        return _ObjectsOnShelf.Count(elem => elem.activeSelf) > 0;
     }
 
     public void TakeoverOneObject()

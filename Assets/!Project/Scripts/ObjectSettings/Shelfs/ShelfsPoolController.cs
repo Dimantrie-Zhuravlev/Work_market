@@ -67,8 +67,12 @@ public class ShelfsPoolController : MonoBehaviour
     public void ChangeShelfTypeAndAddObject(GameObject currentShelf)
     {
         ShelfController newShelf = _SetPoolShelf().Get(currentShelf.transform.position, currentShelf.transform.rotation, currentShelf.transform.parent).GetComponent<ShelfController>();
+        newShelf.InitName();
         newShelf.AddOneObjectFromBox(HandObjectsController.Instance.CurrentObjectInHand.GetComponent<CurrentBoxSetting>());
-
-        PoolEmptyShelf.Instance.Release(currentShelf);
+        if (newShelf.ShelfProductName != EnumBoxesName.EmptyProduct)
+        {
+            ProductsTasksGarbage.Instance.AddProductInStructure(newShelf);//это добавление товара в пул про
+        }
+        PoolEmptyShelf.Instance.Release(currentShelf);        
     }
 }
