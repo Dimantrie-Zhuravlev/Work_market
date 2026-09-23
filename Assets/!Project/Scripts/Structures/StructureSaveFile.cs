@@ -127,8 +127,9 @@ public struct StructureSaveFile
     public BoardTasks Tasks;
     public TrayProductsData Tray;
     public List<SupplyData> Supplyes;
+    public GameTime GameTime;
 
-    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePositionData player, BoardTasks tasks, TrayProductsData tray, List<SupplyData> supplyes)
+    public StructureSaveFile(bool hasSavedGame, Money currentBalance, StructureExperience experience, StructureEngineData engineData, List<StructureBoxSave> boxesData, StructurePositionData player, BoardTasks tasks, TrayProductsData tray, List<SupplyData> supplyes, GameTime gameTime)
     {
         HasSavedGame = hasSavedGame;
         CurrentBalance = currentBalance;
@@ -139,6 +140,7 @@ public struct StructureSaveFile
         Tasks = tasks;
         Tray = tray;
         Supplyes = supplyes;
+        GameTime = gameTime;
     }
 
 }

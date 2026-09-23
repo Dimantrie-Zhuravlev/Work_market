@@ -23,7 +23,7 @@ public class TimeGameManager : MonoBehaviour
 
     private float _accumulator; // Считает реальное время
     private bool _isRunning = true;
-    void Start()
+    public void Start()
     {
         _accumulator = 0;
         if (Instance != null && Instance != this)
@@ -32,9 +32,13 @@ public class TimeGameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        globalTimer = new GameTime(6, 0);
+    }
+    public void InitLoadParametres(GameTime initialTimer)
+    {
+        globalTimer = initialTimer;
         ReloadTimerText();
     }
+    public GameTime GlobalTimer => globalTimer;
 
     public void Update()
     {

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[System.Serializable]
 public struct GameTime
 {
     [SerializeField] private int _houres;

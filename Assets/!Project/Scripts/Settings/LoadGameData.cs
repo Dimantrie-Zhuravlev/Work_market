@@ -70,7 +70,7 @@ public class LoadGameData : MonoBehaviour
 
     private StructureSaveFile CreateDefaultData()
     {
-        return new StructureSaveFile(false, new Money(10, 0), new StructureExperience(0, new Money(0, 0)), new StructureEngineData(-1000, 1, 0), new List<StructureBoxSave>(), new StructurePositionData(), new BoardTasks(), new TrayProductsData(), new List<SupplyData>());
+        return new StructureSaveFile(false, new Money(10, 0), new StructureExperience(0, new Money(0, 0)), new StructureEngineData(-1000, 1, 0), new List<StructureBoxSave>(), new StructurePositionData(), new BoardTasks(), new TrayProductsData(), new List<SupplyData>(), new GameTime(6, 0));
     }
     public void SaveFileSetting(StructureSaveFile data)
     {

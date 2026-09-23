@@ -38,16 +38,17 @@ public class GameSaveManager : MonoBehaviour
         new StructurePositionData(_player.transform.position, playerRotation), //Игрок
         new BoardTasks(TaskBoards.Main.TaskBoardController.Instance.GetTasksList(), TaskBoards.Current.TaskBoardController.Instance.CurrentData), //Задания
         saveTray.SaveTrayData(),
-        suppluyes.Select(elem => elem.SaveData()).ToList()
+        suppluyes.Select(elem => elem.SaveData()).ToList(),
+        TimeGameManager.Instance.GlobalTimer
         ));
     }
     public void InstantiateDataGame()
     {
         _saveData = LoadGameData.Instance.FileData;
-        PlayerWallet.Instance.LoadInitialWallet(_saveData.CurrentBalance);
-        ExperienceSystem.Instance.InitialExperience(_saveData.Experience);
-        EngineController.Instance.InitializeStartCapacity(_saveData.EngineData, _saveData.HasSavedGame);
-
+        PlayerWallet.Instance.LoadInitialWallet(_saveData.CurrentBalance); //стартовый кошелек 
+        ExperienceSystem.Instance.InitialExperience(_saveData.Experience); //стартовый опыт 
+        EngineController.Instance.InitializeStartCapacity(_saveData.EngineData, _saveData.HasSavedGame); //стартовые данные двигателя 
+        TimeGameManager.Instance.InitLoadParametres(_saveData.GameTime.Houres < 6 ? new GameTime(6, 0) : _saveData.GameTime); //игровое время
         //коробки
         var sceneData = _saveData.BoxesData;
         // Сначала восстанавливаем ВСЕХ, кто уже лежит на сцене
