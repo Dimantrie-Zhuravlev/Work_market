@@ -7589,9 +7589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37336db05dad5134cb866536213ead5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConnectNamesProducts
-  EmptyPoolBoxes: {fileID: 1980706879}
-  MakaronsPoolBoxes: {fileID: 2110729403}
-  GoroxPoolBoxes: {fileID: 1434104005}
 --- !u!1001 &614823186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8195,9 +8192,9 @@ RectTransform:
   - {fileID: 89409839}
   m_Father: {fileID: 41789986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -576.6667}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &677046036
@@ -10455,13 +10452,14 @@ GameObject:
   - component: {fileID: 946972527}
   - component: {fileID: 946972526}
   - component: {fileID: 946972530}
+  - component: {fileID: 946972531}
   m_Layer: 5
   m_Name: CanvasPause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &946972526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10558,6 +10556,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Canvas.Pause.CanvasEnvironment
   _playerInput: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &946972531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946972524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125353ded931df54484e55dc731dcad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasPauseController
+  pauseButton: {fileID: 2054094512}
 --- !u!1 &947306035
 GameObject:
   m_ObjectHideFlags: 0
@@ -23003,9 +23014,9 @@ RectTransform:
   - {fileID: 1741881472}
   m_Father: {fileID: 41789986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -123.333336}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1945754301
@@ -23954,6 +23965,7 @@ GameObject:
   - component: {fileID: 2054094511}
   - component: {fileID: 2054094510}
   - component: {fileID: 2054094509}
+  - component: {fileID: 2054094512}
   m_Layer: 5
   m_Name: ButtonSave
   m_TagString: Untagged
@@ -23976,9 +23988,9 @@ RectTransform:
   - {fileID: 791779975}
   m_Father: {fileID: 41789986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -350}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2054094509
@@ -24075,6 +24087,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054094507}
   m_CullTransparentMesh: 1
+--- !u!114 &2054094512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054094507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80b1575e1aac1240bce28657df2c182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPauseSaveData
 --- !u!1001 &2057012333
 PrefabInstance:
   m_ObjectHideFlags: 0

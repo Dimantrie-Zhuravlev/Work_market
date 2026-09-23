@@ -75,6 +75,7 @@ namespace TaskBoards.Current
                 TaskCoroutine = null;
                 StopAllCoroutines();
                 CompleteQuestAndTakeRewards();
+                CanvasPauseController.Instance.PauseButtonChangeInteractable(true); //Это временное решение, чтобы не сохранять игру когда задание уже выполняется, во избежание потери данных
             }
             else
             {
@@ -106,6 +107,7 @@ namespace TaskBoards.Current
 
             if (TaskCoroutine == null)
             {
+                CanvasPauseController.Instance.PauseButtonChangeInteractable(false);
                 print("Я начал поиск предметов на сцене");
                 TaskCoroutine = StartCoroutine(SeeObjects());
             }
